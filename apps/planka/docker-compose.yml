@@ -2,6 +2,7 @@ version: '3'
 
 services:
   planka:
+    container_name: planka
     image: ghcr.io/plankanban/planka:latest
     command: >
       bash -c
@@ -27,6 +28,7 @@ services:
       - postgres-planka
 
   postgres-planka:
+    container_name: planka-postgres
     image: postgres:14-alpine
     restart: unless-stopped
     volumes:
@@ -34,4 +36,3 @@ services:
     environment:
       - POSTGRES_DB=planka
       - POSTGRES_HOST_AUTH_METHOD=trust
-

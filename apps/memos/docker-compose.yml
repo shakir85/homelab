@@ -1,9 +1,0 @@
-version: "3.0"
-services:
-  memos:
-    image: neosmemo/memos:${TAG}
-    container_name: memos
-    volumes:
-      - /galaxy/data/memos:/var/opt/memos
-    ports:
-      - 5239:5230

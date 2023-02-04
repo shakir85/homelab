@@ -10,16 +10,15 @@ homeapps:
 
   before_script:
     - docker kill -s=9 $(docker ps -aq) || true
+    - docker rm $(docker ps -aq) || true
 
   script:
     - docker-compose -f apps/calibre/docker-compose.yml up --force-recreate -d
     - docker-compose -f apps/calibre-web/docker-compose.yml up --force-recreate -d
     - docker-compose -f apps/change-detection/docker-compose.yml up --force-recreate -d
     - docker-compose -f apps/flame/docker-compose.yml up --force-recreate -d
-    - docker-compose -f apps/memos/docker-compose.yml up --force-recreate -d
     - docker-compose -f apps/uptime-kuma/docker-compose.yml up --force-recreate -d
     - docker-compose -f apps/bookstack/docker-compose.yml up --force-recreate -d
-    - docker-compose -f apps/focalboard/docker-compose.yml up --force-recreate -d
     - |
       docker rm -f gollum &&
       docker run -d -p 4567:4567 --name gollum -v /galaxy/data/gollum/wiki:/wiki gollumwiki/gollum:v5.3.0

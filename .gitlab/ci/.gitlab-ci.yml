@@ -21,7 +21,6 @@ homeapps:
     - docker-compose -f apps/bookstack/docker-compose.yml up --force-recreate -d
     - docker-compose -f apps/planka/docker-compose.yml up --force-recreate -d
     - |
-      docker rm -f gollum &&
       docker run -d -p 4567:4567 --name gollum -v /galaxy/data/gollum/wiki:/wiki gollumwiki/gollum:v5.3.0
 
   when: manual

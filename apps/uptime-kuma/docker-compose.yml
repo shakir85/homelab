@@ -2,8 +2,6 @@
 # You can change your port or volume location
 
 version: '3.3'
-volumes:
-  uptime-kuma:
 services:
   uptime-kuma:
     image: louislam/uptime-kuma:${TAG}

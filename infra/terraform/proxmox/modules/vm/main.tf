@@ -1,7 +1,7 @@
 /*
 Requirement:
   - A pre-configured cloud-init template
-  - If used as a module, you must declare a provider here + root module
+  - If used as a module, you must declare a provider here + the root.tf (main.tf) module
 */
 terraform {
   required_providers {
@@ -64,7 +64,8 @@ resource "proxmox_vm_qemu" "vm_resource" {
       private_key = file("${var.pvt_key_path}")
     }
   }
-
+  # Run Ansible playbook
+  # Pass playbook path as a variable
   provisioner "local-exec" {
     command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${var.inventory_path} ${var.ansible_command}"
   }

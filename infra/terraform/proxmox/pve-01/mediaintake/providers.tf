@@ -1,7 +1,8 @@
 terraform {
   backend "s3" {
     bucket = "pxmx-hm-tf-state"
-    key    = "vms-tf-statefile"
+    # Use this format: resourceType-resourceName-state
+    key    = "vm-mediaintake-state"
     region = "us-east-1"
   }
 

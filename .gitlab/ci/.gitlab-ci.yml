@@ -34,7 +34,8 @@ mediaserver:
   script:
     # To test if the claim was successful:
     # curl http://localhost:32400/identity
-    - pwd
+    - docker kill -s=9 $(docker ps -aq) || true
+    - docker rm $(docker ps -aq) || true
     - docker-compose -f apps/plex/docker-compose.yml up -d
 
   when: manual

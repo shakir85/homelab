@@ -19,6 +19,8 @@
     - ansible.builtin.include_tasks:
         file: ../roles/gitlab/tasks/main.yml
     - ansible.builtin.include_tasks:
+        file: ../roles/gitlab/tasks/register_runner.yml
+    - ansible.builtin.include_tasks:
         file: ../roles/nfs/tasks/main.yml
 
     - name: Rebooting...

@@ -8,3 +8,4 @@ list_of_runners: ["runner1"]
 # Export these vars first
 registration_token: "{{ lookup('env', 'CI_TOKEN') }}"
 ci_url: "{{ lookup('env', 'CI_SERVER_URL') }}"
+gitlab_api_token: "{{ lookup('env', 'GITLAB_API_TOKEN') }}"

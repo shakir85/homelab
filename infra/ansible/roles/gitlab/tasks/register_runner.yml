@@ -1,10 +1,19 @@
 ---
+# These tasks recycles Gitlab runners (uninstall -> install)
 # -----------------
 # IMPORTANT:
 # See these Gitlab deprications:
 # - registration-tokens & gitlab-runner register command:
 #     https://gitlab.com/gitlab-org/gitlab/-/issues/380872
 # -----------------
+
+- name: Purging all available Gitlab runners
+  script: ../files/unregister-runners.py --token={{ gitlab_api_token }} --hostname={{ inventory_hostname }}
+  register: exec_result
+
+- name: Script stdout or stderr
+  debug:
+    var: exec_result.stdout
 
 - name: Registering Gitlab Runner (system-mode)
   when: registration_token | default('', true) | trim != ''

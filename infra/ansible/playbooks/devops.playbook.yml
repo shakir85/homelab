@@ -15,6 +15,8 @@
         file: ../roles/docker/tasks/main.yml
     - ansible.builtin.include_tasks:
         file: ../roles/gitlab/tasks/main.yml
+    - ansible.builtin.include_tasks:
+        file: ../roles/gitlab/tasks/register_runner.yml
 
     - name: Rebooting...
       shell: "sleep 5 && reboot"

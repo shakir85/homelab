@@ -1,0 +1,9 @@
+---
+# tasks file for smb
+- name: Mount network share
+  mount:
+    src: //{{ smbhost }}/{{ smbsharefolder }}
+    path: /smb
+    fstype: cifs
+    opts: 'username={{ smbusername }},password={{ smbpassword }}'
+    state: mounted

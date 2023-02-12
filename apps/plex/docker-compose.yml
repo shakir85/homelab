@@ -23,7 +23,7 @@ services:
       - ADVERTISE_IP=http://${HOSTIP}:32400/
     hostname: plex.shakir.cloud
     volumes:
-      - /mediaserver/config/database:/config
-      - /mediaserver/config/transcode:/transcode
+      - /plex/config/database:/config
+      - /plex/config/transcode:/transcode
       - /mediaserver/data:/data
     mem_limit: 8000m

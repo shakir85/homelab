@@ -2,15 +2,17 @@
 stages:
   - deploy
 
+.cleanup:
+  before_script:
+    - docker kill -s=9 $(docker ps -aq) || true
+    - docker rm $(docker ps -aq) || true
+
 homeapps:
+  extends: .cleanup
   tags:
     - galaxy
 
   stage: deploy
-
-  before_script:
-    - docker kill -s=9 $(docker ps -aq) || true
-    - docker rm $(docker ps -aq) || true
 
   script:
     - docker-compose -f apps/calibre/docker-compose.yml up --force-recreate -d
@@ -26,6 +28,7 @@ homeapps:
   when: manual
 
 mediaserver:
+  extends: .cleanup
   tags:
     - mediaserver
 
@@ -34,7 +37,6 @@ mediaserver:
   script:
     # To test if the claim was successful:
     # curl http://localhost:32400/identity
-    - pwd
     - docker-compose -f apps/plex/docker-compose.yml up -d
 
   when: manual

@@ -1,0 +1,6 @@
+---
+# vars file for smb
+smbusername: "{{ lookup('env', 'SMB_USERNAME') }}"
+smbpassword: "{{ lookup('env', 'SMB_PASSWORD') }}"
+smbhost: "10.10.50.22"
+smbsharefolder: "val"

@@ -11,10 +11,11 @@ services:
       - PASSWORD=${PASS}
       - SUDO_PASSWORD=${PASS}
       - PROXY_DOMAIN=${DOMAIN}
-      - DEFAULT_WORKSPACE=/config/workspace
+      - DEFAULT_WORKSPACE=/home/gitlab-runner/builds
     volumes:
       - /galaxy/data/vscode:/config
-      - /home/gitlab-runner/builds:/builds
+      - /home/gitlab-runner/builds:/home/gitlab-runner/builds
+      - /home/shakir:/home/shakir
     ports:
       - 8943:8443
     restart: unless-stopped

@@ -34,5 +34,5 @@ mediaserver:
   script:
     # To test if the claim was successful:
     # curl http://localhost:32400/identity
-    - docker-compose -f apps/plex/docker-compose.yml up -d
+    - docker-compose -f apps/plex/docker-compose.yml up --force-recreate -d
   when: manual

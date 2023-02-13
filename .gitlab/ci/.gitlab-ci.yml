@@ -2,16 +2,17 @@
 stages:
   - deploy
 
-homeapps:
-  tags:
-    - galaxy
-
-  stage: deploy
-
+.cleanup:
   before_script:
     - docker kill -s=9 $(docker ps -aq) || true
     - docker rm $(docker ps -aq) || true
 
+
+homeapps:
+  extends: .cleanup
+  tags:
+    - galaxy
+  stage: deploy
   script:
     - docker-compose -f apps/calibre/docker-compose.yml up --force-recreate -d
     - docker-compose -f apps/calibre-web/docker-compose.yml up --force-recreate -d
@@ -23,19 +24,15 @@ homeapps:
     - docker-compose -f apps/vscode/docker-compose.yml up --force-recreate -d
     - |
       docker run -d -p 4567:4567 --name gollum -v /galaxy/data/gollum/wiki:/wiki gollumwiki/gollum:v5.3.0
-
   when: manual
 
 mediaserver:
+  extends: .cleanup
   tags:
     - mediaserver
-
   stage: deploy
-
   script:
     # To test if the claim was successful:
     # curl http://localhost:32400/identity
-    - pwd
     - docker-compose -f apps/plex/docker-compose.yml up -d
-
   when: manual

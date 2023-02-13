@@ -1,0 +1,20 @@
+---
+version: "2.1"
+services:
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - PASSWORD=${PASS}
+      - SUDO_PASSWORD=${PASS}
+      - PROXY_DOMAIN=${DOMAIN}
+      - DEFAULT_WORKSPACE=/config/workspace
+    volumes:
+      - /galaxy/data/vscode:/config
+      - /home/gitlab-runner/builds:/builds
+    ports:
+      - 8943:8443
+    restart: unless-stopped

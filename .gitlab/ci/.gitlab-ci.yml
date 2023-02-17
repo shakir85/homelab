@@ -6,8 +6,6 @@ stages:
   before_script:
     - docker kill -s=9 $(docker ps -aq) || true
     - docker rm $(docker ps -aq) || true
-    - docker rm $(docker image ls -aq) || true
-
 
 homeapps:
   extends: .cleanup
@@ -28,7 +26,8 @@ homeapps:
   when: manual
 
 mediaserver:
-  extends: .cleanup
+  before_script: 
+    - docker-compose -f apps/plex/docker-compose.yml down --rmi all
   tags:
     - mediaserver
   stage: deploy

@@ -6,6 +6,7 @@ stages:
   before_script:
     - docker kill -s=9 $(docker ps -aq) || true
     - docker rm $(docker ps -aq) || true
+    - docker rm $(docker image ls -aq) || true
 
 
 homeapps:

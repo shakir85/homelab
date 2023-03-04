@@ -17,9 +17,11 @@ def get_runners_metadata():
         return runners_metadata
 
     except (TypeError, NameError, KeyError) as e:
-        print("\nGitlab token environment variable is not accessible in this shell\n", e)
+        print("\nGitlab token environment variable is not accessible in this shell\n"
+              "You need to export GITLAB_AUTH_TOKEN=<token>\n", e)
     except requests.exceptions.RequestException as g:
-        print("\nError in sending request to Gitlab API. Possible causes: mltiple-redircts, auth, timeouts\n", g)
+        print("\nError in sending request to Gitlab API.\n"
+              "Possible causes: multiple-redirects, auth, or a timeout\n", g)
 
 
 def unregister_runner(metadata, dry_run=False):
@@ -56,6 +58,6 @@ def unregister_runner(metadata, dry_run=False):
 
 
 if __name__ == '__main__':
-    print('starting...')
+    print('Starting...')
     metadata = get_runners_metadata()
     unregister_runner(metadata=metadata)

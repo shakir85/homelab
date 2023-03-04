@@ -1,6 +1,7 @@
 ---
-- hosts: devops
-  become: yes
+- name: Play for configuring server [devops]
+  hosts: devops
+  become: true
   vars_files:
     - ../group_vars/all.yml
     - ../roles/commons/vars/main.yml
@@ -9,16 +10,17 @@
 
   tasks:
     # Order of tasks execution matters
-    - ansible.builtin.include_tasks:
+    - name: Install common packages
+      ansible.builtin.include_tasks:
         file: ../roles/commons/tasks/main.yml
-    - ansible.builtin.include_tasks:
+    - name: Install Docker and Docker Compose
+      ansible.builtin.include_tasks:
         file: ../roles/docker/tasks/main.yml
-    - ansible.builtin.include_tasks:
+    - name: Install and register Gitlab CI runner
+      ansible.builtin.include_tasks:
         file: ../roles/gitlab/tasks/main.yml
-    - ansible.builtin.include_tasks:
-        file: ../roles/gitlab/tasks/register_runner.yml
 
     - name: Rebooting...
-      shell: "sleep 5 && reboot"
+      ansible.legacy.shell: "sleep 5 && reboot"
       async: 1
       poll: 0

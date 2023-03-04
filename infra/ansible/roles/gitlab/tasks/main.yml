@@ -27,3 +27,44 @@
     name: gitlab-runner
     state: started
     enabled: yes
+
+# The following tasks recycles Gitlab runners (uninstall -> install)
+# -----------------
+# IMPORTANT:
+# See these Gitlab deprications:
+# - registration-tokens & gitlab-runner register command:
+#     https://gitlab.com/gitlab-org/gitlab/-/issues/380872
+# -----------------
+
+- name: Purging all available Gitlab runners
+  script: ../files/unregister-runners.py --token={{ gitlab_api_token }} --hostname={{ inventory_hostname }}
+  register: exec_result
+
+- name: Print script stdout
+  debug:
+    var: exec_result.stdout
+
+- name: Registering Gitlab Runner (system-mode)
+  when: registration_token | default('', true) | trim != ''
+  register: create
+  loop: "{{ list_of_runners }}"
+  # --tag-list -> comma separated tags
+  shell: |
+    gitlab-runner register \
+    --description "provisioned by Ansible in {{ runner_description }} @ {{ inventory_hostname }}" \
+    --non-interactive \
+    --run-untagged="false" \
+    --locked="false" \
+    --access-level="not_protected" \
+    --url "https://gitlab.com" \
+    --registration-token "{{ registration_token }}" \
+    --executor shell \
+    --tag-list="{{ inventory_hostname }}" \
+
+# Print this message if the gitlab-ci registration token was not exported as env var
+- name: print msg
+  when: create.changed == false
+  debug:
+    msg:
+      - => Registration token variable 'CI_TOKEN' is not set. No runner was registered.
+      - => export CI_TOKEN=<yourToken> before running this role.

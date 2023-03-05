@@ -1,0 +1,16 @@
+---
+- name: Registering DatDog agent
+  when: datadog_token | default('', true) | trim != ''
+  register: create
+  ansible.builtin.shell: |
+    DD_API_KEY="{{ datadog_token }}" \
+    DD_SITE="datadoghq.com" \
+    bash -c "$(curl -L https://s3.amazonaws.com/dd-agent/scripts/install_script_agent7.sh)"
+
+# Print this message if datadog token is not exported as an environment variable
+- name: Print message
+  when: create.changed == false
+  ansible.builtin.debug:
+    msg:
+      - => Registration token variable 'DATADOG_KEY' is not set. No agent was registered.
+      - => export DATADOG_KEY=<yourToken> before running this role.

@@ -7,6 +7,7 @@
     - ../roles/commons/vars/main.yml
     - ../roles/docker/vars/main.yml
     - ../roles/gitlab/vars/main.yml
+    - ../roles/datadog/vars/main.yml
 
   tasks:
     # Order of tasks execution matters
@@ -19,6 +20,8 @@
     - name: Install and register Gitlab CI runner
       ansible.builtin.include_tasks:
         file: ../roles/gitlab/tasks/main.yml
+    - name: Register DataDog agent
+
 
     - name: Rebooting...
       ansible.legacy.shell: "sleep 5 && reboot"

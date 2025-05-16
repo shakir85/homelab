@@ -1,0 +1,4 @@
+# shellcheck disable=SC2148
+# This file contains ignores rule violations for ansible-lint
+k3s.playbook.yml internal-error
+k3s.reset.playbook.yml internal-error

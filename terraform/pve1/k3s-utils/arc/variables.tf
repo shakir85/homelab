@@ -15,3 +15,27 @@ variable "github_token" {
   description = "PAT or GitHub App token with repo, workflow, and actions permissions."
   sensitive   = true
 }
+
+variable "repository" {
+  type = string
+  description = "Repository where the controller will be connected to in `<org>/<repo>` format."
+  default = "shakir85/homelab"
+}
+
+variable "gha_controller_name" {
+  type = string
+  description = "Name of the GHA runners Controller."
+  default = "gha-runner-controller"
+}
+
+variable "gha_scale_set_name" {
+  type = string
+  description = "Name of the GHA runners Controller."
+  default = "gha-runner-scale-set"
+}
+
+variable "runner_labels" {
+  type = string
+  description = "Comma separated labels for runners"
+  default = "self-hosted,linux,containerd"
+}

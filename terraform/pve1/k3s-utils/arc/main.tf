@@ -1,5 +1,5 @@
 resource "helm_release" "gha_runner_controller" {
-  name       = "gha-runner-controller"
+  name       = var.gha_controller_name
   repository = "oci://ghcr.io/actions/actions-runner-controller-charts"
   chart      = "gha-runner-scale-set-controller"
   namespace  = var.namespace
@@ -8,7 +8,7 @@ resource "helm_release" "gha_runner_controller" {
 }
 
 resource "helm_release" "gha_runner_scale_set" {
-  name       = "gha-runner-scale-set"
+  name       = var.gha_scale_set_name
   repository = "oci://ghcr.io/actions/actions-runner-controller-charts"
   chart      = "gha-runner-scale-set"
   namespace  = var.namespace
@@ -16,7 +16,7 @@ resource "helm_release" "gha_runner_scale_set" {
 
   set {
     name  = "githubConfigUrl"
-    value = "https://github.com/your-org/your-repo"
+    value = "https://github.com/${var.repository}"
   }
 
   set {
@@ -34,9 +34,10 @@ resource "helm_release" "gha_runner_scale_set" {
     value = "k8s.io"
   }
 
+  set {
+    name  = "labels"
+    value = var.runner_labels
+  }
+
   depends_on = [helm_release.gha_runner_controller]
-}
-
-variable "github_token" {
-
 }

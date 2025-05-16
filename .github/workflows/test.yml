@@ -1,0 +1,13 @@
+name: Test Runner
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: [self-hosted, linux, containerd]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Test runners
+        run: echo "Hello"

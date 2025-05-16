@@ -1,0 +1,20 @@
+---
+common_packages:
+  - zip
+  - ncdu
+  - rsync
+  - python3-pip
+  - ca-certificates
+  - software-properties-common
+  - apt-transport-https
+  - gnupg
+  - lsb-release
+  - htop
+  - curl
+  - vim
+  - figlet
+  - git
+  - lsof
+  - dnsutils
+  - netcat-traditional
+  - qemu-guest-agent

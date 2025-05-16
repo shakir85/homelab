@@ -1,0 +1,28 @@
+terraform {
+  required_version = ">= 1.5.7"
+  backend "s3" {
+    region = "us-east-1"
+    key    = "helm-k3s_utils-gha-rc"
+  }
+
+  required_providers {
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 2.10"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.23"
+    }
+  }
+}
+
+provider "kubernetes" {
+  config_path = var.kube_config_path
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = var.kube_config_path
+  }
+}

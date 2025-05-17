@@ -1,0 +1,28 @@
+apiVersion: v2
+description: A Helm chart for Installing Github Actions runners
+# ====================================================
+# Deployment Information
+# ====================================================
+
+# This chart deploys the following resources:
+# - Runner
+# - RunnerDeployment
+# - RunnerSet
+# - HorizontalRunnerAutoscaler
+
+# IMPORTANT:
+# You must specify which resources to deploy using the following flags:
+
+#   --set deployRunner=true
+#   --set deployRunnerDeployment=true
+#   --set deployRunnerSet=true
+#   --set deployHorizontalRunnerAutoscaler=true
+
+# Example:
+#   helm install gha-runner ./gha-runners \
+#     --set deployRunner=true \
+#     --set-json global.labels='["selfhosted", "linux", "custom-label"]'
+name: gha-runners
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

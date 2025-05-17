@@ -1,0 +1,6 @@
+apiVersion: v2
+name: gha-runners
+description: A Helm chart for Installing Github Actions runners
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

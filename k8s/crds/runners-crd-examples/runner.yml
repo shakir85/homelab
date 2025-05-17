@@ -1,0 +1,10 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: Runner
+metadata:
+  name: my-runner
+  namespace: github
+spec:
+  repository: my-org/my-repo
+  labels:
+    - self-hosted
+    - linux

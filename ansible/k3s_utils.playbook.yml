@@ -38,6 +38,7 @@
   become: true
   roles:
     - role: k3s/master
+    - role: helm
 
 - name: Configure k3s worker nodes
   hosts: k3s_worker_nodes

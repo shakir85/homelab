@@ -1,0 +1,32 @@
+# Global configuration
+global:
+  labels:
+    - selfhosted
+    - linux
+    - k3s-utils
+
+# Boolean values to control what resource to deploy from this chart.
+deployRunner: false
+deployRunnerDeployment: false
+deployRunnerSet: false
+deployHorizontalRunnerAutoscaler: false
+
+namespace: actions
+repository: shakir85/homelab
+runner_name: default-name-runner
+runner_deployment_name: default-name-runner-deployment
+runnerset_name: default-name-runnerset
+runner_autoscaler_name: default-name-autoscaler
+
+runnerDeployment:
+  replicas: 2
+
+runnerSet:
+  replicas: 2
+
+horizontalRunnerAutoscaler:
+  targetRef:
+    kind: RunnerDeployment
+    name: "{{ .Values.runner_deployment_name }}"
+  minReplicas: 1
+  maxReplicas: 5

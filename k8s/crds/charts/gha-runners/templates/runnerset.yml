@@ -1,0 +1,14 @@
+{{- if .Values.deployRunnerSet }}
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerSet
+metadata:
+  name: {{ .Values.runnerset_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.runnerSet.replicas }}
+  template:
+    spec:
+      repository: {{ .Values.repository }}
+      labels:
+        {{- toYaml .Values.global.labels | nindent 8 }}
+{{- end }}

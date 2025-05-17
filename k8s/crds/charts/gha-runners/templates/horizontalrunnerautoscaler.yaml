@@ -1,0 +1,15 @@
+{{- if .Values.deployHorizontalRunnerAutoscaler }}
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: {{ .Values.runner_autoscaler_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  scaleTargetRef:
+    kind: {{ .Values.horizontalRunnerAutoscaler.targetRef.kind | default "RunnerDeployment" }}
+    name: {{ .Values.horizontalRunnerAutoscaler.targetRef.name | default .Values.runner_deployment_name }}
+  minReplicas: {{ .Values.horizontalRunnerAutoscaler.minReplicas }}
+  maxReplicas: {{ .Values.horizontalRunnerAutoscaler.maxReplicas }}
+  labels:
+    {{- toYaml .Values.global.labels | nindent 4 }}
+{{- end }}

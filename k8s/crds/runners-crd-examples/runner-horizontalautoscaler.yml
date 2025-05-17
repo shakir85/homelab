@@ -1,0 +1,11 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: my-autoscaler
+  namespace: github
+spec:
+  scaleTargetRef:
+    kind: RunnerDeployment
+    name: my-runner-deployment
+  minReplicas: 1
+  maxReplicas: 5

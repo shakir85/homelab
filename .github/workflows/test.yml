@@ -4,7 +4,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, linux, containerd]
+    runs-on: [selfhosted, linux, containerd]
     steps:
       - name: Check out code
         uses: actions/checkout@v3

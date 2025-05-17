@@ -1,9 +1,7 @@
 # Global configuration
 global:
   labels:
-    - selfhosted
-    - linux
-    - k3s-utils
+    - default
 
 # Boolean values to control what resource to deploy from this chart.
 deployRunner: false

@@ -1,2 +1,2 @@
-Provisions GitHub Actions Deployment Runners using
+Provisions GitHub Actions Deployment Runners on: cluster k3s_utils using
 the Helm chart defined in ../../../k8s/chart/gha-runners.

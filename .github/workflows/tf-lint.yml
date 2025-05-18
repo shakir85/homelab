@@ -1,0 +1,44 @@
+name: TF Lint
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  code-lint:
+    runs-on: self-hosted
+    container:
+      image: ghcr.io/shakir85/tf-tools:latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Run Git Setup
+        uses: ./.github/actions/setup-git
+        with:
+          repo-path: /__w/homelab/homelab
+
+      - name: Fetch latest changes
+        run: |
+          git fetch origin ${{ github.head_ref }}
+          git pull origin ${{ github.head_ref }}
+
+      - name: TF Formatting
+        run: terraform fmt -recursive
+
+      - name: Lint TF modules
+        run: tflint --recursive
+
+      - name: Commit changes
+        run: |
+          git add -A
+          git commit -m "chore: auto-format Terraform files [skip ci]" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git ${{ github.head_ref }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -9,7 +9,7 @@ on:
 
 jobs:
   code-lint:
-    runs-on: self-hosted
+    runs-on: default
     container:
       image: ghcr.io/shakir85/tf-tools:latest
 

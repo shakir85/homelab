@@ -1,15 +1,15 @@
 variable "id_rsa_pub" {
-    type = string
+  type = string
 }
 
 variable "pve_user" {
-    type = string
+  type = string
 }
 
 variable "pve_pwd" {
-    type = string
+  type = string
 }
 
 variable "id_rsa" {
-    type = string
+  type = string
 }

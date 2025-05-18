@@ -11,7 +11,7 @@ variable "kube_namespace" {
 }
 
 variable "version" {
-    default = "1.17.2"
-    type = string
-    description = "Cert manager version"
+  default     = "1.17.2"
+  type        = string
+  description = "Cert manager version"
 }

@@ -16,9 +16,3 @@ resource "helm_release" "cert_manager" {
     value = "true"
   }
 }
-
-variable "kubeconfig_path" {
-  type        = string
-  description = "Path to the kubeconfig file"
-  default     = var.kube_config_path
-}

@@ -9,7 +9,7 @@ on:
 
 jobs:
   code-lint:
-    runs-on: k3s_utils
+    runs-on: default
     container:
       image: ghcr.io/shakir85/tf-tools:latest
 

@@ -18,7 +18,7 @@ resource "helm_release" "gha_runners" {
   values = [
     yamlencode({
       gloab = {
-        labels = "k3s_utils, tf_mgd"
+        labels = "k3s_utils"
       }
     })
   ]

@@ -1,0 +1,18 @@
+name: 'Setup Git'
+description: 'Set up Git user and repository for GitHub Actions'
+inputs:
+  repo-path:
+    description: 'Path to the repository'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Mark Repository as Safe
+      run: git config --global --add safe.directory ${{ inputs.repo-path }}
+      shell: bash
+
+    - name: Set up Git user
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      shell: bash

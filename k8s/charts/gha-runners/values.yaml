@@ -1,9 +1,7 @@
 # Global configuration
 global:
   labels:
-    - selfhosted
-    - linux
-    - k3s-utils
+    - default
 
 # Boolean values to control what resource to deploy from this chart.
 deployRunner: false
@@ -13,10 +11,10 @@ deployHorizontalRunnerAutoscaler: false
 
 namespace: actions
 repository: shakir85/homelab
-runner_name: default-name-runner
-runner_deployment_name: default-name-runner-deployment
-runnerset_name: default-name-runnerset
-runner_autoscaler_name: default-name-autoscaler
+runner_name: default-runner
+runner_deployment_name: default-runner-deployment
+runnerset_name: default-runnerset
+runner_autoscaler_name: default-autoscaler
 
 runnerDeployment:
   replicas: 2

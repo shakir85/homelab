@@ -26,7 +26,7 @@ provider "proxmox" {
 
   ssh {
     agent       = false
-    private_key = file("${var.id_rsa}")
+    private_key = file(var.id_rsa)
     username    = var.pve_user
     node {
       name    = "pve1"

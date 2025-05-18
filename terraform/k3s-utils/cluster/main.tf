@@ -40,7 +40,7 @@ module "k3s_vms" {
 
   tags = [
     for key, value in module.tags.tags :
-    key == "role" ? "${each.value.role}" : "${value}"
+    key == "role" ? each.value.role : value
   ]
 }
 

@@ -1,0 +1,19 @@
+---
+all:
+  children:
+    managed_hosts:
+      children:
+        k3s_main_managed_hosts:
+        k3s_utils_managed_hosts:
+
+    k3s_main_managed_hosts:
+      hosts:
+        k3s-main-ctrl:
+        k3s-main-node-1:
+        k3s-main-node-2:
+
+    k3s_utils_managed_hosts:
+      hosts:
+        k3s-utils-ctrl:
+        k3s-utils-node-1:
+        k3s-utils-node-2:

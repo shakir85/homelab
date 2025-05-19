@@ -15,15 +15,16 @@
 # I disabled the built-in load balancer of k3s, allowing me to use MetalLB as an alternative.
 
 - name: Play for common configurations
-  hosts: k3s_utils_managed_hosts
+  hosts: k3s_main_managed_hosts
   ignore_unreachable: true
   gather_facts: true
   become: true
   roles:
     - role: common
+    - role: helm
 
 - name: Play for configuring k3s utilities cluster
-  hosts: k3s_utils_cluster
+  hosts: k3s_main_cluster
   ignore_unreachable: true
   gather_facts: true
   become: true

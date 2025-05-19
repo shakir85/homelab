@@ -3,7 +3,7 @@
 # Only run this Playbook via the script: bootstrap.sh
 #
 - name: Playbook for bootstrapping hosts with Ansible controller host
-  hosts: k3s_utils_managed_hosts
+  hosts: managed_hosts
   become: true
 
   vars:

@@ -8,9 +8,9 @@ variable "nodes" {
     role = string
   }))
   default = {
-    "k3s-utils-ctrl"   = { role = "control-plane" }
-    "k3s-utils-node-1" = { role = "worker" }
-    "k3s-utils-node-2" = { role = "worker" }
+    "k3s-main-ctrl"   = { role = "control-plane" }
+    "k3s-main-node-1" = { role = "worker" }
+    "k3s-main-node-2" = { role = "worker" }
   }
 }
 
@@ -19,7 +19,7 @@ module "tags" {
   environment = "prod"
   os          = "debian12"
   flavor      = "k3s"
-  cluster     = "k3s-utils"
+  cluster     = "k3s-main"
 }
 
 module "k3s_vms" {

@@ -9,7 +9,7 @@ resource "helm_release" "ingress_nginx" {
   chart      = "ingress-nginx"
   repository = "https://kubernetes.github.io/ingress-nginx"
   namespace  = kubernetes_namespace.ingress_ns.metadata[0].name
-  values     = [
+  values = [
     file("../../../k8s/charts/nginx-ingress/values.yml")
-    ]
+  ]
 }

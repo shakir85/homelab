@@ -1,0 +1,40 @@
+
+Stateless Apps Helm Chart
+*************************
+
+A generic and reusable Helm chart for deploying lightweight, stateless web-apps that share common configuration patterns such as services, ingress routing, and optional NFS volume mounts.
+
+What this chart can do:
+-----------------------
+  •	Deploy stateless web app via per-app values.yml overrides
+•	Custom container images and ports
+•	Ingress support with configurable host and class
+•	Optional NFS volume mounting for persistent/shared storage
+
+To deploy an app:
+-----------------
+
+Customize the deployment using a values-mysomeapp.yml file containing app-specific values like image, ingress host, and NFS settings.
+
+Example custom values.yml:
+--------------------------
+app:
+  name: my-app
+  image:
+    repository: myregistry/my-app
+    tag: latest
+
+ingress:
+  enabled: true
+  host: myapp.example.com
+
+nfs:
+  enabled: true
+  server: 192.168.1.100
+  path: /mnt/nfs/my-app
+  mountPath: /data
+
+
+Install a Helm release:
+-----------------------
+helm install <release-name> ./stateless-apps -f values-someapp.yml

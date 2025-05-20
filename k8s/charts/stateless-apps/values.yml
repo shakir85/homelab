@@ -1,0 +1,23 @@
+# Default values
+app:
+  name: webserver
+  image:
+    repository: nginx
+    tag: latest
+    pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  port: 80
+
+ingress:
+  enabled: true
+  host: webserver.example.com
+  ingressClassName: nginx
+
+nfs:
+  enabled: false
+  server: ""
+  path: ""
+  mountPath: "/mnt/data"   # Where to mount inside the pod

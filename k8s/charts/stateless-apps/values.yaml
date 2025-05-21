@@ -1,9 +1,10 @@
-# Default values
+---
+# Optional override; otherwise Helm's `--namespace`,`-n` or default is used
+# namespace: ""
 app:
   name: ""
   image:
     repository: ""
-    # Image tag
     tag: ""
     pullPolicy: IfNotPresent
 

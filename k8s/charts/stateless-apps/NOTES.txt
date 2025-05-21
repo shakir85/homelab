@@ -1,0 +1,30 @@
+{{- if .Values.ingress.enabled }}
+🎉 {{ .Chart.Name }} has been successfully deployed!
+
+📍 Ingress is enabled. Once your ingress controller is ready, you can access the application at:
+
+  http://{{ .Values.ingress.host }}
+
+🔒 If your app uses HTTPS, remember to configure TLS in the ingress settings.
+
+{{- else }}
+
+🚀 {{ .Chart.Name }} has been successfully deployed!
+
+🌐 Access your application via the service:
+
+  Service Name: {{ include "stateless-app.fullname" . }}
+  Namespace:    {{ .Values.namespace | default .Release.Namespace }}
+  Port:         {{ .Values.service.port }}
+
+💡 To port-forward locally:
+
+  kubectl port-forward svc/{{ include "stateless-app.fullname" . }} {{ .Values.service.port }}:{{ .Values.service.port }} -n {{ .Release.Namespace }}
+
+Then open: http://localhost:{{ .Values.service.port }}
+
+{{- end }}
+
+📦 Release Name: {{ .Release.Name }}
+🗂  Namespace: {{ .Values.namespace | default .Release.Namespace }}
+📜 Chart Version: {{ .Chart.Version }}

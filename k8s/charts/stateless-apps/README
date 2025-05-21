@@ -9,7 +9,7 @@ What this chart can do:
 -	Deploy stateless web app via per-app values.yml overrides
 -	Container ports with service type clusterIP
 - Custome environment variables
--	Optional ingress resource with configurable host and class
+-	Optional, per-app ingress resource with configurable host and class
 -	Optional NFS volume mounting for persistent/shared storage
 
 To deploy an app:

@@ -1,7 +1,6 @@
 ---
 app:
   name: excalidraw
-  namespace: {{ .Release.Namespace }}
   image:
     repository: excalidraw/excalidraw
     tag: latest
@@ -23,7 +22,7 @@ ingress:
   # Ingress Controller must be implemented first.
   enabled: true
   # Example app.example.com
-  host: ex.shakir.cloud
+  host: excalidraw.shakir.cloud
   # Specify which ingress controller should handle the resource,
   # must match the Nginx Ingress Controller's `controller.ingressClassResource.name` field
   ingressClassName: nginx

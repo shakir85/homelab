@@ -6,10 +6,11 @@ A generic and reusable Helm chart for deploying lightweight, stateless web-apps 
 
 What this chart can do:
 -----------------------
-  •	Deploy stateless web app via per-app values.yml overrides
-•	Custom container images and ports
-•	Ingress support with configurable host and class
-•	Optional NFS volume mounting for persistent/shared storage
+-	Deploy stateless web app via per-app values.yml overrides
+-	Container ports with service type clusterIP
+- Custome environment variables
+-	Optional ingress resource with configurable host and class
+-	Optional NFS volume mounting for persistent/shared storage
 
 To deploy an app:
 -----------------
@@ -24,9 +25,14 @@ app:
     repository: myregistry/my-app
     tag: latest
 
+service:
+  port: 80
+  targetPort: 8080
+
 ingress:
   enabled: true
   host: myapp.example.com
+  ingressClassName: nginx
 
 nfs:
   enabled: true

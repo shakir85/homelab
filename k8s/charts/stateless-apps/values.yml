@@ -1,23 +1,37 @@
 # Default values
 app:
-  name: webserver
+  name: ""
   image:
-    repository: nginx
-    tag: latest
+    repository: ""
+    # Image tag
+    tag: ""
     pullPolicy: IfNotPresent
 
 replicaCount: 1
 
 service:
   port: 80
+  targetPort: 80
+
+# Add environment variables to deployment
+# env:
+#   - name: ENV_NAME
+#     value: "env_value"
 
 ingress:
+  # Set to `true` if the app needs an ingress resource.
+  # Ingress Controller must be implemented first.
   enabled: false
-  host: webserver.example.com
+  # Example app.example.com
+  host: ""
+  # Specify which ingress controller should handle the resource,
+  # must match the Nginx Ingress Controller's `controller.ingressClassResource.name` field
   ingressClassName: nginx
 
 nfs:
+  # Set to `true` if you want to mount an NFS share
   enabled: false
   server: ""
   path: ""
-  mountPath: "/mnt/data"   # Where to mount inside the pod
+  # Where to mount inside the pod
+  mountPath: "/mnt/data"

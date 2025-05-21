@@ -1,0 +1,16 @@
+---
+#
+# Plays for common installation for k8s clusters
+# Use --tags to target certain role(s)
+- name: Play for common configurations
+  hosts: all_k8s
+  ignore_unreachable: true
+  gather_facts: true
+  become: true
+  roles:
+    - role: common
+      tags: common
+    - role: helm
+      tags: helm
+    - role: nfs
+      tags: nfs

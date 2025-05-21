@@ -10,7 +10,7 @@ What this chart can do:
 -	Container ports with service type clusterIP
 - Custome environment variables
 -	Optional, per-app ingress resource with configurable host and class
--	Optional NFS volume mounting for persistent/shared storage
+-	Optional basic NFS volume mounting (no PV/PVC for simplicity) for shared storage
 
 To deploy an app:
 -----------------

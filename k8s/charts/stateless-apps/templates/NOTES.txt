@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled }}
-🎉 {{ .Chart.Name }} has been successfully deployed!
+🎉 {{ .Chart.Name }}: {{ .Values.app.name }} has been successfully deployed!
 
 📍 Ingress is enabled. Once your ingress controller is ready, you can access the application at:
 
@@ -23,6 +23,15 @@
 
 Then open: http://localhost:{{ .Values.service.port }}
 
+{{- end }}
+
+{{- if .Values.nfs.mounts }}
+
+📂 NFS Mounts:
+
+{{- range .Values.nfs.mounts }}
+  - {{ .mountPath }} (from {{ .server }}:{{ .path }})
+{{- end }}
 {{- end }}
 
 📦 Release Name: {{ .Release.Name }}

@@ -1,7 +1,16 @@
 ---
+# Grouping Logic:
+#   managed_hosts -> all hosts that need to be managed (k8s and non-k8s hosts).
+#   all_k8s       -> all k8s nodes across the board.
+# ... possible updates go here ....
+
 all:
   children:
     managed_hosts:
+      children:
+        k3s_main_managed_hosts:
+        k3s_utils_managed_hosts:
+    all_k8s:
       children:
         k3s_main_managed_hosts:
         k3s_utils_managed_hosts:

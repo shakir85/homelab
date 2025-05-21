@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "namespace": {
+      "type": "string",
+      "description": "Optional override of release namespace"
+    },
+    "app": {
+      "type": "object",
+      "required": [
+        "name",
+        "image"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "image": {
+          "type": "object",
+          "required": [
+            "repository",
+            "tag"
+          ],
+          "properties": {
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            },
+            "pullPolicy": {
+              "type": "string",
+              "enum": [
+                "Always",
+                "IfNotPresent",
+                "Never"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "replicaCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "service": {
+      "type": "object",
+      "properties": {
+        "port": {
+          "type": "integer"
+        },
+        "targetPort": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "port",
+        "targetPort"
+      ]
+    },
+    "env": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "value"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ingress": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "host": {
+          "type": "string"
+        },
+        "ingressClassName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "enabled"
+      ]
+    },
+    "nfs": {
+      "type": "object",
+      "properties": {
+        "mounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "server",
+              "path",
+              "mountPath"
+            ],
+            "properties": {
+              "server": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "mountPath": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "app",
+    "replicaCount",
+    "service"
+  ]
+}

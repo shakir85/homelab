@@ -28,13 +28,17 @@ spec:
             - containerPort: {{ .Values.service.port }}
           volumeMounts:
             {{- if .Values.nfs.enabled }}
-            - name: nfs-volume
-              mountPath: {{ .Values.nfs.mountPath }}
+            {{- range $index, $mount := .Values.nfs.mounts }}
+            - name: nfs-volume-{{ $index }}
+              mountPath: {{ $mount.mountPath }}
+            {{- end }}
             {{- end }}
       volumes:
         {{- if .Values.nfs.enabled }}
-        - name: nfs-volume
+        {{- range $index, $mount := .Values.nfs.mounts }}
+        - name: nfs-volume-{{ $index }}
           nfs:
-            server: {{ .Values.nfs.server }}
-            path: {{ .Values.nfs.path }}
+            server: {{ $mount.server }}
+            path: {{ $mount.path }}
+        {{- end }}
         {{- end }}

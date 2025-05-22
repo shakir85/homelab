@@ -3,7 +3,7 @@ terraform {
 
   backend "s3" {
     region = "us-east-1"
-    key    = "cicd_config-k3s_main-state"
+    key    = "gha_cicd_config-k3s_main-state"
   }
 
   required_providers {

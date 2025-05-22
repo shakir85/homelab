@@ -10,12 +10,18 @@ variable "kube_config_path" {
 }
 
 variable "kube_namespace" {
-  default     = "cicd"
   type        = string
-  description = "Namespace where the resources will be deployed"
+  default     = "cicd"
+  description = "Namespace where the gha-runner service account will reside (typically 'cicd')"
 }
 
 variable "control_plane_ipv4" {
   type        = string
-  description = "IPv4 of the target Control Plane."
+  description = "Control plane IP or DNS"
+}
+
+variable "secre_role_ns" {
+  type        = string
+  description = "Namespace for the role from which they'll access tokens"
+  default     = "foo"
 }

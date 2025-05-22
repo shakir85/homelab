@@ -23,4 +23,4 @@ jobs:
           export KUBECONFIG="${GITHUB_WORKSPACE}/kubeconfig"
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo update
-          helm upgrade --install nginx bitnami/nginx -n foo --create-namespace
+          helm upgrade --install nginx bitnami/nginx -n foo

@@ -19,9 +19,3 @@ variable "control_plane_ipv4" {
   type        = string
   description = "Control plane IP or DNS"
 }
-
-variable "secre_role_ns" {
-  type        = string
-  description = "Namespace for the role from which they'll access tokens"
-  default     = "foo"
-}

@@ -1,0 +1,26 @@
+name: Deploy to k3s-main
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Helm
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+      - name: Set up kubeconfig
+        run: |
+          echo "${{ secrets.KUBECONFIG_K3S_MAIN }}" > kubeconfig
+
+      - name: Helm deploy
+        run: |
+          export KUBECONFIG="${GITHUB_WORKSPACE}/kubeconfig"
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo update
+          helm upgrade --install nginx bitnami/nginx -n foo --create-namespace

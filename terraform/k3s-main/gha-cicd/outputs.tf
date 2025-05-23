@@ -7,7 +7,7 @@ kind: Config
 clusters:
 - name: k3s-main
   cluster:
-    server: "https://${var.control_plane_ipv4}:6443"
+    server: "https://${var.k3s_main_control_plane_ipv4}:6443"
     certificate-authority-data: ${base64encode(kubernetes_secret_v1.gha_token.data["ca.crt"])}
 users:
 - name: gha-runner

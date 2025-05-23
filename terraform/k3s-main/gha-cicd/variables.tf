@@ -1,6 +1,7 @@
-variable "cluster_context" {
-  description = "Kubeconfig context for the target cluster"
+variable "kube_context" {
+  description = "The name of the kubeconfig context to use"
   type        = string
+  default     = "k3s-main-ctx"
 }
 
 variable "kube_config_path" {

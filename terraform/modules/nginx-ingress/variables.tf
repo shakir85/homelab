@@ -1,13 +1,11 @@
-variable "name" {
+variable "release_name" {
   description = "The name of the Helm release"
   type        = string
-  default     = "nginx-ingress"
 }
 
 variable "namespace" {
-  description = "The namespace in which to install the ingress controller"
+  description = "The namespace where the ingress controller will be deployed"
   type        = string
-  default     = "ingress-nginx"
 }
 
 variable "chart_version" {
@@ -16,8 +14,8 @@ variable "chart_version" {
   default     = "4.10.0"
 }
 
-variable "repository" {
-  description = "The Helm chart repository URL"
+variable "ingress_controller_name" {
+  description = "A name for the ingress controller. It sets the values of `controller.ingressClass` and `controller.ingressClassResource.name`. This is essential because the K8s ingress-resources's `ingressClassName` attribute  will use this value"
   type        = string
-  default     = "https://kubernetes.github.io/ingress-nginx"
+  default     = "nginx"
 }

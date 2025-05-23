@@ -29,9 +29,9 @@ terraform {
 }
 
 resource "helm_release" "nginx_ingress" {
-  name             = var.name
+  name             = var.release_name
   namespace        = var.namespace
-  repository       = var.repository
+  repository       = "https://kubernetes.github.io/ingress-nginx"
   chart            = "ingress-nginx"
   version          = var.chart_version
   create_namespace = true
@@ -40,14 +40,20 @@ resource "helm_release" "nginx_ingress" {
     yamlencode({
       controller = {
         kind = "DaemonSet"
+        ingressClassResource = {
+          name            = var.ingress_controller_name
+          enabled         = true
+          controllerValue = "k8s.io/ingress-nginx"
+        }
+        ingressClass       = var.ingress_controller_name
+        ingressClassByName = true
         service = {
-          # Intentionally disabling `port.https` values
-          # TLS is terminated outside the ingress.
-          type = "ClusterIP"
+          type = "LoadBalancer"
           port = {
             http = 80
           }
         }
+        fullnameOverride = "nginx-controller"
       }
     })
   ]

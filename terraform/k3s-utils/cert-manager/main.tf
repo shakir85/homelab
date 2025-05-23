@@ -4,7 +4,7 @@ resource "helm_release" "cert_manager" {
   chart            = "cert-manager"
   namespace        = var.kube_namespace
   create_namespace = true
-  version          = var.version
+  version          = var.cert_manager_version
 
   set {
     name  = "prometheus.enabled"

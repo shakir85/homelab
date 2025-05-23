@@ -44,3 +44,8 @@ resource "kubernetes_manifest" "l2_advertisement" {
 
   depends_on = [kubernetes_manifest.ip_address_pool]
 }
+
+output "kube_context_in_use" {
+  value       = var.kube_context
+  description = "The kubeconfig context being used by the Kubernetes provider"
+}

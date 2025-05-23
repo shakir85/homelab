@@ -3,7 +3,7 @@ terraform {
 
   backend "s3" {
     region = "us-east-1"
-    key    = "metallb_crd-k3s_utils-state"
+    key    = "metallb_crd-k3s_main-state"
   }
 
   required_providers {
@@ -15,5 +15,6 @@ terraform {
 }
 
 provider "kubernetes" {
-  config_path = var.kube_config_path
+  config_path    = var.kube_config_path
+  config_context = var.kube_context
 }

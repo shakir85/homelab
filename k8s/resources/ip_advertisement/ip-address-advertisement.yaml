@@ -1,0 +1,10 @@
+# If `spcs.ipAddressPools` removed, IP advertisement will
+# be randomly performed from any available pool in the namespace.
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: main-advertisement
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - first-pool

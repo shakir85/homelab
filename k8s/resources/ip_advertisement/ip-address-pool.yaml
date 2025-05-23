@@ -1,0 +1,14 @@
+# Set IP address ranges here.
+# MetalLB will pick an IP from these ranges when a
+# LoadBalancer Service type is deployed. Ensure that 
+# the IP range is available in your network.
+# My network is configured to reserve the range 0-100 
+#for DHCP static mapping.
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: first-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 10.10.50.90-10.10.50.99

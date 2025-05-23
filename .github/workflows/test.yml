@@ -10,17 +10,15 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install Helm
-        run: |
-          curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-
       - name: Set up kubeconfig
         run: |
-          echo "${{ secrets.KUBECONFIG_K3S_MAIN }}" > kubeconfig
+          echo "${{ secrets.KUBECONFIG_K3S_MAIN }}" > "${GITHUB_WORKSPACE}/kubeconfig"
 
-      - name: Helm deploy
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.29.0'
+      - name: Test RBAC with kubectl
         run: |
           export KUBECONFIG="${GITHUB_WORKSPACE}/kubeconfig"
-          helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm repo update
-          helm upgrade --install nginx bitnami/nginx -n foo --create-namespace
+          kubectl run nginx -n foo --image=nginx

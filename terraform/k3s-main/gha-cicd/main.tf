@@ -59,10 +59,10 @@ resource "kubernetes_secret_v1" "gha_token" {
 
 # Add additional roles and role bindings for service-account 'gha_runner'
 # in namespaces that the runner should be able to deploy to?
-# Use one module call per namespace.
-module "rbac_foo" {
+# Use one module call per namespace. namespace must be created first!
+module "rbac_apps" {
   source                        = "../../modules/gha-rbac"
-  target_namespace              = "foo"
+  target_namespace              = "apps"
   gha_service_account_namespace = var.kube_namespace
   gha_service_account_name      = kubernetes_service_account.gha_runner.metadata[0].name
 }

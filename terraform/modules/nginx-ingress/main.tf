@@ -17,6 +17,16 @@
  *   repository    = "https://kubernetes.github.io/ingress-nginx"
  * }
  */
+terraform {
+  required_version = ">= 1.5.7"
+
+  required_providers {
+    helm = {
+      source  = "hashicorp/helm"
+      version = ">= 2.9.0"
+    }
+  }
+}
 
 resource "helm_release" "nginx_ingress" {
   name             = var.name

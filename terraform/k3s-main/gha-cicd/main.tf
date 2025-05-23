@@ -33,16 +33,6 @@ resource "kubernetes_service_account" "gha_runner" {
   }
 }
 
-# Create role and role binding for the 'gha_runner' service account
-# in the namespace 'var.kube_namespace'
-module "rbac_gha" {
-  source                        = "../../modules/gha-rbac"
-  target_namespace              = var.kube_namespace
-  gha_service_account_namespace = var.kube_namespace
-  gha_service_account_name      = kubernetes_service_account.gha_runner.metadata[0].name
-}
-
-
 # Generate a toke for the service account 'gha_runner' in
 # namespace 'var.kube_namespace' to be used in the kubeconfig (see outputs.tf)
 resource "kubernetes_secret_v1" "gha_token" {
@@ -55,6 +45,15 @@ resource "kubernetes_secret_v1" "gha_token" {
   }
 
   type = "kubernetes.io/service-account-token"
+}
+
+# Create role and role binding for the 'gha_runner' service account
+# in the namespace 'var.kube_namespace'
+module "rbac_gha" {
+  source                        = "../../modules/gha-rbac"
+  target_namespace              = var.kube_namespace
+  gha_service_account_namespace = var.kube_namespace
+  gha_service_account_name      = kubernetes_service_account.gha_runner.metadata[0].name
 }
 
 # Add additional roles and role bindings for service-account 'gha_runner'

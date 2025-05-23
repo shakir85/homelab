@@ -3,13 +3,17 @@ terraform {
 
   backend "s3" {
     region = "us-east-1"
-    key    = "gha-runners-k3s_utils-state"
+    key    = "nginx_ingress_ctrl-k3s_main-state"
   }
 
   required_providers {
     helm = {
       source  = "hashicorp/helm"
       version = ">= 2.9.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.36.0"
     }
   }
 }
@@ -19,4 +23,9 @@ provider "helm" {
     config_path    = var.kube_config_path
     config_context = var.kube_context
   }
+}
+
+provider "kubernetes" {
+  config_path    = var.kube_config_path
+  config_context = var.kube_context
 }

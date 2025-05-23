@@ -15,11 +15,17 @@ resource "helm_release" "gha_runners" {
   }
   # This comment helped me tremendously in properly passing YAML list attributes from TF:
   # https://github.com/hashicorp/terraform-provider-helm/issues/1022#issuecomment-1370071345
-  values = [
-    yamlencode({
-      gloab = {
-        labels = "k3s_utils"
-      }
-    })
-  ]
+  # TODO: this is broken, needs to be fixed. Use default GHA runner label "self-hosted"
+  #   values = [
+  #     yamlencode({
+  #       gloab = {
+  #         labels = "k3s_utils"
+  #       }
+  #     })
+  #   ]
+}
+
+output "kube_context_in_use" {
+  value       = var.kube_context
+  description = "The kubeconfig context being used by the Kubernetes provider"
 }

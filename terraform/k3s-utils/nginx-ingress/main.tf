@@ -13,3 +13,8 @@ resource "helm_release" "ingress_nginx" {
     file("../../../k8s/charts/nginx-ingress/values.yml")
   ]
 }
+
+output "kube_context_in_use" {
+  value       = var.kube_context
+  description = "The kubeconfig context being used by the Kubernetes provider"
+}

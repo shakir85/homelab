@@ -4,6 +4,12 @@ variable "kube_config_path" {
   description = "Path to kubeconfig file relative to where this script will run"
 }
 
+variable "kube_context" {
+  description = "The name of the kubeconfig context to use"
+  type        = string
+  default     = "k3s-utils-ctx"
+}
+
 variable "gha_runner_name" {
   default     = "tf-runners-k3s"
   type        = string

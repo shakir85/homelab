@@ -1,1 +1,0 @@
-Provisions the latest version of Nginx Ingress Controller using custom chart values defined in /k8s/charts/nginx-ingress/values.yml.

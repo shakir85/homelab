@@ -4,6 +4,10 @@ kind: Runner
 metadata:
   name: {{ .Values.runner_name }}
   namespace: {{ .Values.namespace }}
+  labels:
+{{- range $key, $value := .Values.labels }}
+    {{ $key }}: {{ $value | quote }}
+{{- end }}
 spec:
   repository: {{ .Values.repository }}
   labels:

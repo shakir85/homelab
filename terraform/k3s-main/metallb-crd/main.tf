@@ -22,6 +22,7 @@ resource "kubernetes_manifest" "ip_address_pool" {
     metadata = {
       name      = var.ipv4_address_pool_name
       namespace = var.kube_namespace
+      labels    = var.shared_labels
     }
     spec = {
       addresses = var.ipv4_address_pool
@@ -36,6 +37,7 @@ resource "kubernetes_manifest" "l2_advertisement" {
     metadata = {
       name      = "main-advertisement"
       namespace = var.kube_namespace
+      labels    = var.shared_labels
     }
     spec = {
       ipAddressPools = [var.ipv4_address_pool_name]

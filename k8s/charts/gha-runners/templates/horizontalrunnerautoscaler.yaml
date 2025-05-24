@@ -4,6 +4,10 @@ kind: HorizontalRunnerAutoscaler
 metadata:
   name: {{ .Values.runner_autoscaler_name }}
   namespace: {{ .Values.namespace }}
+  labels:
+{{- range $key, $value := .Values.labels }}
+    {{ $key }}: {{ $value | quote }}
+{{- end }}
 spec:
   scaleTargetRef:
     kind: {{ .Values.horizontalRunnerAutoscaler.targetRef.kind | default "RunnerDeployment" }}

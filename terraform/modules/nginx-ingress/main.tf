@@ -55,6 +55,15 @@ resource "helm_release" "nginx_ingress" {
         }
         fullnameOverride = "nginx-controller"
       }
+      labels = {
+        "app.kubernetes.io/managed-by" = "terraform"
+      },
+      podLabels = {
+        "app.kubernetes.io/managed-by" = "terraform"
+      },
+      commonLabels = {
+        "app.kubernetes.io/managed-by" = "terraform"
+      }
     })
   ]
 }

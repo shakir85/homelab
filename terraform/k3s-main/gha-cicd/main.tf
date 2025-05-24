@@ -24,12 +24,14 @@
 module "cicd_namespace" {
   source = "../../modules/namespaces"
   name   = var.kube_namespace
+  labels = var.shared_labels
 }
 
 resource "kubernetes_service_account" "gha_runner" {
   metadata {
     name      = "gha-runner"
     namespace = var.kube_namespace
+    labels    = var.shared_labels
   }
 }
 
@@ -39,6 +41,7 @@ resource "kubernetes_secret_v1" "gha_token" {
   metadata {
     name      = "gha-runner-token"
     namespace = var.kube_namespace
+    labels    = var.shared_labels
     annotations = {
       "kubernetes.io/service-account.name" = kubernetes_service_account.gha_runner.metadata[0].name
     }

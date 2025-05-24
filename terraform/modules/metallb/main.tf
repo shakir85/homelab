@@ -38,7 +38,17 @@ resource "helm_release" "metallb" {
 
   values = [
     yamlencode({
-      configInline = {} # Empty to disable legacy config
+      configInline = {}, # Empty to disable legacy config
+      controller = {
+        labels = {
+          "app.kubernetes.io/managed-by" = "terraform"
+        }
+      },
+      speaker = {
+        labels = {
+          "app.kubernetes.io/managed-by" = "terraform"
+        }
+      },
     })
   ]
 }

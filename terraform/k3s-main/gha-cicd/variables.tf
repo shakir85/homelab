@@ -20,3 +20,11 @@ variable "k3s_main_control_plane_ipv4" {
   type        = string
   description = "Control plane IP or DNS"
 }
+
+variable "shared_labels" {
+  description = "Shared labels"
+  type        = map(string)
+  default = {
+    "app.kubernetes.io/managed-by" = "terraform"
+  }
+}

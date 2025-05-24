@@ -39,6 +39,7 @@ resource "kubernetes_role" "gha_target_ns_role" {
   metadata {
     name      = var.role_name
     namespace = var.target_namespace
+    labels    = var.shared_labels
   }
 
   rule {
@@ -76,6 +77,7 @@ resource "kubernetes_role_binding" "gha_target_ns_binding" {
   metadata {
     name      = "sa-${var.gha_service_account_name}-${var.gha_service_account_namespace}-binding"
     namespace = var.target_namespace
+    labels    = var.shared_labels
   }
 
   role_ref {

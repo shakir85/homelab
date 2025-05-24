@@ -13,6 +13,16 @@ resource "helm_release" "gha_runners" {
     name  = var.runner_type
     value = "true"
   }
+  values = [
+    yamlencode({
+      labels = {
+        "app.kubernetes.io/managed-by" = "terraform"
+      }
+      podLabels = {
+        "app.kubernetes.io/managed-by" = "terraform"
+      }
+    })
+  ]
   # This comment helped me tremendously in properly passing YAML list attributes from TF:
   # https://github.com/hashicorp/terraform-provider-helm/issues/1022#issuecomment-1370071345
   # TODO: this is broken, needs to be fixed. Use default GHA runner label "self-hosted"

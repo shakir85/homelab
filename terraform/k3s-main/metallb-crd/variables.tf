@@ -28,3 +28,11 @@ variable "kube_namespace" {
   default     = "metallb-system"
   description = "Namespace where the gha-runner service account will reside (typically 'cicd')"
 }
+
+variable "shared_labels" {
+  description = "Shared labels"
+  type        = map(string)
+  default = {
+    "app.kubernetes.io/managed-by" = "terraform"
+  }
+}

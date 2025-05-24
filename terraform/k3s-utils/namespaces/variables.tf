@@ -9,9 +9,3 @@ variable "kube_context" {
   type        = string
   default     = "k3s-utils-ctx"
 }
-
-variable "kube_namespace" {
-  default     = "ingress"
-  type        = string
-  description = "Namespace where the ingress controller will be deployed"
-}

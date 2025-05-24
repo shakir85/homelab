@@ -18,3 +18,11 @@ variable "role_name" {
   type        = string
   default     = "gha-helm-deployer"
 }
+
+variable "shared_labels" {
+  description = "Shared labels"
+  type        = map(string)
+  default = {
+    "app.kubernetes.io/managed-by" = "terraform"
+  }
+}

@@ -3,6 +3,12 @@ global:
   labels:
     - default
 
+# Labels for the resource itself (e.g., runnerDeployment or runnerSet)
+labels: {}
+
+# Labels to add to the pod container metadata
+podLabels: {}
+
 # Boolean values to control what resource to deploy from this chart.
 deployRunner: false
 deployRunnerDeployment: false

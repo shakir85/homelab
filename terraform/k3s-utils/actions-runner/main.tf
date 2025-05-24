@@ -1,6 +1,6 @@
 resource "helm_release" "gha_runners" {
   name             = var.gha_runner_name
-  chart            = "../../../k8s/charts/gha-runners/"
+  chart            = "../../../helm/charts/gha-runners/"
   namespace        = var.kube_namespace
   create_namespace = false
 

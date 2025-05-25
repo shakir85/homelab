@@ -7,7 +7,7 @@ jobs:
   deploy:
     runs-on: self-hosted
     container:
-      image: ghcr.io/shakir85/cicd-tools:latest
+      image: ghcr.io/shakir85/cicd-tools:0.1.0
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4

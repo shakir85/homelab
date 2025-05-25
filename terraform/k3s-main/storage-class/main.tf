@@ -9,9 +9,8 @@ resource "kubernetes_storage_class" "nfs" {
   storage_provisioner = "nfs.csi.k8s.io"
 
   parameters = {
-    server     = "10.10.50.38"
-    share      = "/volume1/k3s-main"
-    nfsVersion = "4.1"
+    server = "10.10.50.38"
+    share  = "/volume1/k3s-main"
   }
 
   reclaim_policy         = "Retain"

@@ -17,9 +17,10 @@ service:
 # Add environment variables to deployment. Supports
 # adding multiple env-vars. Comment this section if
 # your app does not need environment variables.
-env:
-  - name: ENV_NAME
-    value: "env_value"
+env: []
+# env:
+#   - name: ENV_NAME
+#     value: "env_value"
 
 ingress:
   # Set to `true` if the app needs an ingress resource.
@@ -31,17 +32,22 @@ ingress:
   # must match the Nginx Ingress Controller's `controller.ingressClassResource.name` field
   ingressClassName: nginx
 
-# Stub structure. See below for NFS mount instruction.
-nfs:
-  mounts: []
-# Use the below example to mount an NFS share.
-# nfs:
-#   # Set to `true` if you want to mount an NFS share
-#   enabled: true
-#   mounts:
-#     # Storage server's IPv4. Replicate this item to mount multiple shares.
-#     - server: ""
-#       # Share path in the storage server
-#       path: ""
-#       # Where to mount inside the pod
-#       mountPath: ""
+pvc:
+  enabled: false
+  # PVC object name
+  name: ""
+  accessMode: ReadWriteMany
+  # Ensure storage class is provisioned, otherwise PVC will stuck on "pending" status
+  storageClassName: nfs-client
+  # Soft condition for non-cloud NFS providers
+  storage: 1Mi
+  # Mount path in the pod
+  mountPath: ""
+  # Use labels and annotations to track what this PVC is for and where it's mounted
+  # Dynamic provisioning via the NFS CSI driver does not allow customizing the directory name
+  # All mount points created in the NFS share will be named like: pvc-<unique-pvc-uid>
+  labels:
+    app: ""
+  annotations:
+    volume.kubernetes.io/description: "User-friendly description for this PVC"
+    custom.synology/path-hint: "maps to /volume1/k8s/pvc-xyz"

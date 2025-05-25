@@ -25,12 +25,13 @@ Then open: http://localhost:{{ .Values.service.port }}
 
 {{- end }}
 
-{{- if .Values.nfs.mounts }}
+{{- if and .Values.pvc.enabled .Values.pvc.mounts }}
 
-📂 NFS Mounts:
+📂 Volume Mounts:
 
-{{- range .Values.nfs.mounts }}
-  - {{ .mountPath }} (from {{ .server }}:{{ .path }})
+{{- range .Values.pvc.mounts }}
+  - Mount Path: {{ .mountPath }}
+    Source:     {{ .server }}:{{ .path }}
 {{- end }}
 {{- end }}
 

@@ -32,14 +32,15 @@ ingress:
   host: "change.shakir.cloud"
   ingressClassName: nginx
 
-# Use the below example to mount an NFS share.
-nfs:
-  # Set to `true` if you want to mount an NFS share
+pvc:
   enabled: true
-  mounts:
-    # Storage server's IPv4. Replicate this item to mount multiple shares.
-    - server: "10.10.50.38"
-      # Share path in the storage server
-      path: "/galaxy/data/changedetection"
-      # Where to mount inside the pod
-      mountPath: "/config"
+  name: changedetection
+  accessMode: ReadWriteMany
+  storageClassName: nfs-client
+  storage: 100Mi
+  mountPath: /config
+  labels:
+    app: changedetection
+  annotations:
+    volume.kubernetes.io/description: "config mount for app: changedetection"
+    custom.synology/path-hint: "maps to /volume1/k3s-main"

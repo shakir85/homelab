@@ -26,19 +26,14 @@ spec:
             {{- end }}
           ports:
             - containerPort: {{ .Values.service.port }}
+          {{- if .Values.pvc.enabled }}
           volumeMounts:
-            {{- if .Values.nfs.enabled }}
-            {{- range $index, $mount := .Values.nfs.mounts }}
-            - name: nfs-volume-{{ $index }}
-              mountPath: {{ $mount.mountPath }}
-            {{- end }}
-            {{- end }}
+            - name: {{ .Values.pvc.name }}
+              mountPath: {{ .Values.pvc.mountPath }}
+          {{- end }}
+      {{- if .Values.pvc.enabled }}
       volumes:
-        {{- if .Values.nfs.enabled }}
-        {{- range $index, $mount := .Values.nfs.mounts }}
-        - name: nfs-volume-{{ $index }}
-          nfs:
-            server: {{ $mount.server }}
-            path: {{ $mount.path }}
-        {{- end }}
-        {{- end }}
+        - name: {{ .Values.pvc.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.pvc.name }}
+      {{- end }}

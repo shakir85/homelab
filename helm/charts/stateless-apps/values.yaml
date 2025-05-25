@@ -50,4 +50,4 @@ pvc:
     app: ""
   annotations:
     volume.kubernetes.io/description: "User-friendly description for this PVC"
-    custom.synology/path-hint: "maps to /volume1/k8s/pvc-xyz"
+    custom.synology/path-hint: "maps to /path/in/nas/volume"

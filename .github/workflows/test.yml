@@ -19,9 +19,6 @@ jobs:
         with:
           version: 'latest'
       
-      - name: Who am I?
-        run: kubectl auth can-i create pods -n apps && kubectl config view && kubectl config current-context
-      
       - name: Test deployment 
         env:
           KUBECONFIG: ${{ github.workspace }}/kubeconfig

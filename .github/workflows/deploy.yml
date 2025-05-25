@@ -1,0 +1,39 @@
+name: Helmfile Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    env:
+      KUBECONFIG: ${{ github.workspace }}/kubeconfig
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up kubeconfig
+        run: |
+          echo "${{ secrets.KUBECONFIG_K3S_MAIN }}" > "${KUBECONFIG}"
+
+      - name: Install required executables
+        run: |
+          # Helm
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+          # Helm diff plugin
+          helm plugin install https://github.com/databus23/helm-diff
+
+          # Helmfile
+          curl -Lo ./helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v1.1.0/helmfile_1.1.0_linux_amd64.tar.gz
+          tar xzf ./helmfile.tar.gz
+          mv helmfile /usr/local/bin/
+          chmod +x /usr/local/bin/helmfile
+
+      # - name: Select Kubernetes context
+      #   run: |
+      #     kubectl config use-context gha-actions
+
+      - name: Helmfile - Deploy All Releases
+        run: helmfile apply

@@ -25,16 +25,6 @@ Then open: http://localhost:{{ .Values.service.port }}
 
 {{- end }}
 
-{{- if and .Values.pvc.enabled .Values.pvc.mounts }}
-
-📂 Volume Mounts:
-
-{{- range .Values.pvc.mounts }}
-  - Mount Path: {{ .mountPath }}
-    Source:     {{ .server }}:{{ .path }}
-{{- end }}
-{{- end }}
-
 📦 Release Name: {{ .Release.Name }}
 🗂  Namespace: {{ .Values.namespace | default .Release.Namespace }}
 📜 Chart Version: {{ .Chart.Version }}

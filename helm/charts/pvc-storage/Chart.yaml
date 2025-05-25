@@ -1,0 +1,21 @@
+apiVersion: v2
+name: pvc-storage
+description: A generic Helm chart for deploying PVC storage with binding to a Storage Class.
+type: application
+version: 0.1.0
+appVersion: "1.0"
+
+# maintainers:
+#   - name:
+#     email:
+# keywords:
+#   - stateless
+#   - web
+#   - api
+#   - kubernetes
+#   - helm
+# sources:
+#   - https://github.com/etc
+
+annotations:
+  category: "storage"

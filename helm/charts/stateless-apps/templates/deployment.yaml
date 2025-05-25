@@ -28,12 +28,16 @@ spec:
             - containerPort: {{ .Values.service.port }}
           {{- if .Values.pvc.enabled }}
           volumeMounts:
-            - name: {{ .Values.pvc.name }}
-              mountPath: {{ .Values.pvc.mountPath }}
+            {{- range .Values.pvc.mounts }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+            {{- end }}
           {{- end }}
       {{- if .Values.pvc.enabled }}
       volumes:
-        - name: {{ .Values.pvc.name }}
+        {{- range .Values.pvc.mounts }}
+        - name: {{ .name }}
           persistentVolumeClaim:
-            claimName: {{ .Values.pvc.name }}
+            claimName: {{ .claimName }}
+        {{- end }}
       {{- end }}

@@ -34,20 +34,8 @@ ingress:
 
 pvc:
   enabled: false
-  # PVC object name
-  name: ""
-  accessMode: ReadWriteMany
-  # Ensure storage class is provisioned, otherwise PVC will stuck on "pending" status
-  storageClassName: nfs-client
-  # Soft condition for non-cloud NFS providers
-  storage: 1Mi
-  # Mount path in the pod
-  mountPath: ""
-  # Use labels and annotations to track what this PVC is for and where it's mounted
-  # Dynamic provisioning via the NFS CSI driver does not allow customizing the directory name
-  # All mount points created in the NFS share will be named like: pvc-<unique-pvc-uid>
-  labels:
-    app: ""
-  annotations:
-    volume.kubernetes.io/description: "User-friendly description for this PVC"
-    custom.synology/path-hint: "maps to /path/in/nas/volume"
+  # List of PVC mounts the app needs
+  mounts:
+    # - name: unique-volume-id
+    #   claimName: pvc-name-provisioned-by-storage-chart
+    #   mountPath: /path/in/container

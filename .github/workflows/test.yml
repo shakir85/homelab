@@ -16,11 +16,11 @@ jobs:
         run: |
           echo "${{ secrets.KUBECONFIG_K3S_MAIN }}" > "${GITHUB_WORKSPACE}/kubeconfig"
 
-      - name: Set up Helm plugins
-        run: helm plugin install https://github.com/databus23/helm-diff
-
-      - name: Confirm helm diff plugin
-        run: helm plugin list
-
-      - name: Run Helmfile apply
-        run: helmfile apply
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest' 
+      
+      - name: Test deployment 
+        run: kubectl run test-nginx --image nginx:latest -n apps
+        

@@ -16,5 +16,11 @@ jobs:
         run: |
           echo "${{ secrets.KUBECONFIG_K3S_MAIN }}" > "${GITHUB_WORKSPACE}/kubeconfig"
 
-      - name: Helmfile - Deploy All Releases
+      - name: Set up Helm plugins
+        run: helm plugin install https://github.com/databus23/helm-diff
+
+      - name: Confirm helm diff plugin
+        run: helm plugin list
+
+      - name: Run Helmfile apply
         run: helmfile apply

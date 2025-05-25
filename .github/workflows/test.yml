@@ -18,7 +18,12 @@ jobs:
         uses: azure/setup-kubectl@v3
         with:
           version: 'latest'
-          
+      
+      - name: Who am I?
+        run: kubectl auth can-i create pods -n apps && kubectl config view && kubectl config current-context
+      
       - name: Test deployment 
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig
         run: kubectl run test-nginx --image nginx:latest -n apps
         

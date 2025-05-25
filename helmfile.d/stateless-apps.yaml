@@ -1,0 +1,13 @@
+---
+namespace: apps
+releases:
+  - name: excalidraw
+    namespace: apps
+    chart: ../helm/charts/stateless-apps
+    values:
+      - ../helm/app-values/excalidraw.yaml
+  - name: change-detection
+    namespace: apps
+    chart: ../helm/charts/stateless-apps
+    values:
+      - ../helm/app-values/change-detection.yaml

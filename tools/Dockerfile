@@ -35,6 +35,9 @@ RUN KUBECTL_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt) && \
 # Helm
 RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
+# Helm diff (required for helmfile)
+RUN helm plugin install https://github.com/databus23/helm-diff
+
 # helmfile
 RUN curl -Lo ./helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v1.1.0/helmfile_1.1.0_linux_amd64.tar.gz \
     && tar xzf ./helmfile.tar.gz \

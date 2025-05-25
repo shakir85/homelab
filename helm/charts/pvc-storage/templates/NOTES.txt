@@ -1,0 +1,42 @@
+{{- if and .Values.pvc.mounts }}
+
+✅ {{ .Chart.Name }} PVCs have been successfully deployed!
+
+🔖 Summary of the created PVCs:
+
+{{- range .Values.pvc.mounts }}
+  - Claim Name:  {{ .claimName }}
+    Mount Path:  {{ .mountPath }}
+    Storage:     {{ .storage | default "1Mi" }}
+    AccessMode:  {{ .accessMode | default "ReadWriteMany" }}
+    StorageClass: {{ .storageClassName }}
+{{- $hint := index .annotations "custom.synology/path-hint" }}
+{{- if $hint }}
+    NAS Path Hint: {{ $hint }}
+{{- end }}
+{{- end }}
+
+💡 These PVCs are dynamically provisioned using the CSI NFS driver.
+   The actual NFS share directory names will follow the pattern `pvc-<uuid>`.
+
+🧭 Use labels and annotations to track their usage and pod associations.
+
+{{- else }}
+
+⚠️ No PVCs were created. Either `pvc.mounts` is empty or disabled.
+
+To create PVCs, make sure to enable them in your values file:
+
+  pvc:
+    mounts:
+      - name: pvc-<name>
+        claimName: claim-<name>
+        mountPath: /app/data
+        storageClassName: nfs-client
+        storage: 1Gi
+
+{{- end }}
+
+📦 Release Name: {{ .Release.Name }}
+🗂  Namespace:   {{ .Values.namespace | default .Release.Namespace }}
+📜 Chart Version: {{ .Chart.Version }}

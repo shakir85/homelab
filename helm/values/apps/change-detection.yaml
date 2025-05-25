@@ -32,14 +32,11 @@ ingress:
   host: "change.shakir.cloud"
   ingressClassName: nginx
 
-# Use the below example to mount an NFS share.
-nfs:
-  # Set to `true` if you want to mount an NFS share
+pvc:
   enabled: true
+  # List of PVC mounts the app needs
   mounts:
-    # Storage server's IPv4. Replicate this item to mount multiple shares.
-    - server: "10.10.50.38"
-      # Share path in the storage server
-      path: "/galaxy/data/changedetection"
-      # Where to mount inside the pod
-      mountPath: "/config"
+    - name: "vol-change-detection"
+      claimName: "claim-change-detection"
+      mountPath: /data
+

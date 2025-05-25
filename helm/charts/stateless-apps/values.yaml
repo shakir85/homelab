@@ -17,9 +17,10 @@ service:
 # Add environment variables to deployment. Supports
 # adding multiple env-vars. Comment this section if
 # your app does not need environment variables.
-env:
-  - name: ENV_NAME
-    value: "env_value"
+env: []
+# env:
+#   - name: ENV_NAME
+#     value: "env_value"
 
 ingress:
   # Set to `true` if the app needs an ingress resource.
@@ -31,17 +32,12 @@ ingress:
   # must match the Nginx Ingress Controller's `controller.ingressClassResource.name` field
   ingressClassName: nginx
 
-# Stub structure. See below for NFS mount instruction.
-nfs:
-  mounts: []
-# Use the below example to mount an NFS share.
-# nfs:
-#   # Set to `true` if you want to mount an NFS share
-#   enabled: true
-#   mounts:
-#     # Storage server's IPv4. Replicate this item to mount multiple shares.
-#     - server: ""
-#       # Share path in the storage server
-#       path: ""
-#       # Where to mount inside the pod
-#       mountPath: ""
+# This chart will not provision a PVC. If the app needs a storage, then a PVC
+# must be up and running before deploying this chart.
+pvc:
+  enabled: false
+  # List of PVC mounts the app needs
+  mounts:
+    # - name: unique-volume-id
+    #   claimName: pvc-name-provisioned-by-storage-chart
+    #   mountPath: /path/in/container

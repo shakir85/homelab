@@ -1,0 +1,19 @@
+{{/* Go template - helmfile - deployes web-apps helm charts */}}
+
+{{- /* Variable definitions */ -}}
+{{- $statelessChartsDir := "../helm/charts/stateless-apps" -}}
+{{- $valuesDir := "../helm/values/apps" -}}
+{{- $commonNamespace := "apps" -}}
+
+releases:
+  - name: excalidraw
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "excalidraw.yaml" }}
+
+  - name: change-detection
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "change-detection.yaml" }}

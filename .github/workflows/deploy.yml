@@ -28,8 +28,8 @@ jobs:
           # Helmfile
           curl -Lo ./helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v1.1.0/helmfile_1.1.0_linux_amd64.tar.gz
           tar xzf ./helmfile.tar.gz
-          mv helmfile /usr/local/bin/
-          chmod +x /usr/local/bin/helmfile
+          sudo mv helmfile /usr/local/bin/
+          sudo chmod +x /usr/local/bin/helmfile
 
       # - name: Select Kubernetes context
       #   run: |

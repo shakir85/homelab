@@ -1,4 +1,4 @@
-name: Deploy to k3s-main
+name: Helmfile Deploy
 
 on:
   workflow_dispatch:
@@ -6,6 +6,8 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
+    container:
+      image: ghcr.io/shakir85/cicd-tools:latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -14,11 +16,5 @@ jobs:
         run: |
           echo "${{ secrets.KUBECONFIG_K3S_MAIN }}" > "${GITHUB_WORKSPACE}/kubeconfig"
 
-      - name: Install kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'v1.29.0'
-      - name: Test RBAC with kubectl
-        run: |
-          export KUBECONFIG="${GITHUB_WORKSPACE}/kubeconfig"
-          kubectl run nginx -n foo --image=nginx
+      - name: Helmfile - Deploy All Releases
+        run: helmfile apply

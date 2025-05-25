@@ -34,13 +34,9 @@ ingress:
 
 pvc:
   enabled: true
-  name: changedetection
-  accessMode: ReadWriteMany
-  storageClassName: nfs-client
-  storage: 100Mi
-  mountPath: /config
-  labels:
-    app: changedetection
-  annotations:
-    volume.kubernetes.io/description: "config mount for app: changedetection"
-    custom.synology/path-hint: "maps to /volume1/k3s-main"
+  # List of PVC mounts the app needs
+  mounts:
+    - name: "vol-change-detection"
+      claimName: "claim-change-detection"
+      mountPath: /data
+

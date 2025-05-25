@@ -6,9 +6,9 @@ pvc:
   mounts:
     # PVC object name. This a single claim. Replicate this list if you wish to
     # mount more than one claim.
-    - name: "pvc-excalidraw"
+    - name: "pvc-change-detection"
       # Will be used in the pvc.yaml and target deployment.yaml
-      claimName: "claim-excalidraw"
+      claimName: "claim-change-detection"
       # Default mode, can be overriden
       accessMode: ReadWriteMany
       # Ensure storage class is provisioned, otherwise PVC will stuck on a "pending" status
@@ -22,8 +22,8 @@ pvc:
       # All mount points created in the NFS share will be named like: pvc-<unique-pvc-uid>
       labels:
         # You can add more.
-        app: "excalidraw"
+        app: "change-detection"
       annotations:
         # You can add more. Follow K8s annotation conventions.
-        volume.kubernetes.io/description: "Data volume for app"
-        custom.synology/path-hint: "maps to /vol/k8s/path/whatever/in/you/nas"
+        volume.kubernetes.io/description: "Data volume for changedetection"
+        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"

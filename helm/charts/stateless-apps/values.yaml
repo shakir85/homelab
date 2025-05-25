@@ -32,6 +32,8 @@ ingress:
   # must match the Nginx Ingress Controller's `controller.ingressClassResource.name` field
   ingressClassName: nginx
 
+# This chart will not provision a PVC. If the app needs a storage, then a PVC
+# must be up and running before deploying this chart.
 pvc:
   enabled: false
   # List of PVC mounts the app needs

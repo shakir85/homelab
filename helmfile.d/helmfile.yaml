@@ -1,0 +1,7 @@
+---
+# Top-level orchestration file.
+# Templates with dependencies must be rendered after the resources they depend on.
+# For example, PVC templates here must be processed first so that apps depending on them can deploy successfully.
+helmfiles:
+  - path: pvc-helmfile.yaml.gotmpl
+  - path: apps-helmfile.yaml.gotmpl

@@ -1,0 +1,13 @@
+{{/* Go template - helmfile - deployes PVCs helm chart */}}
+
+{{- /* Variable definitions */ -}}
+{{- $statelessChartsDir := "../helm/charts/pvc-storage" -}}
+{{- $valuesDir := "../helm/values/pvc" -}}
+{{- $commonNamespace := "apps" -}}
+
+releases:
+  - name: pvc-change-detection
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "change-detection.yaml" }}

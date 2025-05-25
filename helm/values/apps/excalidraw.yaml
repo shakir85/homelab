@@ -17,11 +17,3 @@ ingress:
   enabled: true
   host: "ex.shakir.cloud"
   ingressClassName: nginx
-
-pvc:
-  enabled: true
-  # List of PVC mounts the app needs
-  mounts:
-    - name: "vol-excalidraw"
-      claimName: "claim-excalidraw"
-      mountPath: /data

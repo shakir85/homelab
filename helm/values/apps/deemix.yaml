@@ -1,0 +1,44 @@
+---
+# Optional override; otherwise Helm's `--namespace`,`-n` or default is used
+# namespace: ""
+app:
+  name: "deemix"
+  image:
+    repository: "registry.gitlab.com/bockiii/deemix-docker"
+    tag: "latest"
+    pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  port: 80
+  targetPort: 6595
+
+# Add environment variables to deployment. Supports
+# adding multiple env-vars. Comment this section if
+# your app does not need environment variables.
+env:
+  - name: PUID
+    value: "1000"
+  - name: PGID
+    value: "1000"
+  - name: UMASK_SET
+    value: "022"
+  - name: DEEMIX_SINGLE_USER
+    value: "true"
+
+ingress:
+  enabled: true
+  host: "deemix.shakir.cloud"
+  ingressClassName: nginx
+
+pvc:
+  enabled: true
+  # List of PVC mounts the app needs
+  mounts:
+    - name: "vol-deemix-downloads"
+      claimName: "claim-deemix-downloads"
+      mountPath: /downloads
+    - name: "vol-deemix-config"
+      claimName: "claim-deemix-config"
+      mountPath: /config

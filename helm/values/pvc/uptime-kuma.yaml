@@ -1,0 +1,16 @@
+---
+namespace: "apps"
+pvc:
+  enabled: true
+  mounts:
+    - name: "pvc-uptime-kuma"
+      claimName: "claim-uptime-kuma"
+      accessMode: ReadWriteMany
+      storageClassName: nfs-client
+      storage: "50Mi"
+      mountPath: "/app/data"
+      labels:
+        app: "uptime-kuma"
+      annotations:
+        volume.kubernetes.io/description: "Data volume for uptime-kuma"
+        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"

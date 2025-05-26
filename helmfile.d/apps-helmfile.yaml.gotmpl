@@ -41,3 +41,21 @@ releases:
     chart: {{ $statelessChartsDir }}
     values:
       - {{ printf "%s/%s" $valuesDir "omni-tools.yaml" }}
+
+  - name: speedtest
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "speedtest.yaml" }}
+
+  - name: s-pdf
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "s-pdf.yaml" }}
+
+  - name: uptime-kuma
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "uptime-kuma.yaml" }}

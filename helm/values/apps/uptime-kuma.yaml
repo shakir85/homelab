@@ -1,0 +1,26 @@
+---
+namespace: apps
+app:
+  name: "uptime-kuma"
+  image:
+    repository: "louislam/uptime-kuma"
+    tag: "1"
+    pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  port: 80
+  targetPort: 3001
+
+ingress:
+  enabled: true
+  host: "uptime.shakir.cloud"
+  ingressClassName: nginx
+
+pvc:
+  enabled: true
+  mounts:
+    - name: "vol-uptime-kuma"
+      claimName: "claim-uptime-kuma"
+      mountPath: /app/data

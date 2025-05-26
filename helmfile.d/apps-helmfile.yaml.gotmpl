@@ -30,7 +30,7 @@ releases:
     values:
       - {{ printf "%s/%s" $valuesDir "homarr.yaml" }}
 
-  - name: meetube
+  - name: metube
     namespace: {{ $commonNamespace }}
     chart: {{ $statelessChartsDir }}
     values:

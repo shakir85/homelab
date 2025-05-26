@@ -1,6 +1,6 @@
 ---
 app:
-  name: "meetube"
+  name: "metube"
   image:
     repository: "ghcr.io/alexta69/metube"
     tag: "latest"
@@ -14,12 +14,12 @@ service:
 
 ingress:
   enabled: true
-  host: "meetube.shakir.cloud"
+  host: "metube.shakir.cloud"
   ingressClassName: nginx
 
 pvc:
   enabled: true
   mounts:
-    - name: "vol-meetube-downloads"
-      claimName: "claim-meetube-downloads"
+    - name: "vol-metube-downloads"
+      claimName: "claim-metube-downloads"
       mountPath: /downloads

@@ -1,0 +1,28 @@
+---
+namespace: "apps"
+pvc:
+  enabled: true
+  mounts:
+    - name: "pvc-demix-downloads"
+      claimName: "claim-demix-downloads"
+      accessMode: ReadWriteMany
+      storageClassName: nfs-client
+      storage: "500Mi"
+      mountPath: "/downloads"
+      labels:
+        app: "demix"
+      annotations:
+        volume.kubernetes.io/description: "Downloads volume for deemix"
+        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"
+
+    - name: "pvc-demix-config"
+      claimName: "claim-demix-config"
+      accessMode: ReadWriteMany
+      storageClassName: nfs-client
+      storage: "500Mi"
+      mountPath: "/config"
+      labels:
+        app: "demix"
+      annotations:
+        volume.kubernetes.io/description: "Config volume for deemix"
+        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"

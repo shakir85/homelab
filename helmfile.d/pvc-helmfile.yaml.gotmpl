@@ -11,3 +11,9 @@ releases:
     chart: {{ $statelessChartsDir }}
     values:
       - {{ printf "%s/%s" $valuesDir "change-detection.yaml" }}
+
+  - name: pvc-deemix
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "deemix.yaml" }}

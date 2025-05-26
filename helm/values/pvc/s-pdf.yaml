@@ -27,12 +27,12 @@ pvc:
         volume.kubernetes.io/description: "Config volume for s-pdf"
         custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"
 
-    - name: "pvc-s-pdf-customFiles"
-      claimName: "claim-s-pdf-customFiles"
+    - name: "pvc-s-pdf-customfiles"
+      claimName: "claim-s-pdf-customfiles"
       accessMode: ReadWriteMany
       storageClassName: nfs-client
       storage: "50Mi"
-      mountPath: "/customFiles"
+      mountPath: "/customfiles"
       labels:
         app: "s-pdf"
       annotations:

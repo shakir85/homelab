@@ -37,6 +37,6 @@ pvc:
       claimName: "claim-s-pdf-config"
       mountPath: /configs
 
-    - name: "vol-s-pdf-customFiles"
-      claimName: "claim-s-pdf-customFiles"
-      mountPath: /customFiles
+    - name: "vol-s-pdf-customfiles"
+      claimName: "claim-s-pdf-customfiles"
+      mountPath: /customfiles

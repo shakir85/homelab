@@ -32,6 +32,15 @@ ingress:
   # must match the Nginx Ingress Controller's `controller.ingressClassResource.name` field
   ingressClassName: nginx
 
+# Some containers require healthcehcks
+livenessProbe:
+  enabled: false
+  command: ["", ""]
+  initialDelaySeconds: 20
+  periodSeconds: 60
+  timeoutSeconds: 10
+  failureThreshold: 3
+
 # This chart will not provision a PVC. If the app needs a storage, then a PVC
 # must be up and running before deploying this chart.
 pvc:

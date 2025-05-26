@@ -1,0 +1,31 @@
+---
+app:
+  name: "homarr"
+  image:
+    repository: "ghcr.io/ajnart/homarr"
+    tag: "latest"
+    pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  port: 80
+  targetPort: 7575
+
+ingress:
+  enabled: true
+  host: "home.shakir.cloud"
+  ingressClassName: nginx
+
+pvc:
+  enabled: true
+  mounts:
+    - name: "vol-homarr-config"
+      claimName: "claim-homarr-config"
+      mountPath: /app/data/configs
+    - name: "vol-homarr-data"
+      claimName: "claim-homarr-data"
+      mountPath: /data
+    - name: "vol-homarr-icons"
+      claimName: "claim-homarr-icons"
+      mountPath: /app/public/icons

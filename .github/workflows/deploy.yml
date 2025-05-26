@@ -13,20 +13,20 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up kubeconfig
-        run: |
+
+      - run: |
           echo "${{ secrets.KUBECONFIG_K3S_MAIN }}" > "${KUBECONFIG}"
 
       - name: Install required executables
         run: |
           # Helm
-          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+          curl -s https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
           # Helm diff plugin
           helm plugin install https://github.com/databus23/helm-diff
 
           # Helmfile
-          curl -Lo ./helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v1.1.0/helmfile_1.1.0_linux_amd64.tar.gz
+          curl -s -Lo ./helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v1.1.0/helmfile_1.1.0_linux_amd64.tar.gz
           tar xzf ./helmfile.tar.gz
           sudo mv helmfile /usr/local/bin/
           sudo chmod +x /usr/local/bin/helmfile
@@ -35,5 +35,5 @@ jobs:
       #   run: |
       #     kubectl config use-context gha-actions
 
-      - name: Helmfile - Deploy All Releases
+      - name: Apply all helmfile releases
         run: helmfile apply

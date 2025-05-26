@@ -1,0 +1,29 @@
+---
+namespace: "apps"
+pvc:
+  enabled: true
+  mounts:
+    - name: "pvc-homarr-config"
+      claimName: "claim-homarr-config"
+      accessMode: ReadWriteMany
+      storageClassName: nfs-client
+      storage: "100Mi"
+      mountPath: "/app/data/configs"
+      labels:
+        app: "homarr"
+      annotations:
+        volume.kubernetes.io/description: "Config volume for homarr"
+        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"
+
+    - name: "pvc-homarr-icons"
+      claimName: "claim-homarr-icons"
+      accessMode: ReadWriteMany
+      storageClassName: nfs-client
+      storage: "100Mi"
+      mountPath: "/app/public/icons"
+      labels:
+        app: "homarr"
+      annotations:
+        volume.kubernetes.io/description: "Icons volume for homarr"
+        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"
+

@@ -29,3 +29,15 @@ releases:
     chart: {{ $statelessChartsDir }}
     values:
       - {{ printf "%s/%s" $valuesDir "homarr.yaml" }}
+
+  - name: meetube
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "meetube.yaml" }}
+
+  - name: omni-tools
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "omni-tools.yaml" }}

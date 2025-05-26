@@ -1,9 +1,9 @@
 ---
 namespace: apps
 app:
-  name: "excalidraw"
+  name: "omni-tools"
   image:
-    repository: "excalidraw/excalidraw"
+    repository: "iib0011/omni-tools"
     tag: "latest"
     pullPolicy: IfNotPresent
 
@@ -15,5 +15,5 @@ service:
 
 ingress:
   enabled: true
-  host: "draw.shakir.cloud"
+  host: "omnitool.shakir.cloud"
   ingressClassName: nginx

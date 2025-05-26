@@ -1,0 +1,16 @@
+---
+namespace: "apps"
+pvc:
+  enabled: true
+  mounts:
+    - name: "pvc-meetube-downloads"
+      claimName: "claim-meetube-downloads"
+      accessMode: ReadWriteMany
+      storageClassName: nfs-client
+      storage: "100Mi"
+      mountPath: "/downloads"
+      labels:
+        app: "meetube"
+      annotations:
+        volume.kubernetes.io/description: "Downloads volume for meetube"
+        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"

@@ -23,3 +23,9 @@ releases:
     chart: {{ $statelessChartsDir }}
     values:
       - {{ printf "%s/%s" $valuesDir "homarr.yaml" }}
+
+  - name: pvc-meetube
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "meetube.yaml" }}

@@ -11,8 +11,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
-
+        uses: shakir85/checkout@v4
 
       - run: |
           echo "${{ secrets.KUBECONFIG_K3S_MAIN }}" > "${KUBECONFIG}"
@@ -30,10 +29,6 @@ jobs:
           tar xzf ./helmfile.tar.gz
           sudo mv helmfile /usr/local/bin/
           sudo chmod +x /usr/local/bin/helmfile
-
-      # - name: Select Kubernetes context
-      #   run: |
-      #     kubectl config use-context gha-actions
 
       - name: Apply all helmfile releases
         run: helmfile apply

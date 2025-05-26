@@ -68,3 +68,10 @@ module "rbac_apps" {
   gha_service_account_namespace = var.kube_namespace
   gha_service_account_name      = kubernetes_service_account.gha_runner.metadata[0].name
 }
+
+# Helm needs access to namespaces
+module "gha_cluster_access" {
+  source                        = "../../modules/gha-cluster-roles"
+  gha_service_account_namespace = var.kube_namespace
+  gha_service_account_name      = kubernetes_service_account.gha_runner.metadata[0].name
+}

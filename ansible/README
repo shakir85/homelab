@@ -4,6 +4,6 @@ Ansible templates for hosts config automation
 Inventory note:
 Hostnames in inventory files must be very descriptive and specific because:
   1. The ansible.cfg file sets the default inventory path to ./inventory
-  2. the files ./inventory are brooken up into separate files
+  2. the files ./inventory are brooken into separate files
 
 Therefore, setting a generic or shared hostname n in a playbook might run against other hosts.

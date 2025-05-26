@@ -11,6 +11,8 @@ variable "nodes" {
     "k3s-main-ctrl"   = { role = "control-plane" }
     "k3s-main-node-1" = { role = "worker" }
     "k3s-main-node-2" = { role = "worker" }
+    "k3s-main-node-3" = { role = "worker" }
+    "k3s-main-node-4" = { role = "worker" }
   }
 }
 

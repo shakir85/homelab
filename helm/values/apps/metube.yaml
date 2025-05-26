@@ -1,0 +1,25 @@
+---
+app:
+  name: "meetube"
+  image:
+    repository: "ghcr.io/alexta69/metube"
+    tag: "latest"
+    pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  port: 80
+  targetPort: 8081
+
+ingress:
+  enabled: true
+  host: "meetube.shakir.cloud"
+  ingressClassName: nginx
+
+pvc:
+  enabled: true
+  mounts:
+    - name: "vol-meetube-downloads"
+      claimName: "claim-meetube-downloads"
+      mountPath: /downloads

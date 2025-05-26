@@ -29,3 +29,21 @@ releases:
     chart: {{ $statelessChartsDir }}
     values:
       - {{ printf "%s/%s" $valuesDir "metube.yaml" }}
+
+  - name: pvc-speedtest
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "speedtest.yaml" }}
+
+  - name: pvc-s-pdf
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "s-pdf.yaml" }}
+
+  - name: uptime-kuma
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "uptime-kuma.yaml" }}

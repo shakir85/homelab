@@ -1,0 +1,40 @@
+---
+namespace: "apps"
+pvc:
+  enabled: true
+  mounts:
+    - name: "pvc-s-pdf-trainingdataf"
+      claimName: "claim-s-pdf-trainingdata"
+      accessMode: ReadWriteMany
+      storageClassName: nfs-client
+      storage: "50Mi"
+      mountPath: "/usr/share/tessdata"
+      labels:
+        app: "s-pdf"
+      annotations:
+        volume.kubernetes.io/description: "Data volume for s-pdf"
+        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"
+
+    - name: "pvc-s-pdf-config"
+      claimName: "claim-s-pdf-config"
+      accessMode: ReadWriteMany
+      storageClassName: nfs-client
+      storage: "50Mi"
+      mountPath: "/configs"
+      labels:
+        app: "s-pdf"
+      annotations:
+        volume.kubernetes.io/description: "Config volume for s-pdf"
+        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"
+
+    - name: "pvc-s-pdf-customFiles"
+      claimName: "claim-s-pdf-customFiles"
+      accessMode: ReadWriteMany
+      storageClassName: nfs-client
+      storage: "50Mi"
+      mountPath: "/customFiles"
+      labels:
+        app: "s-pdf"
+      annotations:
+        volume.kubernetes.io/description: "Custom Files volume for s-pdf"
+        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"

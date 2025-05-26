@@ -1,0 +1,42 @@
+---
+namespace: apps
+app:
+  name: "s-pdf"
+  image:
+    repository: "frooodle/s-pdf:latest"
+    tag: "latest"
+    pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  port: 80
+  targetPort: 80
+
+ingress:
+  enabled: true
+  host: "spdf.shakir.cloud"
+  ingressClassName: nginx
+
+env:
+  - name: DOCKER_ENABLE_SECURITY
+    value: "false"
+  - name: INSTALL_BOOK_AND_ADVANCED_HTML_OPS
+    value: "false"
+  - name: LANGS
+    value: "en_US"
+
+pvc:
+  enabled: true
+  mounts:
+    - name: "vol-s-pdf-trainingdata"
+      claimName: "claim-s-pdf-trainingdata"
+      mountPath: /usr/share/tessdata
+
+    - name: "vol-s-pdf-config"
+      claimName: "claim-s-pdf-config"
+      mountPath: /configs
+
+    - name: "vol-s-pdf-customFiles"
+      claimName: "claim-s-pdf-customFiles"
+      mountPath: /customFiles

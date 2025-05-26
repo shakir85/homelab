@@ -26,6 +26,17 @@ spec:
             {{- end }}
           ports:
             - containerPort: {{ .Values.service.port }}
+
+          {{- if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            exec:
+              command: {{ toJson .Values.livenessProbe.command }}
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+          {{- end }}
+
           {{- if .Values.pvc.enabled }}
           volumeMounts:
             {{- range .Values.pvc.mounts }}

@@ -1,0 +1,36 @@
+---
+# Optional override; otherwise Helm's `--namespace`,`-n` or default is used
+# namespace: ""
+app:
+  name: "actualbudget"
+  image:
+    repository: "docker.io/actualbudget/actual-server"
+    tag: "sha-a9047bf"
+    pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  port: 80
+  targetPort: 5006
+
+ingress:
+  enabled: true
+  host: "budget.shakir.cloud"
+  ingressClassName: nginx
+
+livenessProbe:
+  enabled: true
+  command: ["node", "src/scripts/health-check.js"]
+  initialDelaySeconds: 20
+  periodSeconds: 60
+  timeoutSeconds: 10
+  failureThreshold: 3
+
+pvc:
+  enabled: true
+  mounts:
+    - name: "vol-actualbudget"
+      claimName: "claim-actualbudget"
+      mountPath: /data
+

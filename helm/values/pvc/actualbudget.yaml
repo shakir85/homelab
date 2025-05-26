@@ -2,15 +2,16 @@
 namespace: "apps"
 pvc:
   enabled: true
+  # Replace this map to create additional PVCs.
   mounts:
-    - name: "pvc-uptime-kuma"
-      claimName: "claim-uptime-kuma"
+    - name: "pvc-actualbudget"
+      claimName: "claim-actualbudget"
       accessMode: ReadWriteMany
       storageClassName: nfs-client
       storage: "50Mi"
-      mountPath: "/app/data"
+      mountPath: "/data"
       labels:
-        app: "uptime-kuma"
+        app: "actualbudget"
       annotations:
-        volume.kubernetes.io/description: "Data volume for uptime-kuma"
+        volume.kubernetes.io/description: "Data volume for actualbudget"
         custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"

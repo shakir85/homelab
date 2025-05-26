@@ -54,8 +54,8 @@ releases:
     values:
       - {{ printf "%s/%s" $valuesDir "s-pdf.yaml" }}
 
-  - name: uptime-kuma
+  - name: actualbudget
     namespace: {{ $commonNamespace }}
     chart: {{ $statelessChartsDir }}
     values:
-      - {{ printf "%s/%s" $valuesDir "uptime-kuma.yaml" }}
+      - {{ printf "%s/%s" $valuesDir "actualbudget.yaml" }}

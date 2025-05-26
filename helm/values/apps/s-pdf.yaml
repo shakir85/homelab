@@ -3,7 +3,7 @@ namespace: apps
 app:
   name: "s-pdf"
   image:
-    repository: "frooodle/s-pdf:latest"
+    repository: "frooodle/s-pdf"
     tag: "latest"
     pullPolicy: IfNotPresent
 

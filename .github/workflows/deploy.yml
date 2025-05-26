@@ -36,4 +36,4 @@ jobs:
       #     kubectl config use-context gha-actions
 
       - name: Apply all helmfile releases
-        run: helmfile apply
+        run: helmfile apply --args "--force"

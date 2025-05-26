@@ -20,6 +20,8 @@ all:
         k3s-main-ctrl:
         k3s-main-node-1:
         k3s-main-node-2:
+        k3s-main-node-3:
+        k3s-main-node-4:
 
     k3s_utils_managed_hosts:
       hosts:

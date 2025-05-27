@@ -60,7 +60,7 @@ releases:
     values:
       - {{ printf "%s/%s" $valuesDir "actualbudget.yaml" }}
 
-  - name: actualbudget
+  - name: it-tools
     namespace: {{ $commonNamespace }}
     chart: {{ $statelessChartsDir }}
     values:

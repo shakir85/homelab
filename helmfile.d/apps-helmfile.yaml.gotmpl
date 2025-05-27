@@ -6,8 +6,56 @@
 {{- $commonNamespace := "apps" -}}
 
 releases:
+  - name: excalidraw
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "excalidraw.yaml" }}
+
+  - name: change-detection
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "change-detection.yaml" }}
+
   - name: deemix
     namespace: {{ $commonNamespace }}
     chart: {{ $statelessChartsDir }}
     values:
       - {{ printf "%s/%s" $valuesDir "deemix.yaml" }}
+
+  - name: homarr
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "homarr.yaml" }}
+
+  - name: metube
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "metube.yaml" }}
+
+  - name: omni-tools
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "omni-tools.yaml" }}
+
+  - name: speedtest
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "speedtest.yaml" }}
+
+  - name: s-pdf
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "s-pdf.yaml" }}
+
+  - name: actualbudget
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statelessChartsDir }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "actualbudget.yaml" }}

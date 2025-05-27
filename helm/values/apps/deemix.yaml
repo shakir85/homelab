@@ -34,17 +34,6 @@ ingress:
 
 pvc:
   enabled: true
-  # List of PVC mounts the app needs
-  mounts:
-    - name: "vol-deemix-downloads"
-      claimName: "claim-deemix-downloads"
-      mountPath: /downloads
-    - name: "vol-deemix-config"
-      claimName: "claim-deemix-config"
-      mountPath: /config
-
-pvc:
-  enabled: true
   claimName: claim-deemix
   mountPaths:
     - /downloads

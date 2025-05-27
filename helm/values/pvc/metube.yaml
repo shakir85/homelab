@@ -2,15 +2,13 @@
 namespace: "apps"
 pvc:
   enabled: true
-  mounts:
-    - name: "pvc-metube-downloads"
-      claimName: "claim-metube-downloads"
-      accessMode: ReadWriteMany
-      storageClassName: nfs-client
-      storage: "100Mi"
-      mountPath: "/downloads"
-      labels:
-        app: "metube"
-      annotations:
-        volume.kubernetes.io/description: "Downloads volume for metube"
-        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"
+  name: pvc-metube
+  claimName: claim-metube
+  accessMode: ReadWriteMany
+  storageClassName: nfs-client
+  storage: 100Mi
+  labels:
+    app: metube
+  annotations:
+    volume.kubernetes.io/description: "Shared PVC for metube"
+    custom.synology/path-hint: "maps to /vol1/k3s-main/pvc-<uid>"

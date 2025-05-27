@@ -34,9 +34,8 @@ ingress:
 
 pvc:
   enabled: true
-  # List of PVC mounts the app needs
-  mounts:
-    - name: "vol-change-detection"
-      claimName: "claim-change-detection"
-      mountPath: /data
+  claimName: claim-change-detection
+  mountPaths:
+    - /data
+
 

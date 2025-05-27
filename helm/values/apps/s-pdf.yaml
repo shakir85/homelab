@@ -28,15 +28,8 @@ env:
 
 pvc:
   enabled: true
-  mounts:
-    - name: "vol-s-pdf-trainingdata"
-      claimName: "claim-s-pdf-trainingdata"
-      mountPath: /usr/share/tessdata
-
-    - name: "vol-s-pdf-config"
-      claimName: "claim-s-pdf-config"
-      mountPath: /configs
-
-    - name: "vol-s-pdf-customfiles"
-      claimName: "claim-s-pdf-customfiles"
-      mountPath: /customfiles
+  claimName: claim-s-pdf
+  mountPaths:
+    - /customfiles
+    - /configs
+    - /usr/share/tessdata

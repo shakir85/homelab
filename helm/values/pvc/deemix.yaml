@@ -11,4 +11,4 @@ pvc:
     app: deemix
   annotations:
     volume.kubernetes.io/description: "Shared PVC for deemix"
-    custom.synology/path-hint: "maps to /vol1/k3s/pvc-<uid>"
+    custom.synology/path-hint: "maps to /vol1/k3s-main/pvc-<uid>"

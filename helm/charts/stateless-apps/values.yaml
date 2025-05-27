@@ -42,11 +42,9 @@ livenessProbe:
   failureThreshold: 3
 
 # This chart will not provision a PVC. If the app needs a storage, then a PVC
-# must be up and running before deploying this chart.
+# must be up and running before deploying this chart. This is a single PVC
+# with multiple mount points.
 pvc:
   enabled: false
-  # List of PVC mounts the app needs
-  mounts:
-    # - name: unique-volume-id
-    #   claimName: pvc-name-provisioned-by-storage-chart
-    #   mountPath: /path/in/container
+  claimName: ""
+  mountPaths: []

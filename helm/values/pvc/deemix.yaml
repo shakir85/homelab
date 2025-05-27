@@ -2,27 +2,13 @@
 namespace: "apps"
 pvc:
   enabled: true
-  mounts:
-    - name: "pvc-deemix-downloads"
-      claimName: "claim-deemix-downloads"
-      accessMode: ReadWriteMany
-      storageClassName: nfs-client
-      storage: "500Mi"
-      mountPath: "/downloads"
-      labels:
-        app: "deemix"
-      annotations:
-        volume.kubernetes.io/description: "Downloads volume for deemix"
-        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"
-
-    - name: "pvc-deemix-config"
-      claimName: "claim-deemix-config"
-      accessMode: ReadWriteMany
-      storageClassName: nfs-client
-      storage: "500Mi"
-      mountPath: "/config"
-      labels:
-        app: "deemix"
-      annotations:
-        volume.kubernetes.io/description: "Config volume for deemix"
-        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"
+  name: pvc-deemix
+  claimName: claim-deemix
+  accessMode: ReadWriteMany
+  storageClassName: nfs-client
+  storage: 100Mi
+  labels:
+    app: deemix
+  annotations:
+    volume.kubernetes.io/description: "Shared PVC for deemix"
+    custom.synology/path-hint: "maps to /vol1/k3s/pvc-<uid>"

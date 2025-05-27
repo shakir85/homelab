@@ -1,39 +1,41 @@
-{{- if and .Values.pvc.mounts }}
+{{- if and .Values.pvc.enabled .Values.pvc.claimName }}
 
-✅ {{ .Chart.Name }} PVCs have been successfully deployed!
+✅ {{ .Chart.Name }} PVC has been successfully deployed!
 
-🔖 Summary of the created PVCs:
+🔖 PVC Details:
 
-{{- range .Values.pvc.mounts }}
-  - Claim Name:  {{ .claimName }}
-    Mount Path:  {{ .mountPath }}
-    Storage:     {{ .storage | default "1Mi" }}
-    AccessMode:  {{ .accessMode | default "ReadWriteMany" }}
-    StorageClass: {{ .storageClassName }}
-{{- $hint := index .annotations "custom.synology/path-hint" }}
+  - Claim Name:   {{ .Values.pvc.claimName }}
+  - Storage:      {{ .Values.pvc.storage | default "1Gi" }}
+  - Access Mode:  {{ .Values.pvc.accessMode | default "ReadWriteMany" }}
+  - Storage Class:{{ .Values.pvc.storageClassName | default "nfs-client" }}
+
+{{- $hint := index .Values.pvc.annotations "custom.synology/path-hint" }}
 {{- if $hint }}
-    NAS Path Hint: {{ $hint }}
-{{- end }}
+  - NAS Path Hint: {{ $hint }}
 {{- end }}
 
-💡 These PVCs are dynamically provisioned using the CSI NFS driver.
-   The actual NFS share directory names will follow the pattern `pvc-<uuid>`.
+💡 This PVC is dynamically provisioned using the CSI NFS driver.
+   The actual NFS share directory will be named like `pvc-<uuid>`.
 
-🧭 Use labels and annotations to track their usage and pod associations.
+🧭 Use labels and annotations to track this volume and its purpose.
 
 {{- else }}
 
-⚠️ No PVCs were created. Either `pvc.mounts` is empty or disabled.
+⚠️ No PVC was created. Either `pvc.enabled` is `false` or `pvc.claimName` is missing.
 
-To create PVCs, make sure to enable them in your values file:
+To create a PVC, your values file should include:
 
   pvc:
-    mounts:
-      - name: pvc-<name>
-        claimName: claim-<name>
-        mountPath: /app/data
-        storageClassName: nfs-client
-        storage: 1Gi
+    enabled: true
+    claimName: app-shared-pvc
+    accessMode: ReadWriteMany
+    storageClassName: nfs-client
+    storage: 5Gi
+    labels:
+      app: my-app
+    annotations:
+      volume.kubernetes.io/description: "Shared volume for app"
+      custom.synology/path-hint: "maps to /vol/k8s/..."
 
 {{- end }}
 

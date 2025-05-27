@@ -1,39 +1,20 @@
-{{- define "validate.pvc.mounts" }}
-{{- $claimNames := dict }}
-{{- range .Values.pvc.mounts }}
-  {{- if not .mountPath }}
-    {{- fail (printf "PVC mountPath is required for claimName '%s'" .claimName) }}
-  {{- end }}
-  {{- if hasKey $claimNames .claimName }}
-    {{- fail (printf "Duplicate PVC claimName detected: '%s'" .claimName) }}
-  {{- end }}
-  {{- $_ := set $claimNames .claimName true }}
-{{- end }}
-{{- end }}
-
-{{- if and .Values.pvc.enabled .Values.pvc.mounts }}
-{{- template "validate.pvc.mounts" . }}
-{{- range .Values.pvc.mounts }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .claimName }}
-  namespace: {{ $.Values.namespace | default $.Release.Namespace }}
+  name: {{ .Values.pvc.claimName }}
+  namespace: {{ .Values.namespace | default .Release.Namespace }}
   labels:
-    {{- with .labels }}
+    {{- with .Values.pvc.labels }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
   annotations:
-    {{- with .annotations }}
+    {{- with .Values.pvc.annotations }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
 spec:
   accessModes:
-    - {{ .accessMode | default "ReadWriteMany" }}
+    - {{ .Values.pvc.accessMode | default "ReadWriteMany" }}
   resources:
     requests:
-      storage: {{ .storage | default "1Gi" }}
-  storageClassName: {{ .storageClassName | default "nfs-client" }}
----
-{{- end }}
-{{- end }}
+      storage: {{ .Values.pvc.storage | default "1Gi" }}
+  storageClassName: {{ .Values.pvc.storageClassName | default "nfs-client" }}

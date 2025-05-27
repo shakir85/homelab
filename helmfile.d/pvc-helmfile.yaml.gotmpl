@@ -6,44 +6,8 @@
 {{- $commonNamespace := "apps" -}}
 
 releases:
-  - name: pvc-change-detection
-    namespace: {{ $commonNamespace }}
-    chart: {{ $statelessChartsDir }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "change-detection.yaml" }}
-
   - name: pvc-deemix
     namespace: {{ $commonNamespace }}
     chart: {{ $statelessChartsDir }}
     values:
       - {{ printf "%s/%s" $valuesDir "deemix.yaml" }}
-
-  - name: pvc-homarr
-    namespace: {{ $commonNamespace }}
-    chart: {{ $statelessChartsDir }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "homarr.yaml" }}
-
-  - name: pvc-metube
-    namespace: {{ $commonNamespace }}
-    chart: {{ $statelessChartsDir }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "metube.yaml" }}
-
-  - name: pvc-speedtest
-    namespace: {{ $commonNamespace }}
-    chart: {{ $statelessChartsDir }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "speedtest.yaml" }}
-
-  - name: pvc-s-pdf
-    namespace: {{ $commonNamespace }}
-    chart: {{ $statelessChartsDir }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "s-pdf.yaml" }}
-
-  - name: pvc-actualbudget
-    namespace: {{ $commonNamespace }}
-    chart: {{ $statelessChartsDir }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "actualbudget.yaml" }}

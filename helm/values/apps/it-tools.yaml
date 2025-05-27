@@ -1,0 +1,19 @@
+---
+namespace: apps
+app:
+  name: "it-tools"
+  image:
+    repository: "corentinth/it-tools"
+    tag: "latest"
+    pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  port: 80
+  targetPort: 80
+
+ingress:
+  enabled: true
+  host: "it-tools.shakir.cloud"
+  ingressClassName: nginx

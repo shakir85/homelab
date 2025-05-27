@@ -42,3 +42,10 @@ pvc:
     - name: "vol-deemix-config"
       claimName: "claim-deemix-config"
       mountPath: /config
+
+pvc:
+  enabled: true
+  claimName: claim-deemix
+  mountPaths:
+    - /downloads
+    - /config

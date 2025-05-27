@@ -39,16 +39,16 @@ spec:
 
           {{- if .Values.pvc.enabled }}
           volumeMounts:
-            {{- range .Values.pvc.mounts }}
-            - name: {{ .name }}
-              mountPath: {{ .mountPath }}
+            {{- $claimName := .Values.pvc.claimName }}
+            {{- range .Values.pvc.mountPaths }}
+            - name: {{ $claimName }}
+              mountPath: {{ . }}
+              subPath: {{ trimPrefix "/" . }}
             {{- end }}
           {{- end }}
       {{- if .Values.pvc.enabled }}
       volumes:
-        {{- range .Values.pvc.mounts }}
-        - name: {{ .name }}
+        - name: {{ .Values.pvc.claimName }}
           persistentVolumeClaim:
-            claimName: {{ .claimName }}
-        {{- end }}
+            claimName: {{ .Values.pvc.claimName }}
       {{- end }}

@@ -2,16 +2,13 @@
 namespace: "apps"
 pvc:
   enabled: true
-  # Replace this map to create additional PVCs.
-  mounts:
-    - name: "pvc-actualbudget"
-      claimName: "claim-actualbudget"
-      accessMode: ReadWriteMany
-      storageClassName: nfs-client
-      storage: "50Mi"
-      mountPath: "/data"
-      labels:
-        app: "actualbudget"
-      annotations:
-        volume.kubernetes.io/description: "Data volume for actualbudget"
-        custom.synology/path-hint: "maps to /volume1/k3s/pvc-<uid>"
+  name: pvc-actualbudget
+  claimName: claim-actualbudget
+  accessMode: ReadWriteMany
+  storageClassName: nfs-client
+  storage: 100Mi
+  labels:
+    app: actualbudget
+  annotations:
+    volume.kubernetes.io/description: "Shared PVC for actualbudget"
+    custom.synology/path-hint: "maps to /vol1/k3s-main/pvc-<uid>"

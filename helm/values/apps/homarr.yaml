@@ -19,13 +19,8 @@ ingress:
 
 pvc:
   enabled: true
-  mounts:
-    - name: "vol-homarr-config"
-      claimName: "claim-homarr-config"
-      mountPath: /app/data/configs
-    - name: "vol-homarr-data"
-      claimName: "claim-homarr-data"
-      mountPath: /data
-    - name: "vol-homarr-icons"
-      claimName: "claim-homarr-icons"
-      mountPath: /app/public/icons
+  claimName: claim-homarr
+  mountPaths:
+    - /icons
+    - /data
+    - /config

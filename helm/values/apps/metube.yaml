@@ -19,7 +19,6 @@ ingress:
 
 pvc:
   enabled: true
-  mounts:
-    - name: "vol-metube-downloads"
-      claimName: "claim-metube-downloads"
-      mountPath: /downloads
+  claimName: claim-metube
+  mountPaths:
+    - /downloads

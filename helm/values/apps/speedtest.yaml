@@ -30,8 +30,7 @@ env:
 
 pvc:
   enabled: true
-  mounts:
-    - name: "vol-speedtest"
-      claimName: "claim-speedtest"
-      mountPath: /config
+  claimName: claim-speedtest
+  mountPaths:
+    - /config
 

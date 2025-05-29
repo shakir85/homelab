@@ -34,7 +34,7 @@ module "k3s_vms" {
   hostname            = each.key
   timezone            = "America/Los_Angeles"
   cloud_image_info    = ["sdc", "debian-12-generic-amd64.qcow2.img"]
-  memory              = each.value.role == "control-plane" ? 8192 : 4096
+  memory              = each.value.role == "control-plane" ? 16384 : 8192
   cores               = 2
   sockets             = 1
   disk_size           = 50

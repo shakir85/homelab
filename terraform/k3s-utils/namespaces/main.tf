@@ -1,5 +1,5 @@
 module "actions_namespace" {
-  source = "../../modules/namespaces"
+  source = "../../modules/namespace"
   name   = "actions"
   labels = {
     "app.kubernetes.io/managed-by" = "terraform"

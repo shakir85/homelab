@@ -1,22 +1,16 @@
 name: TF Lint
 
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-    paths:
-      - 'terraform/**'
+  workflow_call:
 
 jobs:
   code-lint:
-    runs-on: default
+    runs-on: self-hosted
     container:
       image: ghcr.io/shakir85/tf-tools:latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: shakir85/checkout@v4
         with:
           ref: ${{ github.head_ref }}
 

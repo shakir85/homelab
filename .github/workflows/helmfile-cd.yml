@@ -10,8 +10,7 @@ jobs:
       KUBECONFIG: ${{ github.workspace }}/kubeconfig
 
     steps:
-      - name: Checkout repo
-        uses: shakir85/checkout@v4
+      - uses: shakir85/checkout@v4
 
       - run: |
           echo "${{ secrets.KUBECONFIG_K3S_MAIN }}" > "${KUBECONFIG}"
@@ -30,5 +29,5 @@ jobs:
           sudo mv helmfile /usr/local/bin/
           sudo chmod +x /usr/local/bin/helmfile
 
-      - name: Apply all helmfile releases
+      - name: Apply Helmfile releases
         run: helmfile apply

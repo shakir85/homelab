@@ -9,12 +9,14 @@
   ansible.builtin.unarchive:
     src: "/tmp/helm.tar.gz"
     dest: "/tmp/"
-    remote_src: yes
+    remote_src: true
 
 - name: Move Helm binary to install path
   ansible.builtin.command:
     cmd: "mv /tmp/linux-amd64/helm {{ helm_install_path }}"
-  become: yes
+  become: true
+  register: task_stdout
+  changed_when: task_stdout.rc != 0
 
 - name: Ensure helm is executable
   ansible.builtin.file:

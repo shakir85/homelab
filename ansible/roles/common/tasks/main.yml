@@ -28,9 +28,12 @@
 
 - name: Set vim as the default editor
   ansible.builtin.command: update-alternatives --set editor /usr/bin/vim.basic
+  register: task_stdout
+  changed_when: task_stdout.rc != 0
 
 - name: Backup and deploy /etc/hosts file
   ansible.builtin.template:
     src: templates/etc_hosts.j2
     dest: /etc/hosts
     backup: true
+    mode: "0644"

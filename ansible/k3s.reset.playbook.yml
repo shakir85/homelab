@@ -15,7 +15,7 @@
 # I disabled the built-in load balancer of k3s, allowing me to use MetalLB as an alternative.
 # This change enhances flexibility in load balancing configurations.
 - name: Play to reset k3s cluster
-- hosts: k3s_cluster
+  hosts: k3s_cluster
   ignore_unreachable: true
   gather_facts: true
   become: true

@@ -1,5 +1,5 @@
 module "cert_manager_namespace" {
-  source = "../../modules/namespaces"
+  source = "../../modules/namespace"
   name   = var.kube_namespace
   labels = {
     "app.kubernetes.io/managed-by" = "terraform"

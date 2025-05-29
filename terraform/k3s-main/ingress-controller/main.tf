@@ -1,5 +1,5 @@
 module "ingress_ns" {
-  source = "../../modules/namespaces"
+  source = "../../modules/namespace"
   name   = "ingress-nginx"
   labels = {
     "app.kubernetes.io/managed-by" = "terraform"

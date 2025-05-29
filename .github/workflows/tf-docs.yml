@@ -22,7 +22,7 @@ jobs:
 
       - uses: ./.github/actions/setup-git
         with:
-          repo-path: /__w/proxmox-tf-modules/proxmox-tf-modules
+          repo-path: /__w/homelab/homelab
 
       - run: |
           git fetch origin ${{ github.head_ref }}

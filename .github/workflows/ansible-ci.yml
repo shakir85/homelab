@@ -1,0 +1,16 @@
+name: "Terraform CI Pipeline"
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - "ansible/**"
+
+jobs:
+  lint:
+    uses: ./.github/workflows/ansible-lint.yml
+    with:
+      working-directory: "ansible/"

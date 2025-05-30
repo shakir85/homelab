@@ -1,0 +1,28 @@
+name: Ansible Lint
+
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        description: 'Directory containing Ansible playbooks and roles'
+        required: false
+        type: string
+        default: 'ansible'
+
+jobs:
+  lint:
+    runs-on: self-hosted
+    timeout-minutes: 10
+    continue-on-error: true
+
+    steps:
+      - uses: shakir85/checkout@v4
+
+      - name: Ansible Lint with Reviewdog
+        uses: reviewdog/action-ansiblelint@v1
+        with:
+          workdir: ${{ inputs.working-directory }}
+          reporter: github-pr-review
+          level: warning
+          fail_level: error
+          filter_mode: added

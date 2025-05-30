@@ -9,7 +9,7 @@
 # typically found in Debian 11+. Safely removed here to print the
 # role's custom SSH login message.
 - name: Check if /etc/motd exists
-  ansible.builtin.stat:
+  stat:
     path: /etc/motd
   register: motd_file
 

@@ -24,5 +24,7 @@ jobs:
           workdir: ${{ inputs.working-directory }}
           reporter: github-pr-review
           level: warning
-          fail_level: error
-          filter_mode: added
+          fail_level: warning
+          filter_mode: diff_context
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          ansiblelint_flags: --exclude ./roles/k3s

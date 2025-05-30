@@ -9,6 +9,11 @@ on:
     paths:
       - "ansible/**"
 
+# Allow Reviewdog to write comments on the PR
+permissions:
+  pull-requests: write
+  contents: read
+
 jobs:
   lint:
     uses: ./.github/workflows/ansible-lint.yml

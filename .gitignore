@@ -1,3 +1,5 @@
+.DS_Store
+
 # IDEs/Text Editors
 .idea/
 .vscode/

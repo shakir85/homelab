@@ -60,10 +60,16 @@ config:
   # To use an existing ConfigMap uncomment this line and specify the name
   # useExistingConfigMap: existing-homepage-configmap
   bookmarks:
-    - Developer:
-        - Github:
-            - abbr: GH
-              href: https://github.com/
+    - Bookmarks:
+        - GitLab:
+            - abbr: GL
+              href: https://gitlab.com/
+        - LibGen:
+            - abbr: LG
+              href: https://libgen.is/
+        - Reddit:
+            - abbr: RD
+              href: https://reddit.com/
 
   services:
       - Infrastructure:
@@ -122,7 +128,7 @@ config:
               href: https://budget.shakir.cloud
               description: Actual Budget Personal Finance
 
-      - Other:
+      - Utilities:
           - S-pdf:
               icon: sh-stirling-pdf
               href: https://spdf.shakir.cloud
@@ -186,7 +192,8 @@ config:
       Multimedia:
       Productivity:
       Synology:
-      Developer:
+      Utilities:
+      Bookmarks:
 # -- Main environment variables. Template enabled.
 # Syntax options:
 # A) TZ: UTC

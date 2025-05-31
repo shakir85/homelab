@@ -87,11 +87,11 @@ config:
               description: Synology DSM
           - Photos:
               icon: synology-photos
-              href: https://apps.shakir.cloud/photos
+              href: https://photos.shakir.cloud
               description: Synology Photos
           - Drive:
               icon: synology-drive
-              href: https://apps.shakir.cloud/drive
+              href: https://drive.shakir.cloud
               description: Synology Drive
 
       - Multimedia:

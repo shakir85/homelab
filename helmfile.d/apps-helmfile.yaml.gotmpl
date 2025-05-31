@@ -63,6 +63,6 @@ releases:
 
   - name: homepage
     namespace: {{ $commonNamespace }}
-    chart: {{ printf "%s/%s" $rootChartsDir "homepage" }}
+    chart: {{ printf "%s/%s" $rootChartsDir "homepage-2.1.0.tgz" }}
     values:
       - {{ printf "%s/%s" $valuesDir "homepage.yaml" }}

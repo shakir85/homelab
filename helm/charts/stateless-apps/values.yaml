@@ -48,3 +48,6 @@ pvc:
   enabled: false
   claimName: ""
   mountPaths: []
+
+# Affinity rules for pod scheduling.
+affinity: {}

@@ -66,3 +66,9 @@ releases:
     chart: {{ printf "%s/%s" $rootChartsDir "homepage-2.1.0.tgz" }}
     values:
       - {{ printf "%s/%s" $valuesDir "homepage.yaml" }}
+
+  - name: jellyfin
+    namespace: {{ $commonNamespace }}
+    chart: {{ "jellyfin/jellyfin" }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "jellyfin.yaml" }}

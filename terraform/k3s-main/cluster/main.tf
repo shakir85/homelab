@@ -59,6 +59,8 @@ variable "nodes" {
     "k3s-main-node-2" = { role = "worker" }
     "k3s-main-node-3" = { role = "worker" }
     "k3s-main-node-4" = { role = "worker" }
+    "k3s-main-node-5" = { role = "worker" }
+    "k3s-main-node-6" = { role = "worker" }
   }
 }
 

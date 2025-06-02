@@ -66,7 +66,25 @@ No providers.
 
 The following Modules are called:
 
-### <a name="module_k3s_vms"></a> [k3s\_vms](#module\_k3s\_vms)
+### <a name="module_control_plane_vms"></a> [control\_plane\_vms](#module\_control\_plane\_vms)
+
+Source: git::https://github.com/shakir85/terraform_modules.git//proxmox/vm
+
+Version: v0.2.2
+
+### <a name="module_nodes_group_large_vms"></a> [nodes\_group\_large\_vms](#module\_nodes\_group\_large\_vms)
+
+Source: git::https://github.com/shakir85/terraform_modules.git//proxmox/vm
+
+Version: v0.2.2
+
+### <a name="module_nodes_group_medium_vms"></a> [nodes\_group\_medium\_vms](#module\_nodes\_group\_medium\_vms)
+
+Source: git::https://github.com/shakir85/terraform_modules.git//proxmox/vm
+
+Version: v0.2.2
+
+### <a name="module_nodes_group_small_vms"></a> [nodes\_group\_small\_vms](#module\_nodes\_group\_small\_vms)
 
 Source: git::https://github.com/shakir85/terraform_modules.git//proxmox/vm
 
@@ -123,6 +141,7 @@ Type:
 ```hcl
 map(object({
     role = string
+    size = optional(string)
   }))
 ```
 
@@ -134,25 +153,25 @@ Default:
     "role": "control-plane"
   },
   "k3s-main-node-1": {
-    "role": "worker"
+    "role": "worker",
+    "size": "small"
   },
   "k3s-main-node-2": {
-    "role": "worker"
+    "role": "worker",
+    "size": "medium"
   },
   "k3s-main-node-3": {
-    "role": "worker"
+    "role": "worker",
+    "size": "medium"
   },
   "k3s-main-node-4": {
-    "role": "worker"
+    "role": "worker",
+    "size": "large"
   }
 }
 ```
 
 ## Outputs
 
-The following outputs are exported:
-
-### <a name="output_k3s_vms_outputs"></a> [k3s\_vms\_outputs](#output\_k3s\_vms\_outputs)
-
-Description: Print any output block from the main module
+No outputs.
 <!-- END_TF_DOCS -->

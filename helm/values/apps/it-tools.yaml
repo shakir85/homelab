@@ -17,3 +17,14 @@ ingress:
   enabled: true
   host: "it-tools.shakir.cloud"
   ingressClassName: nginx
+
+# -- Affinity rules for pod scheduling.
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: size
+              operator: In
+              values:
+                - small

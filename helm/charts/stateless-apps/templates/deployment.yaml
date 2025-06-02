@@ -52,3 +52,7 @@ spec:
           persistentVolumeClaim:
             claimName: {{ .Values.pvc.claimName }}
       {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -113,6 +113,10 @@ config:
               icon: deemix
               href: https://deemix.shakir.cloud
               description: Deemix Music Manager
+          - Jellyfin:
+              icon: jellyfin
+              href: https://jellyfin.shakir.cloud
+              description: Jellyfin Media Server
 
       - Productivity:
           - Paperless:

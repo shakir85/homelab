@@ -1,0 +1,29 @@
+# This file is used to automatically label issues and pull requests based on the files changed.
+# It is used by the GitHub Labeler Action: https://github.com/actions/labeler
+docs:
+  - changed-files:
+    - any-glob-to-any-file: 'README*'
+
+"tool: helm":
+  - changed-files:
+      - any-glob-to-any-file: "helm/**/*"
+
+"tool: k8s":
+  - changed-files:
+      - any-glob-to-any-file: "k8s/**/*"
+
+"tool: terraform":
+  - changed-files:
+      - any-glob-to-any-file: "terraform/**/*"
+
+"tool: ansible":
+  - changed-files:
+      - any-glob-to-any-file: "ansible/**/*"
+
+"tool: gha":
+  - changed-files:
+      - any-glob-to-any-file: ".github/**/*"
+
+"tool: helmfile":
+  - changed-files:
+      - any-glob-to-any-file: "helmfile.d/**/*"

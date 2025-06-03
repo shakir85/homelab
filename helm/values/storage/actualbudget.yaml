@@ -2,9 +2,9 @@
 namespace: "apps"
 
 labels:
-  app: jellyfin
+  app: actualbudget
 annotations:
-  volume.kubernetes.io/description: "Shared PVC for jellyfin"
+  volume.kubernetes.io/description: "Shared PVC for actualbudget"
   custom.synology/path-hint: "maps to /vol1/k3s-main/pv-actualbudget"
 
 pv:

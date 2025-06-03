@@ -1,43 +1,55 @@
-{{/* Go template - helmfile - deployes PVCs helm chart */}}
+{{/* Go template - helmfile - deployes PVs and PVCs Helm chart */}}
 
 {{- /* Variable definitions */ -}}
-{{- $pvcChartDir := "../helm/charts/pvc-storage" -}}
-{{- $valuesDir := "../helm/values/pvc" -}}
+{{- $storageChartPath := "../helm/charts/storage" -}}
+{{- $valuesDir := "../helm/values/storage" -}}
 {{- $commonNamespace := "apps" -}}
 
 releases:
-  - name: pvc-change-detection
+  - name: storage-change-detection
     namespace: {{ $commonNamespace }}
-    chart: {{ $pvcChartDir }}
+    chart: {{ $storageChartPath }}
     values:
       - {{ printf "%s/%s" $valuesDir "change-detection.yaml" }}
 
-  - name: pvc-deemix
+  - name: storage-deemix
     namespace: {{ $commonNamespace }}
-    chart: {{ $pvcChartDir }}
+    chart: {{ $storageChartPath }}
     values:
       - {{ printf "%s/%s" $valuesDir "deemix.yaml" }}
 
-  - name: pvc-metube
+  - name: storage-metube
     namespace: {{ $commonNamespace }}
-    chart: {{ $pvcChartDir }}
+    chart: {{ $storageChartPath }}
     values:
       - {{ printf "%s/%s" $valuesDir "metube.yaml" }}
 
-  - name: pvc-speedtest
+  - name: storage-speedtest
     namespace: {{ $commonNamespace }}
-    chart: {{ $pvcChartDir }}
+    chart: {{ $storageChartPath }}
     values:
       - {{ printf "%s/%s" $valuesDir "speedtest.yaml" }}
 
-  - name: pvc-s-pdf
+  - name: storage-s-pdf
     namespace: {{ $commonNamespace }}
-    chart: {{ $pvcChartDir }}
+    chart: {{ $storageChartPath }}
     values:
       - {{ printf "%s/%s" $valuesDir "s-pdf.yaml" }}
 
-  - name: pvc-actualbudget
+  - name: storage-actualbudget
     namespace: {{ $commonNamespace }}
-    chart: {{ $pvcChartDir }}
+    chart: {{ $storageChartPath }}
     values:
       - {{ printf "%s/%s" $valuesDir "actualbudget.yaml" }}
+
+  - name: storage-jellyfin-config
+    namespace: {{ $commonNamespace }}
+    chart: {{ $storageChartPath }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "jellyfin-config.yaml" }}
+
+  - name: storage-jellyfin-media
+    namespace: {{ $commonNamespace }}
+    chart: {{ $storageChartPath }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "jellyfin-media.yaml" }}

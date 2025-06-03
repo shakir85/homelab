@@ -1,0 +1,26 @@
+{{- if .Values.pv.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.pv.name }}
+  namespace: {{ .Values.namespace | default .Release.Namespace }}
+  labels:
+    {{- with .Values.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  annotations:
+    {{- with .Values.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  capacity:
+    storage: {{ .Values.pv.capacity }}
+  accessModes:
+    - {{ .Values.pv.accessMode }}
+  persistentVolumeReclaimPolicy: {{ .Values.pv.reclaimPolicy }}
+  # Set to empty string to avoid dynamic NFS provisioning
+  storageClassName: ""
+  nfs:
+    server: {{ .Values.pv.nfs.server }}
+    path: {{ .Values.pv.nfs.path }}
+{{- end }}

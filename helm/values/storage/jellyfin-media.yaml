@@ -1,0 +1,27 @@
+---
+namespace: "apps"
+
+labels:
+  app: jellyfin
+annotations:
+  volume.kubernetes.io/description: "Shared PVC for jellyfin media"
+  custom.synology/path-hint: "maps to /vol1/k3s-main/pv-jellyfin-media"
+
+pv:
+  enabled: true
+  name: pv-jellyfin-media
+  accessMode: ReadWriteMany
+  storageClassName: ""
+  storage: 1Gi
+  reclaimPolicy: Retain
+  nfs:
+    server: "10.10.50.38"
+    path: "/volume1/k3s-main/pv-jellyfin-media"
+
+pvc:
+  enabled: true
+  name: pvc-jellyfin-media
+  claimName: claim-jellyfin-media
+  accessMode: ReadWriteMany
+  storageClassName: ""
+  storage: 1Gi

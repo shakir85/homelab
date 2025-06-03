@@ -21,6 +21,8 @@
   become: true
   roles:
     - role: common
+    - role: nfs
+    - role: helm
 
 - name: Play for configuring k3s utilities cluster
   hosts: k3s_utils_cluster

@@ -1,0 +1,27 @@
+---
+namespace: "apps"
+
+labels:
+  app: deemix
+annotations:
+  volume.kubernetes.io/description: "Shared PVC for deemix"
+  custom.synology/path-hint: "maps to /vol1/k3s-main/pv-deemix"
+
+pv:
+  enabled: true
+  name: pv-deemix
+  accessMode: ReadWriteMany
+  storageClassName: ""
+  storage: 100Mi
+  reclaimPolicy: Retain
+  nfs:
+    server: "10.10.50.38"
+    path: "/volume1/k3s-main/pv-deemix"
+
+pvc:
+  enabled: true
+  name: pvc-deemix
+  claimName: claim-deemix
+  accessMode: ReadWriteMany
+  storageClassName: ""
+  storage: 100Mi

@@ -1,0 +1,27 @@
+---
+namespace: "apps"
+
+labels:
+  app: actualbudget
+annotations:
+  volume.kubernetes.io/description: "Shared PVC for actualbudget"
+  custom.synology/path-hint: "maps to /vol1/k3s-main/pv-actualbudget"
+
+pv:
+  enabled: true
+  name: pv-actualbudget
+  accessMode: ReadWriteMany
+  storageClassName: ""
+  storage: 100Mi
+  reclaimPolicy: Retain
+  nfs:
+    server: "10.10.50.38"
+    path: "/volume1/k3s-main/pv-actualbudget"
+
+pvc:
+  enabled: true
+  name: pvc-actualbudget
+  claimName: claim-actualbudget
+  accessMode: ReadWriteMany
+  storageClassName: ""
+  storage: 100Mi

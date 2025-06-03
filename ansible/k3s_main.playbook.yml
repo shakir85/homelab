@@ -22,6 +22,7 @@
   roles:
     - role: common
     - role: helm
+    - role: nfs
 
 - name: Play for configuring k3s utilities cluster
   hosts: k3s_main_cluster

@@ -7,35 +7,27 @@
   - Claim Name:   {{ .Values.pvc.claimName }}
   - Storage:      {{ .Values.pvc.storage | default "1Gi" }}
   - Access Mode:  {{ .Values.pvc.accessMode | default "ReadWriteMany" }}
-  - Storage Class:{{ .Values.pvc.storageClassName | default "nfs-client" }}
+  - Storage Class:{{ .Values.pvc.storageClassName | default "" }}
 
-{{- $hint := index .Values.pvc.annotations "custom.synology/path-hint" }}
+{{- $hint := index .Values.annotations "custom.synology/path-hint" }}
 {{- if $hint }}
   - NAS Path Hint: {{ $hint }}
 {{- end }}
 
-💡 This PVC is dynamically provisioned using the CSI NFS driver.
-   The actual NFS share directory will be named like `pvc-<uuid>`.
+
+{{- if .Values.pvc.storageClassName }}
+
+💡 Note:
+This PVC is dynamically provisioned using the CSI NFS driver.
+The actual NFS share directory will be named like `pvc-<uuid>`.
+
+{{- end }}
 
 🧭 Use labels and annotations to track this volume and its purpose.
 
 {{- else }}
 
 ⚠️ No PVC was created. Either `pvc.enabled` is `false` or `pvc.claimName` is missing.
-
-To create a PVC, your values file should include:
-
-  pvc:
-    enabled: true
-    claimName: app-shared-pvc
-    accessMode: ReadWriteMany
-    storageClassName: nfs-client
-    storage: 5Gi
-    labels:
-      app: my-app
-    annotations:
-      volume.kubernetes.io/description: "Shared volume for app"
-      custom.synology/path-hint: "maps to /vol/k8s/..."
 
 {{- end }}
 

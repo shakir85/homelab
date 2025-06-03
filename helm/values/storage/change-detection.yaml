@@ -5,7 +5,7 @@ pvc:
   name: pvc-change-detection
   claimName: claim-change-detection
   accessMode: ReadWriteMany
-  storageClassName: nfs-client
+  storageClassName: 'nfs-client'
   storage: 100Mi
   labels:
     app: change-detection

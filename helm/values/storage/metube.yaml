@@ -9,6 +9,7 @@ pvc:
   storage: 100Mi
   labels:
     app: metube
-  annotations:
-    volume.kubernetes.io/description: "Shared PVC for metube"
-    custom.synology/path-hint: "maps to /vol1/k3s-main/pvc-<uid>"
+
+annotations:
+  volume.kubernetes.io/description: "Dynamic PVC for metube"
+  custom.synology/path-hint: "maps to /vol1/k3s-main/pvc-<uid>"

@@ -1,0 +1,67 @@
+---
+# ------------------------------------------------------------------------------
+# PV and PVC Configuration
+# ------------------------------------------------------------------------------
+# This section allows the Helm chart to reference a manually or dynamically created storage.
+# 1. Dynamic provisioning using the NFS CSI driver:
+#   If you want to provision a storage dynamically using the NFS CSI driver, set `pvc.enabled: true` and configure the `pvc` section.
+#   Ensure you have the NFS CSI driver installed in your cluster and supply the correct `storageClassName`.
+#
+# 2. Static provisioning using a manually created PersistentVolume (PV):
+#   If you want to use a manually created PersistentVolume (PV), set `pv.enabled: true` and configure the `pv` section.
+#   Ensure the PV matches the PVC configuration, especially `storageClassName`, `accessMode`, and `capacity`.
+#
+# Notes:
+# - If using a manually created PV (static volume):
+#     - Set `enabled: true`
+#     - Set `storageClassName` to "" (empty string) both in PV and PVC
+#     - Ensure accessModes and capacity match or exceed what's requested in the PVC
+#     - Optionally specify `volumeName` in the PVC to force binding to a specific PV
+# - The actual PV must be created separately (outside this chart).
+#
+# ------------------------------------------------------------------------------
+namespace: ""
+
+# Use labels and annotations to track what this PVC is for and where it's mounted
+# Dynamic provisioning via the NFS CSI driver does not allow customizing the directory name
+# All mount points created in the NFS share will be named like: pvc-<unique-pvc-uid>
+labels:
+  app: ""
+annotations:
+  volume.kubernetes.io/description: "Shared volume for app"
+  custom.synology/path-hint: "maps to /vol/k8s/path/whatever/in/you/nas"
+
+
+pvc:
+  enabled: false
+  # PVC object name. should be: vol-xxxxxx
+  name: ""
+  # Will be used in the pvc.yaml and target deployment.yaml. should be claim-xxxxxxx
+  claimName: ""
+  # Default mode, can be overriden
+  accessMode: ReadWriteMany
+  # Use only if you want dynamic provisioning via the NFS CSI driver
+  # If you want to use static provisioning, set this to "" and ensure the PV matches
+  # the PVC storage class name.
+  # Ensure storage class is provisioned, otherwise PVC will stuck on "pending" status
+  storageClassName: ""
+  # Storage size, e.g. 5Gi. It's a soft condition for non-cloud NFS providers
+  storage: 1Gi
+
+pv:
+  enabled: false
+  # PersistentVolume object name
+  name: ""
+  # PersistentVolume capacity, e.g. 5Gi
+  capacity: "1Gi"
+  # PersistentVolume access mode, e.g. ReadWriteMany
+  accessMode: ReadWriteMany
+  # PersistentVolume reclaim policy, e.g. Retain
+  reclaimPolicy: Retain
+  # For static PV, this must be "" (and match in PVC)
+  storageClassName: ""
+  # NFS configuration
+  nfs:
+    server: ""  # e.g., 10.0.0.5
+    path: ""    # e.g., /mnt/nfs/my-app
+

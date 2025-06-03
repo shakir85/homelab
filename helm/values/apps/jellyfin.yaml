@@ -181,30 +181,30 @@ persistence:
   config:
     # -- set to false to use emptyDir
     enabled: true
-    accessMode: ReadWriteOnce
-    size: 5Gi
+    # accessMode: ReadWriteOnce
+    # size: 5Gi
     # -- Custom annotations to be added to the PVC
-    annotations: {}
+    # annotations: {}
     # -- If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
-    storageClass: 'nfs-client'
+    # storageClass: 'nfs-client'
     ## -- Use an existing PVC for this mount
-    # existingClaim: ''
+    existingClaim: 'claim-jellyfin-config'
   media:
     # -- set to false to use emptyDir
     enabled: true
     # -- Type of volume for media storage (pvc, hostPath, emptyDir). If 'enabled' is false, 'emptyDir' is used regardless of this setting.
-    type: pvc
+    # type: pvc
     # -- Path on the host node for media storage, only used if type is 'hostPath'.
-    hostPath: ""
+    # hostPath: ""
     # -- PVC specific settings, only used if type is 'pvc'.
-    accessMode: ReadWriteOnce
-    size: 25Gi
+    # accessMode: ReadWriteOnce
+    # size: 25Gi
     # -- Custom annotations to be added to the PVC
-    annotations: {}
+    # annotations: {}
     # -- If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
-    storageClass: 'nfs-client'
+    # storageClass: 'nfs-client'
     ## -- Use an existing PVC for this mount
-    # existingClaim: ''
+    existingClaim: 'claim-jellyfin-media'
 
 # -- Configuration for metrics collection and monitoring
 metrics:

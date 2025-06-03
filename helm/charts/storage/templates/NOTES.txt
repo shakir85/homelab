@@ -9,7 +9,7 @@
   - Access Mode:  {{ .Values.pvc.accessMode | default "ReadWriteMany" }}
   - Storage Class:{{ .Values.pvc.storageClassName | default "nfs-client" }}
 
-{{- $hint := index .Values.pvc.annotations "custom.synology/path-hint" }}
+{{- $hint := index .Values.annotations "custom.synology/path-hint" }}
 {{- if $hint }}
   - NAS Path Hint: {{ $hint }}
 {{- end }}

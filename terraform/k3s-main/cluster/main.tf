@@ -138,7 +138,7 @@ module "nodes_group_large_vms" {
   timezone            = "America/Los_Angeles"
   cloud_image_info    = ["sdc", "debian-12-generic-amd64.qcow2.img"]
   memory              = 16384
-  cores               = 4
+  cores               = 6
   sockets             = 1
   disk_size           = 50
   description         = "Managed by Terraform."

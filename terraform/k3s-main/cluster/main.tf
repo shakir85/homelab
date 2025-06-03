@@ -72,7 +72,6 @@
  * ```
  *
  * Each VM receives tags including its role, and resources are scaled by their `size` classification.
- * The output `k3s_vms_outputs` can be used to collect and interact with all provisioned VMs.
  */
 
 variable "nodes" {

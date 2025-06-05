@@ -1,0 +1,30 @@
+terraform {
+  required_version = ">= 1.5.7"
+
+  required_providers {
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.36.0"
+    }
+  }
+}
+resource "null_resource" "label_nodes" {
+  for_each = var.node_label_map
+
+  provisioner "local-exec" {
+    command = join(" && ", [
+      for k, v in each.value :
+      "kubectl label node ${each.key} ${k}=${v} --overwrite"
+    ])
+  }
+
+  triggers = {
+    node      = each.key
+    label_str = join(",", [for k, v in each.value : "${k}=${v}"])
+  }
+}
+
+output "node_labels" {
+  description = "Map of node names to label key-values"
+  value       = var.node_label_map
+}

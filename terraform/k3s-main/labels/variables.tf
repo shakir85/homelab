@@ -9,3 +9,15 @@ variable "kube_context" {
   type        = string
   default     = "k3s-main-ctx"
 }
+
+variable "size_label_key" {
+  description = "The key for the size label"
+  type        = string
+  default     = "k3s.shakir.cloud/size"
+}
+
+variable "name_label_key" {
+  description = "The key for the name label"
+  type        = string
+  default     = "k3s.shakir.cloud/name"
+}

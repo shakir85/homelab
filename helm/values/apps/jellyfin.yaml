@@ -162,10 +162,14 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
         - matchExpressions:
-            - key: size
+            - key: k3s.shakir.cloud/size
               operator: In
               values:
-                - large
+                - x-large
+            - key: k3s.shakir.cloud/name
+              operator: In
+              values:
+                - k3s-main-tc-1
 
 jellyfin:
   # -- Enable DLNA. Requires host network. See: https://jellyfin.org/docs/general/networking/dlna.html

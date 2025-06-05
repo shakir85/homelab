@@ -44,7 +44,7 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
         - matchExpressions:
-            - key: size
+            - key: k3s.shakir.cloud/size
               operator: In
               values:
                 - small

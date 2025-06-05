@@ -15,6 +15,14 @@ all:
       ansible_host: 10.10.50.66
     k3s-main-node-4:
       ansible_host: 10.10.50.67
+    k3s-main-nuc-1:
+      ansible_host: 10.10.50.53
+    k3s-main-nuc-2:
+      ansible_host: 10.10.50.54
+    k3s-main-nuc-3:
+      ansible_host: 10.10.50.55
+    k3s-main-tc-1:
+      ansible_host: 10.10.50.56
 
   children:
     k3s_main_managed_hosts:
@@ -24,6 +32,10 @@ all:
         k3s-main-node-2:
         k3s-main-node-3:
         k3s-main-node-4:
+        k3s-main-nuc-1:
+        k3s-main-nuc-2:
+        k3s-main-nuc-3:
+        k3s-main-tc-1:
 
     k3s_main_cluster:
       children:
@@ -40,3 +52,7 @@ all:
         k3s-main-node-2:
         k3s-main-node-3:
         k3s-main-node-4:
+        k3s-main-nuc-1:
+        k3s-main-nuc-2:
+        k3s-main-nuc-3:
+        k3s-main-tc-1:

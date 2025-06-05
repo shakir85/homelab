@@ -1,0 +1,14 @@
+formatter: markdown document
+header-from: docs/_header.md
+sections:
+  hide:
+    - requirements
+    - providers
+    - resources
+    - modules
+    - outputs
+  show:
+    - inputs
+    - usage
+    - examples
+    - footer

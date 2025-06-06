@@ -39,7 +39,7 @@ module "control_plane_vms" {
   sockets             = 1
   disk_size           = 50
   description         = "Managed by Terraform."
-  enable_guest_agent = true
+  enable_guest_agent  = true
 
   tags = [
     for key, value in module.tags.tags :
@@ -93,7 +93,7 @@ module "nodes_group_medium_vms" {
   sockets             = 1
   disk_size           = 50
   description         = "Managed by Terraform."
-  enable_guest_agent = true
+  enable_guest_agent  = true
 
   tags = [
     for key, value in module.tags.tags :
@@ -120,7 +120,7 @@ module "nodes_group_small_vms" {
   sockets             = 1
   disk_size           = 50
   description         = "Managed by Terraform."
-  enable_guest_agent = true
+  enable_guest_agent  = true
 
   tags = [
     for key, value in module.tags.tags :

@@ -28,9 +28,6 @@ jobs:
           git fetch origin ${{ github.head_ref }}
           git pull origin ${{ github.head_ref }}
 
-      - name: Generate Tags Module Docs
-        run: terraform-docs markdown document ${{ inputs.path }} --output-file  README.md --output-mode inject
-
       - name: Generate Terraform Docs Recursively
         run: |
           find terraform/ -mindepth 2 -type f -name "main.tf" -exec dirname {} \; | while read dir; do

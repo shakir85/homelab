@@ -8,7 +8,7 @@ variable "nodes" {
     "k3s-main-node-1" = { role = "worker", size = "small" }
     "k3s-main-node-2" = { role = "worker", size = "medium" }
     "k3s-main-node-3" = { role = "worker", size = "medium" }
-    "k3s-main-node-4" = { role = "worker", size = "large" }
+    # "k3s-main-node-4" = { role = "worker", size = "large" }
   }
 }
 
@@ -39,6 +39,7 @@ module "control_plane_vms" {
   sockets             = 1
   disk_size           = 50
   description         = "Managed by Terraform."
+  enable_guest_agent = true
 
   tags = [
     for key, value in module.tags.tags :
@@ -65,6 +66,7 @@ module "nodes_group_large_vms" {
   sockets             = 1
   disk_size           = 50
   description         = "Managed by Terraform."
+  enable_guest_agent  = true
 
   tags = [
     for key, value in module.tags.tags :
@@ -91,6 +93,7 @@ module "nodes_group_medium_vms" {
   sockets             = 1
   disk_size           = 50
   description         = "Managed by Terraform."
+  enable_guest_agent = true
 
   tags = [
     for key, value in module.tags.tags :
@@ -117,6 +120,7 @@ module "nodes_group_small_vms" {
   sockets             = 1
   disk_size           = 50
   description         = "Managed by Terraform."
+  enable_guest_agent = true
 
   tags = [
     for key, value in module.tags.tags :

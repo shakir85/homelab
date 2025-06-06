@@ -48,3 +48,5 @@ override.tf.json
 .terraformrc
 terraform.rc
 !.terraform-docs.yml
+admin
+admin-login

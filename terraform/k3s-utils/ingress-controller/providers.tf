@@ -3,7 +3,7 @@ terraform {
 
   backend "s3" {
     region = "us-east-1"
-    key    = "nginx_ingress_ctrl-k3s_main-state"
+    key    = "nginx_ingress_ctrl-k3s_utils-state"
   }
 
   required_providers {

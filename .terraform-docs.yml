@@ -1,5 +1,4 @@
 formatter: markdown document
-output-file: README.md
 output-mode: inject
 header-from: docs/_header.md
 sections:

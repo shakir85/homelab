@@ -35,9 +35,7 @@ jobs:
         run: |
           find ${{ inputs.path }} -type f -name "main.tf" -exec dirname {} \; | while read dir; do
             echo "Generating docs for $dir"
-            terraform-docs markdown document "$dir" \
-              --output-file README.md \
-              --output-mode inject
+            terraform-docs markdown document "$dir"
           done
 
       - name: Commit changes

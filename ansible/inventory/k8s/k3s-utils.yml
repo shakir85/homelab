@@ -13,6 +13,8 @@ all:
       ansible_host: 10.10.50.62
     k3s-utils-node-3:
       ansible_host: 10.10.50.68
+    k3s-main-tc-1:
+      ansible_host: 10.10.50.56
 
   children:
     k3s_utils_managed_hosts:
@@ -21,6 +23,7 @@ all:
         k3s-utils-node-1:
         k3s-utils-node-2:
         k3s-utils-node-3:
+        k3s-main-tc-1:
 
     k3s_utils_cluster:
       children:
@@ -36,3 +39,4 @@ all:
         k3s-utils-node-1:
         k3s-utils-node-2:
         k3s-utils-node-3:
+        k3s-main-tc-1:

@@ -1,17 +1,3 @@
-variable "nodes" {
-  type = map(object({
-    role = string
-    size = optional(string)
-  }))
-  default = {
-    "k3s-main-ctrl"   = { role = "control-plane" }
-    "k3s-main-node-1" = { role = "worker", size = "small" }
-    "k3s-main-node-2" = { role = "worker", size = "medium" }
-    "k3s-main-node-3" = { role = "worker", size = "medium" }
-    # "k3s-main-node-4" = { role = "worker", size = "large" }
-  }
-}
-
 module "tags" {
   source      = "git::https://github.com/shakir85/terraform_modules.git//proxmox/tags?ref=v0.2.2"
   environment = "prod"
@@ -62,7 +48,7 @@ module "nodes_group_large_vms" {
   timezone            = "America/Los_Angeles"
   cloud_image_info    = ["sdc", "debian-12-generic-amd64.qcow2.img"]
   memory              = 16384
-  cores               = 6
+  cores               = 4
   sockets             = 1
   disk_size           = 50
   description         = "Managed by Terraform."

@@ -1,11 +1,3 @@
-module "monitoring_namespace" {
-  source = "../../modules/namespace"
-  name   = var.kube_namespace
-  labels = {
-    "app.kubernetes.io/managed-by" = "terraform"
-  }
-}
-
 resource "kubernetes_secret" "grafana_admin_credentials" {
   metadata {
     name      = "grafana-admin-credentials"

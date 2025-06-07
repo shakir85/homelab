@@ -13,7 +13,7 @@ resource "kubernetes_storage_class" "nfs" {
 
   parameters = {
     server = "10.10.50.38"
-    share  = "/volume1/k3s-main"
+    share  = "/volume1/k3s-utils"
   }
 
   reclaim_policy         = "Retain"

@@ -1,17 +1,16 @@
-module "actions_namespace" {
+module "ingress_ns" {
   source = "../../modules/namespace"
-  name   = "actions"
+  name   = "ingress-nginx"
   labels = {
     "app.kubernetes.io/managed-by" = "terraform"
   }
 }
 
-module "monitoring_namespace" {
-  source = "../../modules/namespace"
-  name   = "monitoring"
-  labels = {
-    "app.kubernetes.io/managed-by" = "terraform"
-  }
+module "nginx_ingress_controller" {
+  source        = "../../modules/nginx-ingress"
+  release_name  = "default"
+  namespace     = "ingress-nginx"
+  chart_version = "4.10.0"
 }
 
 output "kube_context_in_use" {

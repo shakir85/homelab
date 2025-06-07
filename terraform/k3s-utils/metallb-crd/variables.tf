@@ -7,7 +7,7 @@ variable "ipv4_address_pool_name" {
 
 variable "ipv4_address_pool" {
   type        = list(string)
-  default     = ["10.10.50.90-10.10.50.94"]
+  default     = ["10.10.50.95-10.10.50.99"]
   description = "To generate an address pool. An *address pool* is one or more IPv4 range. This variable is a list of strings for the IPv4 *ranges* that MetalLB will use when provisioning a Service of type LoadBalance. Example values: `['192.168.50.90-192.168.50.99', '192.168.20.45-192.168.20.60']`"
 }
 
@@ -20,7 +20,7 @@ variable "kube_config_path" {
 variable "kube_context" {
   description = "The name of the kubeconfig context to use"
   type        = string
-  default     = "k3s-main-ctx"
+  default     = "k3s-utils-ctx"
 }
 
 variable "kube_namespace" {

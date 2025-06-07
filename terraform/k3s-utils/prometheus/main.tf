@@ -10,15 +10,14 @@ resource "kubernetes_secret" "grafana_admin_credentials" {
   }
 
   type = "Opaque"
-
-  depends_on = [ module.monitoring_namespace ]
 }
 
 resource "helm_release" "prometheus_stack" {
   name       = "prometheus"
   namespace  = "monitoring"
-  chart      = "../../../helm/charts/kube-prometheus-stack"
-  version    = "73.2.0"
+  repository = "https://prometheus-community.github.io/helm-charts"
+  chart      = "kube-prometheus-stack"
+  version    = "45.0.0"
   values     = [
     file("${path.module}/values.yaml")
   ]
@@ -26,7 +25,6 @@ resource "helm_release" "prometheus_stack" {
   dependency_update = true
 
   depends_on = [
-    module.monitoring_namespace,
     kubernetes_secret.grafana_admin_credentials
   ]
 }

@@ -1,3 +1,6 @@
+# Barebones for Prometheus stack (kube-prometheus-stack) helm chart.
+# Additional configs (AlertManage endpoints, etc.) should be
+# added in the `main.tf` file as helm values.
 fullnameOverride: prometheus
 
 # Required for subcharts like Grafana
@@ -11,6 +14,21 @@ alertmanager:
     ingressClassName: "nginx"
     hosts:
       - alertmanager.shakir.cloud
+  alertmanagerSpec:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: k3s.shakir.cloud/size
+                  operator: In
+                  values:
+                    - x-large
+    tolerations:
+      - key: "dedicated"
+        operator: "Equal"
+        value: "monitoring"
+        effect: "NoSchedule"
 
 grafana:
   enabled: true
@@ -28,6 +46,20 @@ grafana:
     ingressClassName: "nginx"
     hosts:
       - grafana.shakir.cloud
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: k3s.shakir.cloud/size
+                operator: In
+                values:
+                  - x-large
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "monitoring"
+      effect: "NoSchedule"
 
 prometheus:
   enabled: true
@@ -48,6 +80,20 @@ prometheus:
     walCompression: true
     scrapeInterval: 30s
     evaluationInterval: 30s
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: k3s.shakir.cloud/size
+                  operator: In
+                  values:
+                    - x-large
+    tolerations:
+      - key: "dedicated"
+        operator: "Equal"
+        value: "monitoring"
+        effect: "NoSchedule"
 
 prometheusOperator:
   enabled: true
@@ -58,6 +104,20 @@ prometheusOperator:
         memory: 50Mi
       limits:
         memory: 100Mi
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: k3s.shakir.cloud/size
+                operator: In
+                values:
+                  - x-large
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "monitoring"
+      effect: "NoSchedule"
 
 kubeApiServer:
   enabled: true
@@ -118,6 +178,20 @@ kube-state-metrics:
           sourceLabels:
             - __meta_kubernetes_pod_node_name
           targetLabel: kubernetes_node
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: k3s.shakir.cloud/size
+                operator: In
+                values:
+                  - x-large
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "monitoring"
+      effect: "NoSchedule"
 
 nodeExporter:
   enabled: true
@@ -129,6 +203,20 @@ nodeExporter:
         sourceLabels:
           - __meta_kubernetes_pod_node_name
         targetLabel: kubernetes_node
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: k3s.shakir.cloud/size
+                operator: In
+                values:
+                  - x-large
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "monitoring"
+      effect: "NoSchedule"
 
 prometheus-node-exporter:
   fullnameOverride: node-exporter

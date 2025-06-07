@@ -81,11 +81,18 @@ config:
               icon: sh-pfsense
               href: https://pfsense.shakir.cloud:10443
               description: Pfsense Firewall
-          - Datadog:
-              icon: datadog
-              href: https://app.datadoghq.com
-              description: Datadog Monitoring
-
+          - Grafana:
+              icon: grafana
+              href: https://grafana.shakir.cloud
+              description: Grafana Monitoring
+          - Prometheus:
+              icon: prometheus
+              href: https://prometheus.shakir.cloud
+              description: Prometheus Monitoring
+          - Alertmanager:
+              icon: alertmanager
+              href: https://alertmanager.shakir.cloud
+              description: Alertmanager for Prometheus
       - Synology:
           - DSM:
               icon: sh-synology

@@ -5,7 +5,7 @@ resource "kubernetes_storage_class" "nfs" {
       "app.kubernetes.io/managed-by" = "terraform"
     }
     annotations = {
-        "storageclass.kubernetes.io/is-default-class": "true"
+      "storageclass.kubernetes.io/is-default-class" : "true"
     }
   }
 

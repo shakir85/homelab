@@ -169,7 +169,7 @@ affinity:
             - key: k3s.shakir.cloud/name
               operator: In
               values:
-                - k3s-main-tc-1
+                - k3s-main-nuc-3
 
 jellyfin:
   # -- Enable DLNA. Requires host network. See: https://jellyfin.org/docs/general/networking/dlna.html

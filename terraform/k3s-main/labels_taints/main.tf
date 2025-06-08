@@ -59,3 +59,15 @@ module "k3s-main-name-labels" {
     }
   }
 }
+
+resource "null_resource" "taint_node_k3s_main_tc_1" {
+  provisioner "local-exec" {
+    command = <<-EOT
+      kubectl taint node k3s-main-tc-1 dedicated=monitoring:NoSchedule --overwrite
+    EOT
+  }
+
+  triggers = {
+    always_run = timestamp()
+  }
+}

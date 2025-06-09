@@ -2,7 +2,7 @@
 # It is used by the GitHub Labeler Action: https://github.com/actions/labeler
 docs:
   - changed-files:
-    - any-glob-to-any-file: '**/README*'
+    - any-glob-to-any-file: "**/README*"
 
 "tool: helm":
   - changed-files:

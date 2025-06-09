@@ -1,7 +1,8 @@
 # This file is used to automatically label issues and pull requests based on the files changed.
 # It is used by the GitHub Labeler Action: https://github.com/actions/labeler
 docs:
-  - "**/README*"
+  - changed-files:
+    - any-glob-to-any-file: "**/README*"
 
 "tool: helm":
   - changed-files:

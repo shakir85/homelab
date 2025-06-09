@@ -1,15 +1,13 @@
-# Static Persistence Resources
-
-## Persistent Volume Chart
+# NFS Persistent Volume Chart (Static & Dynamic Provisioning)
 
 This Helm chart provisions a `PersistentVolumeClaim`. It supports both dynamic and static volume provisioning.
 
->[Note!]
+>[!Note]
 > In static provisioning mode, the chart explicitly binds the PVC to the matching PV using `spec.volumeName`. This avoids relying on Kubernetes to auto-select a PV and ensures the PVC is always backed by the intended NFS share. This is useful when precise control over NFS path mapping is required.
 
 ### Features
 
-- Supports dynamic provisioning via `StorageClass` (e.g., `nfs-client`, `standard`, etc.).
+- Supports dynamic provisioning via a `StorageClass`. This assumes the cluster already has an NFS CSI driver is pre-configured. See [CSI driver deployment example](https://github.com/shakir85/homelab/tree/main/terraform/k3s-main/csi-driver-nfs).
 - Supports static NFS provisioning by creating a corresponding `PersistentVolume`.
 - Optional metadata: labels, annotations, and namespace override.
 
@@ -29,7 +27,7 @@ This Helm chart provisions a `PersistentVolumeClaim`. It supports both dynamic a
 
 #### Dynamic Provisioning
 
-To enable dynamic provisioning, set a `storageClassName`:
+To enable dynamic provisioning, set a `storageClassName` and ignore the `nfs` part:
 
 ```yaml
 persistence:
@@ -38,12 +36,9 @@ persistence:
   ...
 ```
 
->[!Note]
-> Only a PersistentVolumeClaim will be created. The StorageClass must support dynamic provisioning.
-
 #### Static NFS Provisioning
 
-To enable static provisioning (i.e., PV + PVC):
+To enable static provisioning (i.e., PV + PVC), set the `nfs` config and ignore/pass an empty string to `storageClassName`:
 
 ```yaml
 persistence:

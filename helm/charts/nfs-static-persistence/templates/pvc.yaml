@@ -1,8 +1,7 @@
-{{- if .Values.pvc.enabled }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.pvc.claimName }}
+  name: {{ .Values.persistence.name }}
   namespace: {{ .Values.namespace | default .Release.Namespace }}
   labels:
     {{- with .Values.labels }}
@@ -14,13 +13,13 @@ metadata:
     {{- end }}
 spec:
   accessModes:
-    - {{ .Values.pvc.accessMode | default "ReadWriteMany" }}
+    - {{ .Values.persistence.accessMode }}
   resources:
     requests:
-      storage: {{ .Values.pvc.storage | default "1Gi" }}
-{{- if .Values.pvc.storageClassName }}
-  storageClassName: {{ .Values.pvc.storageClassName }}
+      storage: {{ .Values.persistence.size }}
+{{- if .Values.persistence.storageClassName }}
+  storageClassName: {{ .Values.persistence.storageClassName }}
 {{- else }}
   storageClassName: ""
-{{- end }}
+  volumeName: {{ .Values.persistence.name }}
 {{- end }}

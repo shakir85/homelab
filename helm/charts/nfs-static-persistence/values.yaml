@@ -1,0 +1,16 @@
+---
+labels:
+  app: ""
+annotations:
+  volume.kubernetes.io/description: "Shared volume for app"
+  custom.synology/path-hint: ""
+
+persistence:
+  name: "persistence-foo"
+  size: 1Gi
+  accessMode: ReadWriteMany
+  reclaimPolicy: Retain
+  storageClassName: ""
+  nfs:
+    server: ""  # e.g., 10.0.0.5
+    path: ""    # e.g., /mnt/nfs/my-app

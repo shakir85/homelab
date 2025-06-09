@@ -1,15 +1,15 @@
 ---
 namespace: "apps"
-pvc:
-  enabled: true
-  name: pvc-change-detection
-  claimName: claim-change-detection
-  accessMode: ReadWriteMany
-  storageClassName: 'nfs-client'
-  storage: 100Mi
-  labels:
-    app: change-detection
 
+labels:
+  app: change-detection
 annotations:
   volume.kubernetes.io/description: "Dynamic PVC for change-detection"
   custom.synology/path-hint: "maps to /vol1/k3s-main/pvc-<uid>"
+
+persistence:
+  name: change-detection
+  size: 100Mi
+  accessMode: ReadWriteMany
+  reclaimPolicy: Retain
+  storageClassName: "nfs-client"

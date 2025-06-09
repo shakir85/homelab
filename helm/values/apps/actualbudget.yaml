@@ -29,6 +29,6 @@ livenessProbe:
 
 pvc:
   enabled: true
-  claimName: claim-actualbudget
+  claimName: actualbudget
   mountPaths:
     - /data

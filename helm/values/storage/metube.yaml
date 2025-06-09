@@ -1,15 +1,17 @@
----
 namespace: "apps"
-pvc:
-  enabled: true
-  name: pvc-metube
-  claimName: claim-metube
-  accessMode: ReadWriteMany
-  storageClassName: nfs-client
-  storage: 100Mi
-  labels:
-    app: metube
 
+labels:
+  app: metube
 annotations:
-  volume.kubernetes.io/description: "Dynamic PVC for metube"
-  custom.synology/path-hint: "maps to /vol1/k3s-main/pvc-<uid>"
+  volume.kubernetes.io/description: "Shared PVC for metube"
+  custom.synology/path-hint: "maps to /vol1/k3s-main/metube"
+
+persistence:
+  name: "metube"
+  size: 100Mi
+  accessMode: ReadWriteMany
+  reclaimPolicy: Retain
+  storageClassName: ""
+  nfs:
+    server: "10.10.50.38"
+    path: "/volume1/k3s-main/metube"

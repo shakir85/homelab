@@ -28,7 +28,7 @@ env:
 
 pvc:
   enabled: true
-  claimName: claim-s-pdf
+  claimName: s-pdf
   mountPaths:
     - /customfiles
     - /configs

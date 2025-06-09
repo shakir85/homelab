@@ -34,7 +34,7 @@ ingress:
 
 pvc:
   enabled: true
-  claimName: claim-change-detection
+  claimName: change-detection
   mountPaths:
     - /data
 

@@ -192,7 +192,7 @@ persistence:
     # -- If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
     # storageClass: 'nfs-client'
     ## -- Use an existing PVC for this mount
-    existingClaim: 'claim-jellyfin-config'
+    existingClaim: 'jellyfin-config'
   media:
     # -- set to false to use emptyDir
     enabled: true
@@ -208,7 +208,7 @@ persistence:
     # -- If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
     # storageClass: 'nfs-client'
     ## -- Use an existing PVC for this mount
-    existingClaim: 'claim-jellyfin-media'
+    existingClaim: 'jellyfin-media'
 
 # -- Configuration for metrics collection and monitoring
 metrics:

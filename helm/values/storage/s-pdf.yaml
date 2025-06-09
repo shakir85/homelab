@@ -1,15 +1,15 @@
 ---
 namespace: "apps"
-pvc:
-  enabled: true
-  name: pvc-s-pdf
-  claimName: claim-s-pdf
-  accessMode: ReadWriteMany
-  storageClassName: nfs-client
-  storage: 100Mi
-  labels:
-    app: s-pdf
 
+labels:
+  app: s-pdf
 annotations:
-  volume.kubernetes.io/description: "Dynamic PVC for s-pdf"
-  custom.synology/path-hint: "maps to /vol1/k3s-main/pvc-<uid>"
+  volume.kubernetes.io/description: "Shared PVC for s-pdf"
+  custom.synology/path-hint: "maps to /vol1/k3s-main/s-pdf"
+
+persistence:
+  name: "s-pdf"
+  size: 100Mi
+  accessMode: ReadWriteMany
+  reclaimPolicy: Retain
+  storageClassName: nfs-client

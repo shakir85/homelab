@@ -1,6 +1,5 @@
 
-Stateless Apps Helm Chart
-*************************
+## Helm Chart for Stateless Apps 
 
 A generic and reusable Helm chart for deploying lightweight, stateless web-apps that share common configuration patterns such as services, ingress routing, and optional NFS volume mounts.
 

@@ -1,0 +1,16 @@
+---
+labels:
+  app: "foo"
+annotations:
+  volume.kubernetes.io/description: "Shared volume for app"
+  custom.synology/path-hint: "maps to /vol/k8s/path/whatever/in/you/nas"
+
+persistence:
+  name: "persistence-foo"
+  size: 1Gi
+  accessMode: ReadWriteMany
+  reclaimPolicy: Retain
+  storageClassName: ""
+  nfs:
+    server: "10.10.50.38"  # e.g., 10.0.0.5
+    path: "/volume1/k3s-main/pv-foo"    # e.g., /mnt/nfs/my-app

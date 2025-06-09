@@ -19,6 +19,6 @@ ingress:
 
 pvc:
   enabled: true
-  claimName: claim-metube
+  claimName: metube
   mountPaths:
     - /downloads

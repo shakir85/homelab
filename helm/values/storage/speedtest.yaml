@@ -1,15 +1,15 @@
 ---
 namespace: "apps"
-pvc:
-  enabled: true
-  name: pvc-speedtest
-  claimName: claim-speedtest
-  accessMode: ReadWriteMany
-  storageClassName: nfs-client
-  storage: 100Mi
-  labels:
-    app: speedtest
 
+labels:
+  app: speedtest
 annotations:
-  volume.kubernetes.io/description: "Dynamic PVC for speedtest"
-  custom.synology/path-hint: "maps to /vol1/k3s-main/pvc-<uid>"
+  volume.kubernetes.io/description: "Shared PVC for speedtest"
+  custom.synology/path-hint: "maps to /vol1/k3s-main/speedtest"
+
+persistence:
+  name: speedtest
+  size: 100Mi
+  accessMode: ReadWriteMany
+  reclaimPolicy: Retain
+  storageClassName: nfs-client

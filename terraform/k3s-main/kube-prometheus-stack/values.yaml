@@ -24,6 +24,10 @@ alertmanager:
                   operator: In
                   values:
                     - x-large
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                    - k3s-main-tc-1
     tolerations:
       - key: "dedicated"
         operator: "Equal"
@@ -55,6 +59,10 @@ grafana:
                 operator: In
                 values:
                   - x-large
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - k3s-main-tc-1
   tolerations:
     - key: "dedicated"
       operator: "Equal"
@@ -126,6 +134,10 @@ prometheus:
                   operator: In
                   values:
                     - x-large
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                    - k3s-main-tc-1
     tolerations:
       - key: "dedicated"
         operator: "Equal"
@@ -150,6 +162,10 @@ prometheusOperator:
                 operator: In
                 values:
                   - x-large
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - k3s-main-tc-1
   tolerations:
     - key: "dedicated"
       operator: "Equal"
@@ -224,6 +240,10 @@ kube-state-metrics:
                 operator: In
                 values:
                   - x-large
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - k3s-main-tc-1
   tolerations:
     - key: "dedicated"
       operator: "Equal"
@@ -240,15 +260,6 @@ nodeExporter:
         sourceLabels:
           - __meta_kubernetes_pod_node_name
         targetLabel: kubernetes_node
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: k3s.shakir.cloud/size
-                operator: In
-                values:
-                  - x-large
   tolerations:
     - key: "dedicated"
       operator: "Equal"
@@ -280,6 +291,11 @@ prometheus-node-exporter:
       cpu: 250m
     limits:
       memory: 2048Mi
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "monitoring"
+      effect: "NoSchedule"
 
 defaultRules:
   create: true

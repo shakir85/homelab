@@ -17,15 +17,17 @@ paperlessngx:
     pullPolicy: IfNotPresent
 
   # Paperless-Ngx env-vars. For available configuration options see: https://docs.paperless-ngx.com/configuration/
+  # Below are some commonly used options.
   env:
+    # Identify the URL at which Paperless is available. Include https:// or http://.
     - name: PAPERLESS_URL
-      value: "https://paperless.shakir.cloud"
+      value: ""
     - name: PAPERLESS_TIME_ZONE
-      value: "America/Los_Angeles"
+      value: ""
     - name: PAPERLESS_OCR_LANGUAGE
-      value: "eng"
+      value: ""
     - name: "PAPERLESS_OCR_LANGUAGES"
-      value: "ara"
+      value: ""
 
 # Creates an initial admin user by exporting the PAPERLESS_ADMIN_USER
 # and PAPERLESS_ADMIN_PASSWORD environment variables.
@@ -73,10 +75,10 @@ redis:
 # The goal is to reduce the number of resources provisioned and simplify volume management.
 persistence:
   shared:
-    existingClaim: paperless-ngx
+    existingClaim: ""
 
 ingress:
   enabled: true
-  host: "paperless.shakir.cloud"
-  ingressClassName: nginx
+  host: ""
+  ingressClassName: ""
   annotations: {}

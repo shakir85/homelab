@@ -27,7 +27,7 @@ spec:
             {{- end }}
 
             - name: PAPERLESS_REDIS
-              value: 'redis://{{ include "paperless-ngx.redisHost" . }}:6379'
+              value: redis://{{ include "paperless-ngx.redisHost" . }}:6379
 
             {{- if .Values.adminSecret.enabled }}
             - name: PAPERLESS_ADMIN_USERNAME

@@ -9,23 +9,19 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 paperless-ngx
 {{- end }}
 
-{{/*
-Generate the generate fully qualified resource names
-*/}}
+{{/* Generate the generate fully qualified resource names */}}
 {{- define "paperless-ngx.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else if .Values.nameOverride }}
 {{- printf "%s-%s" .Release.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" }}
+{{- printf "%s" .Release.Name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 {{- end }}
 
-{{/*
-Return the full Redis hostname, using the configured value if set,
-otherwise default to "<fullname>-redis".
-*/}}
+{{/* Return the full Redis hostname, using the configured value if set,
+otherwise default to "<fullname>-redis". */}}
 {{- define "paperless-ngx.redisHost" -}}
 {{- if .Values.redis.host -}}
 {{ .Values.redis.host }}

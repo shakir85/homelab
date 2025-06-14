@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "paperless-ngx.name" . }}-redis
+  name: {{ include "paperless-ngx.redisHost" . }}
   labels:
     {{- include "paperless-ngx.labels" . | nindent 4 }}
 spec:

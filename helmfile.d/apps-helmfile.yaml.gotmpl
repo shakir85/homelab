@@ -72,3 +72,9 @@ releases:
     chart: {{ "jellyfin/jellyfin" }}
     values:
       - {{ printf "%s/%s" $valuesDir "jellyfin.yaml" }}
+
+  - name: paperless-ngx
+    namespace: {{ $commonNamespace }}
+    chart: {{ printf "%s/%s" $rootChartsDir "paperless-ngx" }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "paperless-ngx.yaml" }}

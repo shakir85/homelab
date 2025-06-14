@@ -1,0 +1,40 @@
+paperlessngx:
+  image:
+    repository: ghcr.io/paperless-ngx/paperless-ngx
+    tag: 2.16.3
+    pullPolicy: IfNotPresent
+
+  env:
+    - name: PAPERLESS_URL
+      value: "https://paperless.shakir.cloud"
+    - name: PAPERLESS_TIME_ZONE
+      value: "America/Los_Angeles"
+    - name: PAPERLESS_OCR_LANGUAGE
+      value: "eng"
+    - name: "PAPERLESS_OCR_LANGUAGES"
+      value: "ara"
+
+adminSecret:
+  enabled: true
+  create: true
+  name: paperless-ngx-admin
+  usernameKey: username
+  passwordKey: password
+  username: admin
+  password: changeme
+
+redis:
+  image:
+    repository: docker.io/library/redis
+    tag: "8"
+    pullPolicy: IfNotPresent
+
+persistence:
+  shared:
+    existingClaim: paperless-ngx
+
+ingress:
+  enabled: true
+  host: "paperless.shakir.cloud"
+  ingressClassName: nginx
+  annotations: {}

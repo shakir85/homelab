@@ -13,6 +13,8 @@ paperlessngx:
       value: "eng"
     - name: "PAPERLESS_OCR_LANGUAGES"
       value: "ara"
+    - name: PAPERLESS_FILENAME_FORMAT
+      value: "{{ correspondent }}/{{ created_year }}-{{ created_month }}-{{ title }}"
 
 adminSecret:
   enabled: true

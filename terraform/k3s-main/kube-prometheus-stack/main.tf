@@ -12,3 +12,17 @@ resource "helm_release" "prometheus_stack" {
 
   dependency_update = true
 }
+
+resource "helm_release" "loki_stack" {
+  name       = "loki"
+  namespace  = "monitoring"
+  repository = "https://grafana.github.io/helm-charts"
+  chart      = "loki-stack"
+  version    = "2.10.2" # or the version you prefer
+  values = [
+    file("${path.module}/loki-values.yaml")
+  ]
+
+  dependency_update = true
+  depends_on        = [helm_release.prometheus_stack]
+}

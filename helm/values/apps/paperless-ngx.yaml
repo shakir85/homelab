@@ -15,6 +15,8 @@ paperlessngx:
       value: "ara"
     - name: PAPERLESS_FILENAME_FORMAT
       value: "{{ correspondent }}/{{ created_year }}-{{ created_month }}-{{ title }}"
+    - name: PAPERLESS_CONSUMER_POLLING
+      value: "30"
 
 adminSecret:
   enabled: true

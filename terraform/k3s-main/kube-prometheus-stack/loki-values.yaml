@@ -1,0 +1,21 @@
+loki:
+  enabled: true
+  persistence:
+    enabled: true
+    existingClaim: loki-local-pvc
+    storageClassName: ""
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "monitoring"
+      effect: "NoSchedule"
+
+promtail:
+  enabled: true
+
+# Grafana and Prometheus are deployed separately
+grafana:
+  enabled: false
+
+prometheus:
+  enabled: false

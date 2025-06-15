@@ -18,7 +18,7 @@ resource "helm_release" "loki_stack" {
   namespace  = "monitoring"
   repository = "https://grafana.github.io/helm-charts"
   chart      = "loki-stack"
-  version    = "2.10.2" # or the version you prefer
+  version    = "2.10.2"
   values = [
     file("${path.module}/loki-values.yaml")
   ]

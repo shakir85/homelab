@@ -3,7 +3,7 @@ terraform {
 
   backend "s3" {
     region = "us-east-1"
-    key    = "monitoring-k3s-main-state"
+    key    = "monitoring-k3s_main-state"
   }
 
   required_providers {

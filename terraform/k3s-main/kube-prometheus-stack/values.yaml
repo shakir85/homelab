@@ -20,10 +20,10 @@ alertmanager:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: k3s.shakir.cloud/size
+                - key: kubernetes.io/hostname
                   operator: In
                   values:
-                    - x-large
+                    - k3s-main-tc-1
     tolerations:
       - key: "dedicated"
         operator: "Equal"
@@ -51,10 +51,10 @@ grafana:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
-              - key: k3s.shakir.cloud/size
+              - key: kubernetes.io/hostname
                 operator: In
                 values:
-                  - x-large
+                  - k3s-main-tc-1
   tolerations:
     - key: "dedicated"
       operator: "Equal"
@@ -80,52 +80,15 @@ prometheus:
     walCompression: true
     scrapeInterval: 30s
     evaluationInterval: 30s
-    # This sets the cross-cluster scraping: k3s-main metrics endpoints
-    additionalScrapeConfigs:
-      - job_name: k3s-main-node-exporter
-        metrics_path: /metrics
-        scheme: https
-        static_configs:
-          - targets:
-              - node-exporter.shakir.cloud
-        tls_config:
-          insecure_skip_verify: true
-
-      - job_name: k3s-main-kubelet
-        metrics_path: /metrics
-        scheme: https
-        static_configs:
-          - targets:
-              - kubelet.shakir.cloud
-        tls_config:
-          insecure_skip_verify: true
-
-      - job_name: k3s-main-kubelet-cadvisor
-        metrics_path: /metrics/cadvisor
-        scheme: https
-        static_configs:
-          - targets:
-              - kubelet.shakir.cloud
-        tls_config:
-          insecure_skip_verify: true
-
-      - job_name: k3s-main-kube-state-metrics
-        metrics_path: /metrics
-        scheme: https
-        static_configs:
-          - targets:
-              - kube-state-metrics.shakir.cloud
-        tls_config:
-          insecure_skip_verify: true
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: k3s.shakir.cloud/size
+                - key: kubernetes.io/hostname
                   operator: In
                   values:
-                    - x-large
+                    - k3s-main-tc-1
     tolerations:
       - key: "dedicated"
         operator: "Equal"
@@ -146,10 +109,10 @@ prometheusOperator:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
-              - key: k3s.shakir.cloud/size
+              - key: kubernetes.io/hostname
                 operator: In
                 values:
-                  - x-large
+                  - k3s-main-tc-1
   tolerations:
     - key: "dedicated"
       operator: "Equal"
@@ -171,7 +134,7 @@ kubelet:
 kubeControllerManager:
   enabled: true
   endpoints:
-    - 10.10.50.60
+    - 10.10.50.63
 
 coreDns:
   enabled: true
@@ -182,7 +145,7 @@ kubeDns:
 kubeEtcd:
   enabled: true
   endpoints:
-    - 10.10.50.60
+    - 10.10.50.63
   service:
     enabled: true
     port: 2381
@@ -191,12 +154,12 @@ kubeEtcd:
 kubeScheduler:
   enabled: true
   endpoints:
-    - 10.10.50.60
+    - 10.10.50.63
 
 kubeProxy:
   enabled: true
   endpoints:
-    - 10.10.50.60
+    - 10.10.50.63
 
 kubeStateMetrics:
   enabled: true
@@ -220,10 +183,10 @@ kube-state-metrics:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
-              - key: k3s.shakir.cloud/size
+              - key: kubernetes.io/hostname
                 operator: In
                 values:
-                  - x-large
+                  - k3s-main-tc-1
   tolerations:
     - key: "dedicated"
       operator: "Equal"
@@ -240,15 +203,7 @@ nodeExporter:
         sourceLabels:
           - __meta_kubernetes_pod_node_name
         targetLabel: kubernetes_node
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: k3s.shakir.cloud/size
-                operator: In
-                values:
-                  - x-large
+
   tolerations:
     - key: "dedicated"
       operator: "Equal"
@@ -281,7 +236,14 @@ prometheus-node-exporter:
     limits:
       memory: 2048Mi
 
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "monitoring"
+      effect: "NoSchedule"
+
 defaultRules:
+  create: true
   create: true
   rules:
     alertmanager: true
@@ -309,3 +271,12 @@ defaultRules:
     nodeExporterRecording: true
     prometheus: true
     prometheusOperator: true
+    # The following rules are commonly used for Node Memory monitoring:
+    # - nodeMemoryUtilization: Alerts on high memory usage
+    # - nodeMemoryAvailable: Alerts when available memory is low
+    # - nodeMemorySwap: Alerts on swap usage
+    # These are typically included when `node` and `nodeExporterAlerting` are enabled,
+    # but you can explicitly enable them if your chart supports it:
+    nodeMemoryUtilization: true
+    nodeMemoryAvailable: true
+    nodeMemorySwap: true

@@ -1,2 +1,3 @@
+## Deprecated - Don't Use!!
 All the necessery resources that should be deployed "after" deploying the kube-prometheus-stack on k3s-main
 to wire things up with the Prometheus stack on k3s-utils.

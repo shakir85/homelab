@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "stateful-app.db" . }}
+  labels: {{ include "stateful-app.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels: {{ include "stateful-app.selectorLabels" . | nindent 6 }}-statefulSet
+  serviceName: {{ include "stateful-app.dbHeadlessServiceName" . }}
+  replicas: {{ .Values.app.replicaCount | default 1 }}
+  template:
+    metadata:
+      labels: {{ include "stateful-app.selectorLabels" . | nindent 8 }}-statefulSet
+      annotations:
+    spec:
+      containers:
+        - name: {{ include "stateful-app.db" . }}
+          image: "{{ .Values.db.image.repository }}:{{ .Values.db.image.tag }}"
+          imagePullPolicy: {{ .Values.db.image.pullPolicy }}
+          volumeMounts:
+            - name: {{ get (index .Values.db.volumeMounts 0) "name" }}
+              mountPath: {{ get (index .Values.db.volumeMounts 0) "mountPath" }}
+              subPath: {{ get (index .Values.db.volumeMounts 0) "subPath" }}
+      volumes:
+        - name: {{ get (index .Values.db.volumeMounts 0) "name" }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim }}

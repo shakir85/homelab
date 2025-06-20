@@ -1,0 +1,41 @@
+---
+fullnameOverride: "bogus"
+nameOverride: "bogus"
+
+app:
+  image:
+    repository: ""
+    tag: ""
+    pullPolicy: IfNotPresent
+  service:
+    port:
+    targetPort:
+  env: []
+  replicaCount:
+
+db:
+  host:
+  port:
+  replicas:
+  image:
+    repository: ""
+    tag: ""
+    pullPolicy: IfNotPresent
+  volumeMounts:
+    - name:
+      mountPath:
+      subPath:
+
+ingress:
+  enabled: true
+  host: ""
+  ingressClassName: ""
+  annotations: {}
+
+# Single shared PVC for the app and db. Simplicity wins over complexity.
+# There is no need to clutter my backend storage with multiple PVCs for the same app.
+# The template is designed to use a single PVC with subPaths to allow mounting multiple directories in the pod.
+persistence:
+  existingClaim: ""
+  mountPaths: []
+

@@ -19,20 +19,15 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- with .Chart.AppVersion }}
 app.kubernetes.io/version: {{ . }}
 {{- end }}
-{{- with .Release.Service }}
-app.kubernetes.io/managed-by: {{ . }}
-{{- end }}
-{{- with .Values.component }}
-app.kubernetes.io/component: {{ . }}
-{{- else }}
-app.kubernetes.io/component: backend
-{{- end }}
 {{- end }}
 
-{{/* Define common workloads selector labels */}}
+{{/*
+Define common selector labels with dynamic role.
+Usage: include "stateful-app.selectorLabels" (dict "role" "app" "context" .)
+*/}}
 {{- define "stateful-app.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "stateful-app.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/name: {{ include "stateful-app.name" .context }}
+app.kubernetes.io/role: {{ .role }}
 {{- end }}
 
 {{/* Define db hostname, using the configured value if provided */}}
@@ -40,13 +35,13 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- if .Values.db.host -}}
 {{ .Values.db.host }}
 {{- else -}}
-{{ printf "%s-db" (include "stateful-app.fullname" .) }}
+{{ printf "%s-db" (include "stateful-app.name" .) }}
 {{- end -}}
 {{- end }}
 
 {{/* Returns the db headless service name */}}
 {{- define "stateful-app.dbHeadlessServiceName" -}}
-{{ include "stateful-app.fullname" . }}-db-headless
+{{ include "stateful-app.name" . }}-db-headless
 {{- end }}
 
 {{/* Returns the db service name */}}
@@ -54,6 +49,6 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- if .Values.db.serviceName -}}
 {{ .Values.db.serviceName | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
-{{ include "stateful-app.fullname" . }}-db
+{{ include "stateful-app.name" . }}-db
 {{- end -}}
 {{- end }}

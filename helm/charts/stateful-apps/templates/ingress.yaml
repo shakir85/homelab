@@ -18,5 +18,5 @@ spec:
               service:
                 name: {{ include "stateful-app.name" . }}
                 port:
-                  number: {{ .Values.app.service.port | default 80 }}
+                  number: {{ .Values.ingress.port | default 80 }}
 {{- end }}

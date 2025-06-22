@@ -1,41 +1,100 @@
 ---
-fullnameOverride: "bogus"
-nameOverride: "bogus"
+# Optional: Override the full name of the release (metadata.name).
+fullnameOverride: ""
+
+# Optional: Override just the name portion of the Helm release.
+nameOverride: ""
 
 app:
   image:
+    # The container image repository for your application.
     repository: ""
+    # The image tag (version). You can use "latest" or a specific version.
     tag: ""
+    # Pull policy: Always, IfNotPresent, or Never.
     pullPolicy: IfNotPresent
+
+  # The port your application listens on inside the container.
+  containerPort: 80
+
   service:
-    port:
-    targetPort:
+    # The port exposed by the Kubernetes Service.
+    port: 80
+    # The targetPort that maps to containerPort.
+    targetPort: 80
+
+  volumeMounts:
+    # A list of volume mounts your app needs. SubPath refers to a directory
+    # within a shared PersistentVolumeClaim (PVC), e.g., NFS mount.
+    # This is useful if app and DB share the same backend storage but need separate folders.
+    - mountPath: "/root/.gaseous-server"
+      subPath: "gs"
+
+  # List of environment variable **names** your app uses to reference the DB hostname.
+  # This enables dynamic injection of the DB hostname via Helm templating.
+  # Example: ["dbhost", "DATABASE_HOST"]
+  dbHostname: []
+
+  # List of additional environment variables your app needs.
+  # Format:
+  # - name: ENV_VAR_NAME
+  #   value: somevalue
   env: []
-  replicaCount:
+
+  # Number of app replicas (pods).
+  replicaCount: 1
 
 db:
-  host:
-  port:
-  replicas:
+  # Optional: hostname override if needed (typically injected automatically).
+  host: ""
+  # Port MariaDB is listening on (usually 3306).
+  port: 3306
+
   image:
-    repository: ""
-    tag: ""
+    # The MariaDB image repository (prefer Bitnami for NFS-friendliness).
+    repository: "bitnami/mariadb"
+    # Image tag (e.g., 10.6.14 or latest).
+    tag: "latest"
+    # Image pull policy.
     pullPolicy: IfNotPresent
+
   volumeMounts:
-    - name:
-      mountPath:
-      subPath:
+    # Mount path for MariaDB data directory.
+    # Bitnami expects /bitnami/mariadb.
+    - mountPath: "/bitnami/mariadb"
+      subPath: "gsdb"
+
+  # MariaDB environment variables for authentication, security, and init.
+  # Use Bitnami-specific vars like MARIADB_ROOT_PASSWORD, etc.
+  # Format:
+  # - name: MARIADB_USER
+  #   value: gaseous
+  env: []
+
+  # Number of DB pod replicas (usually 1 for MariaDB).
+  replicas: 1
+
+persistence:
+  # Required: name of the existing PersistentVolumeClaim shared by app + db.
+  # Each container will mount different subPaths within this PVC.
+  # Example: "gaseous" -> /mnt/nfs/gaseous/{gs,gsdb,...}
+  existingClaim: ""
 
 ingress:
+  # Whether to enable Ingress for the app.
   enabled: true
-  host: ""
-  ingressClassName: ""
+
+  # Hostname for external access (should point to your cluster ingress IP).
+  host: "games.shakir.cloud"
+
+  # IngressClass to use (e.g., "nginx", "traefik", etc.)
+  ingressClassName: "nginx"
+
+  # The port to expose via ingress (typically 80 or 443).
+  port: 80
+
+  # Extra annotations for the ingress resource.
+  # Example for cert-manager:
+  # annotations:
+  #   cert-manager.io/cluster-issuer: "letsencrypt-prod"
   annotations: {}
-
-# Single shared PVC for the app and db. Simplicity wins over complexity.
-# There is no need to clutter my backend storage with multiple PVCs for the same app.
-# The template is designed to use a single PVC with subPaths to allow mounting multiple directories in the pod.
-persistence:
-  existingClaim: ""
-  mountPaths: []
-

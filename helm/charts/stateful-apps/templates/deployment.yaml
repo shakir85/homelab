@@ -6,10 +6,10 @@ metadata:
 spec:
   replicas: {{ .Values.app.replicaCount | default 1 }}
   selector:
-    matchLabels: {{ include "stateful-app.selectorLabels" . | nindent 6 }}-deployment
+    matchLabels: {{ include "stateful-app.selectorLabels" (dict "role" "app" "context" .) | nindent 6 }}-deployment
   template:
     metadata:
-      labels: {{ include "stateful-app.selectorLabels" . | nindent 8 }}-deployment
+      labels: {{ include "stateful-app.selectorLabels" (dict "role" "app" "context" .) | nindent 8 }}-deployment
     spec:
       containers:
         - name: stateful-app
@@ -18,17 +18,27 @@ spec:
           ports:
             - containerPort: {{ .Values.app.containerPort }}
           env:
+            - name: {{ .Values.app.dbHostname }}
+              value: {{ include "stateful-app.dbHeadlessServiceName" . }}
             {{- range .Values.app.env }}
             - name: {{ .name | quote }}
               value: {{ .value | quote }}
             {{- end }}
           volumeMounts:
-            {{- $claimName := .Values.persistence.existingClaim }}
-            {{- range .Values.persistence.mountPaths }}
+            {{- $claimName := required "persistence.existingClaim is required" .Values.persistence.existingClaim }}
+            {{- range .Values.app.volumeMounts }}
             - name: {{ $claimName }}
-              mountPath: {{ . }}
-              subPath: {{ trimPrefix "/" . }}
+              mountPath: {{ .mountPath }}
+              subPath: {{ .subPath }}
             {{- end }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.app.containerPort }}
+            initialDelaySeconds: 5
+            periodSeconds: 15
+            timeoutSeconds: 2
+            failureThreshold: 5
       volumes:
         - name: {{ .Values.persistence.existingClaim }}
           persistentVolumeClaim:

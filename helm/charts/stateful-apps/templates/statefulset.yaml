@@ -1,27 +1,35 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "stateful-app.db" . }}
+  name: {{ include "stateful-app.name" . }}
   labels: {{ include "stateful-app.labels" . | nindent 4 }}
 spec:
   selector:
-    matchLabels: {{ include "stateful-app.selectorLabels" . | nindent 6 }}-statefulSet
+    matchLabels: {{ include "stateful-app.selectorLabels" (dict "role" "db" "context" .) | nindent 6 }}-statefulset
   serviceName: {{ include "stateful-app.dbHeadlessServiceName" . }}
   replicas: {{ .Values.app.replicaCount | default 1 }}
   template:
     metadata:
-      labels: {{ include "stateful-app.selectorLabels" . | nindent 8 }}-statefulSet
+      labels: {{ include "stateful-app.selectorLabels" (dict "role" "db" "context" .) | nindent 8 }}-statefulset
       annotations:
     spec:
       containers:
         - name: {{ include "stateful-app.db" . }}
           image: "{{ .Values.db.image.repository }}:{{ .Values.db.image.tag }}"
           imagePullPolicy: {{ .Values.db.image.pullPolicy }}
+          env:
+            {{- range .Values.db.env }}
+            - name: {{ .name | quote }}
+              value: {{ .value | quote }}
+            {{- end }}
           volumeMounts:
-            - name: {{ get (index .Values.db.volumeMounts 0) "name" }}
-              mountPath: {{ get (index .Values.db.volumeMounts 0) "mountPath" }}
-              subPath: {{ get (index .Values.db.volumeMounts 0) "subPath" }}
+            {{- $claimName := required "persistence.existingClaim is required" .Values.persistence.existingClaim }}
+            {{- range .Values.db.volumeMounts }}
+            - name: {{ $claimName }}
+              mountPath: {{ .mountPath }}
+              subPath: {{ .subPath }}
+            {{- end }}
       volumes:
-        - name: {{ get (index .Values.db.volumeMounts 0) "name" }}
+        - name: {{ .Values.persistence.existingClaim }}
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim }}

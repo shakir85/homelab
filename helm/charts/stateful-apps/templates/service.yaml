@@ -9,4 +9,4 @@ spec:
     - port: {{ .Values.app.service.port }}
       targetPort: {{ .Values.app.service.targetPort }}
       protocol: TCP
-  selector: {{ include "stateful-app.selectorLabels" . | nindent 4 }}-deployment
+  selector: {{ include "stateful-app.selectorLabels" (dict "role" "app" "context" .) | nindent 4 }}-deployment

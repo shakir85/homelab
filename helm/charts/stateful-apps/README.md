@@ -1,11 +1,21 @@
 # Stateful Apps Helm Chart
 
-A lightweight Helm chart for deploying a stateful application composed of two main components:
+A minimalist Helm chart for deploying a stateful application consisting of two main components:
 
-- `app` – A stateless frontend/backend component deployed as a Deployment
-- `db` – A stateful database component deployed as a StatefulSet
+- `app` – Deployment to serve frontend/backend component.
+- `db` – A Statefulset for the database pod.
 
-This setup is designed for Kubernetes environments with PVC (e.g., NFS-backed PVCs), that share the same backend volume with separate subpaths mounted as sub-directories in the storage backend.
+Both the app and DB share a single PVC using subPaths, keeping storage simple and unified. This minimalist approach treats the entire application’s data as one cohesive unit, unlike setups that separate storage lifecycles for the app and database. For example, 
+```
+.
+└── NFS_DIRECTORY/
+    └── K8s_STORAGE/
+        └── FOO_APP/
+            ├── data/...
+            ├── app/...
+            └── postgres/...
+```
+
 
 ## Details
 - The `app` and `db` workloads are separate with specific deployment boundaries:
@@ -22,4 +32,5 @@ This setup is designed for Kubernetes environments with PVC (e.g., NFS-backed PV
 
 
 
->[!Note] Persistent Volume Claim (PVC) This chart does not create the PersistentVolumeClaim (PVC) itself. Storage is treated as a *separate lifecycle concern* from applications.
+> [!Note]
+>  This chart does not create the PersistentVolumeClaim (PVC) itself. It assumes that the PVC already exists.  Storage is treated as a *separate lifecycle concern* from applications.

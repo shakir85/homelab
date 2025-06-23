@@ -124,6 +124,10 @@ config:
               icon: jellyfin
               href: https://jellyfin.shakir.cloud
               description: Jellyfin Media Server
+          - Gaseous:
+              icon: sh-gaseous
+              href: https://games.shakir.cloud
+              description: Gaseous Gaming Server
 
       - Productivity:
           - Paperless:

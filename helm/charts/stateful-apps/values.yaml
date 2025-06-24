@@ -38,6 +38,12 @@ app:
   #   value: somevalue
   env: []
 
+  envFromSecrets:
+    # Optional: Reference a secret to inject environment variables.
+    # This assumes the secret is created separately.
+    enabled: false
+    secretRefNames: []
+
   replicaCount: 1
 
 db:

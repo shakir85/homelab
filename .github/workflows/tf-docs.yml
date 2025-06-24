@@ -8,7 +8,6 @@ on:
         required: true
         description: "Path to the root directory of the Terraform module for which documentation will be generated"
 
-
 jobs:
   generate-docs:
     runs-on: self-hosted

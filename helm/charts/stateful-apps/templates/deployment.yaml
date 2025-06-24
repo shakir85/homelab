@@ -24,6 +24,13 @@ spec:
             - name: {{ .name | quote }}
               value: {{ .value | quote }}
             {{- end }}
+          {{- if .Values.app.envFromSecrets.enabled }}
+          envFrom:
+            {{- range .Values.app.envFromSecrets.secretRefNames }}
+            - secretRef:
+                name: {{ . | quote }}
+            {{- end }}
+          {{- end }}
           volumeMounts:
             {{- $claimName := required "persistence.existingClaim is required" .Values.persistence.existingClaim }}
             {{- range .Values.app.volumeMounts }}

@@ -6,9 +6,7 @@ on:
       - 'helm/charts/**'
   pull_request:
     paths:
-      - '**.yaml'
-      - 'templates/**'
-      - 'charts/**'
+      - 'helm/charts/**'
 
 jobs:
   helm-lint:
@@ -23,10 +21,14 @@ jobs:
         with:
           version: v3.14.0
 
-      - run: |
-          git fetch origin ${{ github.head_ref }}
-          git pull origin ${{ github.head_ref }}
-
-      - name: Lint Helm chart
+      - name: Lint all Helm charts
         run: |
-          helm lint . --values ci-values.yaml
+          set -e
+          for chart in helm/charts/*; do
+            if [ -d "$chart" ] && [ -f "$chart/ci/ci-values.yaml" ]; then
+              echo "🔍 Linting chart: $chart"
+              helm lint "$chart" --values "$chart/ci/ci-values.yaml"
+            else
+              echo "⚠️ Skipping $chart: missing ci-values.yaml or not a directory"
+            fi
+          done

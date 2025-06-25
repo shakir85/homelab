@@ -30,7 +30,7 @@ jobs:
       - name: Generate Terraform Docs Recursively
         run: |
           find terraform/ -mindepth 2 -type f -name "main.tf" -exec dirname {} \; | while read dir; do
-            echo "Generating docs for $dir"
+            echo "📄 Generating docs for $dir"
             (cd "$dir" && terraform-docs markdown document .)
           done
 

@@ -1,9 +1,6 @@
 name: Helm Lint
 
 on:
-  push:
-    paths:
-      - 'helm/charts/**'
   pull_request:
     paths:
       - 'helm/charts/**'

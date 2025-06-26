@@ -4,7 +4,6 @@
 🌐 Access your application using the following Ingress host:
 
   http://{{ .Values.ingress.host }}
-{{ end }}
 
 Ingress Class: {{ .Values.ingress.ingressClassName }}
 {{- end }}

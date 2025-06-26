@@ -46,6 +46,10 @@ app:
 
   replicaCount: 1
 
+  # Affinity rules for app pod scheduling.
+  affinity: {}
+
+
 db:
   # Optional: hostname override if needed (typically injected automatically).
   host: ""
@@ -75,6 +79,9 @@ db:
 
   # Number of DB pod replicas
   replicas: 1
+
+  # Affinity rules for db pod scheduling.
+  affinity: {}
 
 persistence:
   # Required: name of the existing PersistentVolumeClaim shared by app + db.

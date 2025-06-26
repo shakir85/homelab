@@ -1,30 +1,41 @@
+🎉 {{- $fullName := include "stateful-apps.fullname" . }}
+
 {{- if .Values.ingress.enabled }}
-🎉 {{ .Chart.Name }}: {{ .Values.app.name }} has been successfully deployed!
+🌐 Access your application using the following Ingress host:
 
-📍 Ingress is enabled. Once your ingress controller is ready, you can access the application at:
+  http://{{ .Values.ingress.host }}{{ if ne .Values.ingress.port 80 }}:{{ .Values.ingress.port }}{{ end }}
 
-  http://{{ .Values.ingress.host }}
-
-🔒 If your app uses HTTPS, remember to configure TLS in the ingress settings.
-
-{{- else }}
-
-🚀 {{ .Chart.Name }} has been successfully deployed!
-
-🌐 Access your application via the service:
-
-  Service Name: {{ include "stateless-app.fullname" . }}
-  Namespace:    {{ .Values.namespace | default .Release.Namespace }}
-  Port:         {{ .Values.service.port }}
-
-💡 To port-forward locally:
-
-  kubectl port-forward svc/{{ include "stateless-app.fullname" . }} {{ .Values.service.port }}:{{ .Values.service.port }} -n {{ .Release.Namespace }}
-
-Then open: http://localhost:{{ .Values.service.port }}
-
+Ingress Class: {{ .Values.ingress.ingressClassName }}
 {{- end }}
 
-📦 Release Name: {{ .Release.Name }}
-🗂  Namespace: {{ .Values.namespace | default .Release.Namespace }}
-📜 Chart Version: {{ .Chart.Version }}
+{{- if .Values.app.envFromSecrets.enabled }}
+📍 The following secrets will be loaded as environment variables into the app container:
+
+{{- range .Values.app.envFromSecrets.secretRefNames }}
+  - {{ . }}
+{{- end }}
+Ensure these secrets exist in the cluster before deployment.
+{{- end }}
+
+{{- if .Values.persistence.existingClaim }}
+📦 Persistent storage is configured using the existing PVC:
+
+  {{ .Values.persistence.existingClaim }}
+
+Each container will mount its own subPath from this shared volume.
+{{- else }}
+⚠️ No existing persistent volume claim specified. Set `.persistence.existingClaim` to enable shared storage.
+{{- end }}
+
+🚀 App Info:
+  Release Name: {{ .Release.Name }}
+  Replica Count: {{ .Values.app.replicaCount }}
+  App Container Port: {{ .Values.app.containerPort }}
+  Service Port: {{ .Values.app.service.port }}
+
+{{- if .Values.db.image.repository }}
+🚀 Database Info:
+  Host: {{ if .Values.db.host }}{{ .Values.db.host }}{{ else }}{{ $fullName }}-db{{ end }}
+  Port: {{ .Values.db.port }}
+  Replica Count: {{ .Values.db.replicas }}
+{{- end }}

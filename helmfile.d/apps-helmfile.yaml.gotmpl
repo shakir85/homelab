@@ -2,6 +2,7 @@
 
 {{- /* Variable definitions */ -}}
 {{- $statelessChartsDir := "../helm/charts/stateless-apps" -}}
+{{- $statefulChartsDir := "../helm/charts/stateful-apps" -}}
 {{- $rootChartsDir := "../helm/charts" -}}
 {{- $valuesDir := "../helm/values/apps" -}}
 {{- $commonNamespace := "apps" -}}
@@ -78,3 +79,9 @@ releases:
     chart: {{ printf "%s/%s" $rootChartsDir "paperless-ngx" }}
     values:
       - {{ printf "%s/%s" $valuesDir "paperless-ngx.yaml" }}
+
+  - name: gaseous
+    namespace: {{ $commonNamespace }}
+    chart: {{ $statefulChartsDir  }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "gaseous.yaml" }}

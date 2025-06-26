@@ -1,25 +1,30 @@
-🎉 {{- $fullName := include "stateless-apps.fullname" . }}
-
 {{- if .Values.ingress.enabled }}
-🌐 Access your application using the following Ingress host:
+🎉 {{ .Chart.Name }}: {{ .Values.app.name }} has been successfully deployed!
 
-  http://{{ .Values.ingress.host }}{{ if ne .Values.ingress.port 80 }}:{{ .Values.ingress.port }}{{ end }}
+📍 Ingress is enabled. Once your ingress controller is ready, you can access the application at:
 
-Ingress Class: {{ .Values.ingress.ingressClassName }}
-{{- end }}
+  http://{{ .Values.ingress.host }}
 
-{{- if .Values.pvc.claimName }}
-📦 Persistent storage is configured using the existing PVC:
+🔒 If your app uses HTTPS, remember to configure TLS in the ingress settings.
 
-  {{ .Values.pvc.claimName }}
-
-Each container will mount its own subPath from this shared volume.
 {{- else }}
-⚠️ No existing persistent volume claim specified. Set `.pvc.claimName` to enable shared storage.
+
+🚀 {{ .Chart.Name }} has been successfully deployed!
+
+🌐 Access your application via the service:
+
+  Service Name: {{ include "stateless-app.fullname" . }}
+  Namespace:    {{ .Values.namespace | default .Release.Namespace }}
+  Port:         {{ .Values.service.port }}
+
+💡 To port-forward locally:
+
+  kubectl port-forward svc/{{ include "stateless-app.fullname" . }} {{ .Values.service.port }}:{{ .Values.service.port }} -n {{ .Release.Namespace }}
+
+Then open: http://localhost:{{ .Values.service.port }}
+
 {{- end }}
 
-🚀 App Info:
-  Release Name: {{ .Release.Name }}
-  Replica Count: {{ .Values.replicaCount }}
-  App Container Port: {{ .Values.service.targetPort }}
-  Service Port: {{ .Values.service.port }}
+📦 Release Name: {{ .Release.Name }}
+🗂  Namespace: {{ .Values.namespace | default .Release.Namespace }}
+📜 Chart Version: {{ .Chart.Version }}

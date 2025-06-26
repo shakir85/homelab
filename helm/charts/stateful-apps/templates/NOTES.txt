@@ -3,7 +3,8 @@
 {{- if .Values.ingress.enabled }}
 🌐 Access your application using the following Ingress host:
 
-  http://{{ .Values.ingress.host }}{{ if ne .Values.ingress.port 80 }}:{{ .Values.ingress.port }}{{ end }}
+  http://{{ .Values.ingress.host }}
+{{ end }}
 
 Ingress Class: {{ .Values.ingress.ingressClassName }}
 {{- end }}

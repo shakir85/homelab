@@ -1,4 +1,4 @@
-🎉 {{- $fullName := include "stateful-app.fullname" . }}
+🎉 {{ .Chart.Name }}: {{- $fullName := include "stateful-app.fullname" . }} has been successfully deployed!
 
 {{- if .Values.ingress.enabled }}
 🌐 Access your application using the following Ingress host:

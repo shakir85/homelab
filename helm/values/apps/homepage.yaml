@@ -64,9 +64,6 @@ config:
         - GitLab:
             - abbr: GL
               href: https://gitlab.com/
-        - LibGen:
-            - abbr: LG
-              href: https://libgen.is/
         - Reddit:
             - abbr: RD
               href: https://reddit.com/

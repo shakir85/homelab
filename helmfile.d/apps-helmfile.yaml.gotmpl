@@ -7,6 +7,12 @@
 {{- $valuesDir := "../helm/values/apps" -}}
 {{- $commonNamespace := "apps" -}}
 
+{{/* Charts that are not hosted in the helm/charts directory */}}
+repositories:
+  - name: jellyfin
+    url: https://jellyfin.github.io/jellyfin-helm
+
+{{/* Helm releases that are deployed from selfhosted charts */}}
 releases:
   - name: excalidraw
     namespace: {{ $commonNamespace }}

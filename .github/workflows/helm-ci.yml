@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'helm/charts/**'
+      - 'helmfile'
 
 jobs:
   helm-lint:
@@ -29,3 +30,23 @@ jobs:
               echo "⚠️ Skipping $chart: missing ci-values.yaml or not a directory"
             fi
           done
+
+  helmfile-lint:
+    runs-on: self-hosted
+
+    steps:
+      - uses: shakir85/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - uses: azure/setup-helm@v3
+        with:
+          version: v3.14.0
+
+      - name: Install Helmfile
+        run: |
+          curl -L https://github.com/helmfile/helmfile/releases/latest/download/helmfile_linux_amd64 -o /usr/local/bin/helmfile
+          chmod +x /usr/local/bin/helmfile
+
+      - name: Run helmfile lint
+        run: helmfile lint

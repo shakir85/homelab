@@ -10,12 +10,6 @@ regex = '''(?i)(api[_-]?key|access[_-]?key|token)[\'"\s:=]+[a-z0-9\-_.=]{10,64}'
 tags = ["key", "api", "token"]
 
 [[rules]]
-id = "k8s-secret-reference"
-description = "Kubernetes secret reference in YAML (envFromSecrets, secretKeyRef, secretName)"
-regex = '''(?i)(envFromSecrets|secretKeyRef|secretName)[\'"\s:]*[:\s]*[a-zA-Z0-9\-._]+'''
-tags = ["k8s", "helm", "secret", "reference"]
-
-[[rules]]
 id = "aws-access-key"
 description = "AWS Access Key ID"
 regex = '''AKIA[0-9A-Z]{16}'''

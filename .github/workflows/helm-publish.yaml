@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'helm/charts/nfs-persistence/**'
+      - 'helm/charts/nfspersistence/**'
       - '.github/workflows/helm-publish.yaml'
 
 jobs:

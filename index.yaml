@@ -1,3 +1,16 @@
 apiVersion: v1
-entries: {}
-generated: "2025-07-04T11:54:28.742692-07:00"
+entries:
+  nfs-persistence:
+  - annotations:
+      category: storage
+    apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-07-04T19:49:15.67767816Z"
+    description: A generic Helm chart for deploying NFS based persistence storage.
+    digest: ed0007510955ffdfd03721676d05dd2ee33aac9dd9ecadbd9cdae4772138a4bb
+    name: nfs-persistence
+    type: application
+    urls:
+    - https://shakir85.github.io/homelab/nfs-persistence-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-07-04T19:49:15.676854197Z"

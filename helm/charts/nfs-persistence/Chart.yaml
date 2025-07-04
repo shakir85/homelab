@@ -1,6 +1,6 @@
 apiVersion: v2
-name: pvc-storage
-description: A generic Helm chart for deploying PVC storage with binding to a Storage Class.
+name: nfs-persistence
+description: A generic Helm chart for deploying NFS based persistence storage.
 type: application
 version: 0.1.0
 appVersion: "1.0"

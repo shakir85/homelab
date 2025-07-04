@@ -1,0 +1,31 @@
+name: Publish Helm Chart to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'helm/charts/nfs-persistence/**'
+      - '.github/workflows/helm-publish.yaml'
+
+jobs:
+  helm:
+    runs-on: self-hosted
+    steps:
+      - uses: shakir85/checkout@v4
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+
+      - name: Package Helm chart
+        run: |
+          helm package ./helm/charts/nfs-persistence --destination ./docs
+
+      - name: Create Helm repo index
+        run: |
+          helm repo index docs --url https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+
+      - name: Push to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs

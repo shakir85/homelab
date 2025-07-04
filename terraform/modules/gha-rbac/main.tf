@@ -19,7 +19,7 @@ resource "kubernetes_role" "gha_target_ns_role" {
   # Core API resources - pods, services, configmaps
   rule {
     api_groups = [""]
-    resources  = ["pods", "services", "configmaps", "persistentvolumeclaims"]
+    resources  = ["pods", "services", "configmaps", "persistentvolumeclaims", "persistentvolumes"]
     verbs      = ["get", "list", "create", "update", "patch", "delete"]
   }
 

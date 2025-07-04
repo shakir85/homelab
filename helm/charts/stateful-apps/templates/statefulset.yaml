@@ -23,16 +23,21 @@ spec:
               value: {{ .value | quote }}
             {{- end }}
           volumeMounts:
-            {{- $claimName := required "persistence.existingClaim is required" .Values.persistence.existingClaim }}
+            {{- $claimName := .Values.existingClaim | default .Values.nfs-persistence.persistence.name }}
+            {{- if $claimName }}
             {{- range .Values.db.volumeMounts }}
             - name: {{ $claimName }}
               mountPath: {{ .mountPath }}
               subPath: {{ .subPath }}
             {{- end }}
+            {{- end }}
       volumes:
-        - name: {{ .Values.persistence.existingClaim }}
+        {{- $claimName := .Values.existingClaim | default .Values.nfs-persistence.persistence.name }}
+        {{- if $claimName }}
+        - name: {{ $claimName }}
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.existingClaim }}
+            claimName: {{ $claimName }}
+        {{- end }}
       {{- with .Values.db.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}

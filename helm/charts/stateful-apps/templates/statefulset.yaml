@@ -23,7 +23,7 @@ spec:
               value: {{ .value | quote }}
             {{- end }}
           volumeMounts:
-            {{- $claimName := .Values.existingClaim | default .Values.nfs-persistence.persistence.name }}
+            {{- $claimName := .Values.existingClaim | default .Values.nfspersistence.persistence.name }}
             {{- if $claimName }}
             {{- range .Values.db.volumeMounts }}
             - name: {{ $claimName }}
@@ -32,7 +32,7 @@ spec:
             {{- end }}
             {{- end }}
       volumes:
-        {{- $claimName := .Values.existingClaim | default .Values.nfs-persistence.persistence.name }}
+        {{- $claimName := .Values.existingClaim | default .Values.nfspersistence.persistence.name }}
         {{- if $claimName }}
         - name: {{ $claimName }}
           persistentVolumeClaim:

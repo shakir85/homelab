@@ -88,7 +88,7 @@ db:
 # Each container will mount their subPaths within this PVC.
 existingClaim: ""
 
-nfs-persistence:
+nfspersistence:
   enabled: false
 
   persistence:

@@ -17,14 +17,15 @@ Ingress Class: {{ .Values.ingress.ingressClassName }}
 Ensure these secrets exist in the cluster before deployment.
 {{- end }}
 
-{{- if .Values.persistence.existingClaim }}
-📦 Persistent storage is configured using the existing PVC:
+{{- $claimName := .Values.existingClaim | default .Values.nfspersistence.persistence.name }}
+{{- if $claimName }}
+📦 Persistent storage is configured using the PVC:
 
-  {{ .Values.persistence.existingClaim }}
+  {{ $claimName }}
 
 Each container will mount its own subPath from this shared volume.
 {{- else }}
-⚠️ No existing persistent volume claim specified. Set `.persistence.existingClaim` to enable shared storage.
+⚠️ No persistent volume claim specified. Set `existingClaim` or configure `nfspersistence.persistence.name` to enable shared storage.
 {{- end }}
 
 🚀 App Info:

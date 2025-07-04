@@ -1,0 +1,25 @@
+cat <<EOF> ./index.html
+  <!DOCTYPE html>
+  <html>
+
+  <head>
+    <title>Helm Charts</title>
+  </head>
+
+  <body>
+    <h1>Available Charts</h1>
+    <ul>
+      EOF
+
+      for f in ./*.tgz; do
+      fname=$(basename "$f")
+      echo "<li><a href=\"$fname\">$fname</a></li>" >> ./index.html
+      done
+
+      cat <<EOF>> ./index.html
+        <li><a href="index.yaml">index.yaml</a></li>
+    </ul>
+  </body>
+
+  </html>
+  EOF

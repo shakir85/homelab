@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'helm/charts/nfs-persistence/**'
+      - 'helm/charts/nfspersistence/**'
       - '.github/workflows/helm-publish.yaml'
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
 
       - name: Package Helm chart
         run: |
-          helm package ./helm/charts/nfs-persistence --destination ./docs
+          helm package ./helm/charts/nfspersistence --destination ./docs
 
       - name: Create Helm repo index
         run: |

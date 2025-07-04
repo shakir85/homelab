@@ -1,17 +1,3 @@
 apiVersion: v1
-entries:
-  pvc-storage:
-  - annotations:
-      category: storage
-    apiVersion: v2
-    appVersion: "1.0"
-    created: "2025-07-04T08:16:45.914877675Z"
-    description: A generic Helm chart for deploying PVC storage with binding to a
-      Storage Class.
-    digest: f387b917416e30d29e6f3847122dedc38065d33959f4e97e44a7187688b2d5ab
-    name: pvc-storage
-    type: application
-    urls:
-    - https://shakir85.github.io/homelab/pvc-storage-0.1.0.tgz
-    version: 0.1.0
-generated: "2025-07-04T08:16:45.914383763Z"
+entries: {}
+generated: "2025-07-04T11:54:28.742692-07:00"

@@ -4,6 +4,6 @@ version: 0.0.1
 description: A generic Helm chart for deploying stateful applications
 
 dependencies:
-  - name: nfs-persistence
+  - name: nfspersistence
     version: 0.1.0
     repository: https://shakir85.github.io/homelab/

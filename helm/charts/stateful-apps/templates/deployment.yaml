@@ -32,11 +32,13 @@ spec:
             {{- end }}
           {{- end }}
           volumeMounts:
-            {{- $claimName := required "persistence.existingClaim is required" .Values.persistence.existingClaim }}
+            {{- $claimName := .Values.existingClaim | default .Values.nfspersistence.persistence.name }}
+            {{- if $claimName }}
             {{- range .Values.app.volumeMounts }}
             - name: {{ $claimName }}
               mountPath: {{ .mountPath }}
               subPath: {{ .subPath }}
+            {{- end }}
             {{- end }}
           readinessProbe:
             httpGet:
@@ -47,9 +49,12 @@ spec:
             timeoutSeconds: 2
             failureThreshold: 5
       volumes:
-        - name: {{ .Values.persistence.existingClaim }}
+        {{- $claimName := .Values.existingClaim | default .Values.nfspersistence.persistence.name }}
+        {{- if $claimName }}
+        - name: {{ $claimName }}
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.existingClaim }}
+            claimName: {{ $claimName }}
+        {{- end }}
       {{- with .Values.app.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}

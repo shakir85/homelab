@@ -21,9 +21,9 @@ app:
     targetPort: 80
 
   volumeMounts:
-    # A list of volume mounts your app needs. SubPath refers to a directory
-    # within a shared PersistentVolumeClaim (PVC), e.g., NFS mount.
-    # This is useful if app and DB share the same backend storage but need separate directories.
+    # Mount path for the Deployment.
+    ## -- `mountPath`: Pointing to the app container image volume (e.g., /app/data).
+    ## -- `subPath`: Pointing to the volume on the backend PVC (e.g., /mnt/nfs/someapp/data). The directory will be created automatically on the storage backend.
     - mountPath: ""
       subPath: ""
 
@@ -63,10 +63,9 @@ db:
     pullPolicy: IfNotPresent
 
   volumeMounts:
-    # Mount path for MariaDB data directory.
-    # Make sure this path is pointing to where the DB container image requires
-    # For example, Bitnami MariaDB expects /bitnami/mariadb.
-    # subPath will be created automatically in the mounted PVC (storage backend). Don't create it manually.
+    # Mount path for the Statefulset.
+    ## -- `mountPath`: Pointing to the DB container image volume (e.g., /bitnami/mariadb).
+    ## -- `subPath`: Pointing to the volume on the backend PVC (e.g., /mnt/nfs/someapp/db). The directory will be created automatically on the storage backend.
     - mountPath: ""
       subPath: ""
 
@@ -83,11 +82,24 @@ db:
   # Affinity rules for db pod scheduling.
   affinity: {}
 
-persistence:
-  # Required: name of the existing PersistentVolumeClaim shared by app + db.
-  # Each container will mount different subPaths within this PVC.
-  # Example: "someapp" -> /mnt/nfs/someapp/{data,app,...}
-  existingClaim: ""
+
+# If you have an existing PersistentVolumeClaim. To be shared by app + db.
+# Otherwise, use `nfs-persistent-volume` to create a new PVC.
+# Each container will mount their subPaths within this PVC.
+existingClaim: ""
+
+nfspersistence:
+  enabled: false
+
+  persistence:
+    name: ""
+    size: ""
+    accessMode: ""
+    reclaimPolicy: ""
+    storageClassName: ""
+    nfs:
+      server: ""
+      path: ""
 
 ingress:
   # Whether to enable Ingress for the app.

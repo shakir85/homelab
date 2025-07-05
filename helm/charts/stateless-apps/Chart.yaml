@@ -19,3 +19,10 @@ appVersion: "1.0"
 
 annotations:
   category: "stateless-services"
+
+# TODO: validate `condition` for nfs-persistence
+dependencies:
+  - name: nfs-persistence
+    version: 0.1.0
+    repository: https://shakir85.github.io/homelab/
+    condition: persistence.enabled

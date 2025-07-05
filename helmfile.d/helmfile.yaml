@@ -5,3 +5,11 @@
 helmfiles:
   - path: storage-helmfile.yaml.gotmpl
   - path: apps-helmfile.yaml.gotmpl
+
+# Avoids rebuilding or redownloading deps every time.
+# Helmfile will just use what’s already in `charts/` deps directory of the chart
+helmDefaults:
+  skipDeps: true
+
+# commonLabels:
+#   app.shakir.cloud/managed-by: helmfile

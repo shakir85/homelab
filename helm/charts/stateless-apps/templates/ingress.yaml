@@ -4,6 +4,8 @@ kind: Ingress
 metadata:
   name: {{ .Values.app.name }}-ingress
   namespace: {{ .Values.namespace | default .Release.Namespace }}
+  annotations:
+    {{- toYaml .Values.ingress.annotations | nindent 4 }}
 spec:
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:
@@ -16,5 +18,5 @@ spec:
               service:
                 name: {{ .Values.app.name }}
                 port:
-                  number: {{ .Values.service.port }}
+                  number: {{ .Values.app.service.port }}
 {{- end }}

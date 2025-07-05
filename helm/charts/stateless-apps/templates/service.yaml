@@ -4,8 +4,10 @@ metadata:
   name: {{ .Values.app.name }}
   namespace: {{ .Values.namespace | default .Release.Namespace }}
 spec:
+  type: {{ .Values.app.service.type | default "ClusterIP" }}
   selector:
     app: {{ .Values.app.name }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.targetPort }}
+    - port: {{ .Values.app.service.port }}
+      targetPort: {{ .Values.app.service.targetPort }}
+      protocol: TCP

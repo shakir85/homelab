@@ -17,11 +17,6 @@ ingress:
   host: "omnitool.shakir.cloud"
   ingressClassName: nginx
 
-nfspersistence:
-  enabled: false
-  persistence:
-    enabled: false
-
 # -- Affinity rules for pod scheduling.
 affinity:
   nodeAffinity:

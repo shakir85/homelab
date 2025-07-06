@@ -1,6 +1,6 @@
 dependencies:
 - name: nfspersistence
   repository: https://shakir85.github.io/homelab/
-  version: 0.2.0
-digest: sha256:7ddf5742cf42a9f30ba1aad7804352b007f5f51faba8c6952704465c61f69a1c
-generated: "2025-07-05T22:21:22.093384-07:00"
+  version: 0.3.0
+digest: sha256:37cf4a8555ab20a3fd3e1f841b03dd474ddc7dd8c59fc3c2a768c45b203d325b
+generated: "2025-07-06T14:19:26.65475-07:00"

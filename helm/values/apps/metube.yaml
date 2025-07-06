@@ -6,19 +6,31 @@ app:
     tag: "latest"
     pullPolicy: IfNotPresent
 
-replicaCount: 1
+  replicaCount: 1
 
-service:
-  port: 80
-  targetPort: 8081
+  service:
+    port: 80
+    targetPort: 8081
+
+  volumeMounts:
+    - mountPath: /downloads
+      subPath: downloads
 
 ingress:
   enabled: true
   host: "metube.shakir.cloud"
   ingressClassName: nginx
 
-pvc:
+nfspersistence:
   enabled: true
-  claimName: metube
-  mountPaths:
-    - /downloads
+  persistence:
+    name: metube-pvc
+    storageClassName: "nfs-client"
+    accessMode: ReadWriteMany
+    reclaimPolicy: Retain
+    size: 200Mi
+  labels:
+    app: "metube"
+  annotations:
+    volume.kubernetes.io/description: "Shared volume for metube"
+    custom.synology/path-hint: "Dynamic Provision - Check the PVC-ID"

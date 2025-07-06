@@ -6,35 +6,11 @@
 {{- $commonNamespace := "apps" -}}
 
 releases:
-  - name: storage-change-detection
-    namespace: {{ $commonNamespace }}
-    chart: {{ $storageChartPath }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "change-detection.yaml" }}
-
   - name: storage-deemix
     namespace: {{ $commonNamespace }}
     chart: {{ $storageChartPath }}
     values:
       - {{ printf "%s/%s" $valuesDir "deemix.yaml" }}
-
-  - name: storage-metube
-    namespace: {{ $commonNamespace }}
-    chart: {{ $storageChartPath }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "metube.yaml" }}
-
-  - name: storage-speedtest
-    namespace: {{ $commonNamespace }}
-    chart: {{ $storageChartPath }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "speedtest.yaml" }}
-
-  - name: storage-s-pdf
-    namespace: {{ $commonNamespace }}
-    chart: {{ $storageChartPath }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "s-pdf.yaml" }}
 
   - name: storage-actualbudget
     namespace: {{ $commonNamespace }}

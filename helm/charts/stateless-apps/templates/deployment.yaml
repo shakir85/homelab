@@ -42,7 +42,7 @@ spec:
               subPath: {{ .subPath }}
             {{- end }}
             {{- end }}
-          {{- if .Values.readinessProbe.enabled}}
+          {{- if .Values.app.readinessProbe.enabled }}
           readinessProbe:
             httpGet:
               path: /

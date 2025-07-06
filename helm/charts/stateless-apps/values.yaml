@@ -75,6 +75,9 @@ livenessProbe:
 # Each container will mount their subPaths within this PVC as defined in `app.volumeMounts`.
 existingClaim: ""
 
+# Uses the `nfspersistence` sub-chart to create a new NFS-backed PVC.
+# For dynamic provisioning, specify the `storageClassName` to use,  and remove the `nfs` block.
+# For static provisionging, set the appropriate info in the `nfs` block, and ignore the `storageClassName`.
 nfspersistence:
   enabled: false
 

@@ -1,6 +1,6 @@
 # This will not be rendered if a storageClassName is provided in values.yaml
 # Which means the PV will be created dynamically by the NFS client provisioner
-{{- if .Values.persistence.enabled }}
+{{- if .Values.enabled }}
 {{- if not .Values.persistence.storageClassName }}
 apiVersion: v1
 kind: PersistentVolume

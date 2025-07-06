@@ -19,6 +19,8 @@ ingress:
 
 nfspersistence:
   enabled: false
+  persistence:
+    enabled: false
 
 # -- Affinity rules for pod scheduling.
 affinity:

@@ -6,6 +6,7 @@ annotations:
   custom.synology/path-hint: ""
 
 persistence:
+  enabled: true
   name: "persistence-foo"
   size: 1Gi
   accessMode: ReadWriteMany

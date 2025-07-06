@@ -34,7 +34,7 @@ resource "kubernetes_service" "promtail_syslog" {
     namespace = "monitoring"
 
     labels = {
-      app = "promtail"
+      app       = "promtail"
       component = "syslog-receiver"
     }
 

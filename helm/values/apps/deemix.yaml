@@ -1,6 +1,4 @@
 ---
-# Optional override; otherwise Helm's `--namespace`,`-n` or default is used
-# namespace: ""
 app:
   name: "deemix"
   image:
@@ -8,36 +6,46 @@ app:
     tag: "latest"
     pullPolicy: IfNotPresent
 
-replicaCount: 1
+  replicaCount: 1
 
-service:
-  port: 80
-  targetPort: 6595
+  service:
+    port: 80
+    targetPort: 6595
 
-# Add environment variables to deployment. Supports
-# adding multiple env-vars. Comment this section if
-# your app does not need environment variables.
-env:
-  - name: PUID
-    value: "1000"
-  - name: PGID
-    value: "1000"
-  - name: UMASK_SET
-    value: "022"
-  - name: DEEMIX_SINGLE_USER
-    value: "true"
+  volumeMounts:
+    - mountPath: /downloads
+      subPath: downloads
+    - mountPath: /config
+      subPath: config
+
+  env:
+    - name: PUID
+      value: "1000"
+    - name: PGID
+      value: "1000"
+    - name: UMASK_SET
+      value: "022"
+    - name: DEEMIX_SINGLE_USER
+      value: "true"
 
 ingress:
   enabled: true
   host: "deemix.shakir.cloud"
   ingressClassName: nginx
 
-pvc:
+nfspersistence:
   enabled: true
-  claimName: deemix
-  mountPaths:
-    - /downloads
-    - /config
+  persistence:
+    name: deemix-pvc
+    storageClassName: "nfs-client"
+    accessMode: ReadWriteMany
+    reclaimPolicy: Retain
+    size: 200Mi
+  labels:
+    app: "deemix"
+  annotations:
+    volume.kubernetes.io/description: "Shared volume for deemix"
+    custom.synology/path-hint: "Dynamic Provision - Check the PVC-ID"
 
 # -- Affinity rules for pod scheduling.
 affinity:

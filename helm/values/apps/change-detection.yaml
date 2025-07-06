@@ -8,35 +8,44 @@ app:
     tag: "latest"
     pullPolicy: IfNotPresent
 
-replicaCount: 1
+  replicaCount: 1
 
-service:
-  port: 80
-  targetPort: 5000
+  service:
+    port: 80
+    targetPort: 5000
 
-# Add environment variables to deployment. Supports
-# adding multiple env-vars. Comment this section if
-# your app does not need environment variables.
-env:
-  - name: PUID
-    value: "1000"
-  - name: PGID
-    value: "1000"
-  - name: TZ
-    value: "America/Los_Angeles"
-  - name: BASE_URL
-    value: "https://change.shakir.cloud"
+  volumeMounts:
+    - mountPath: /data
+      subPath: change-detection
+
+  env:
+    - name: PUID
+      value: "1000"
+    - name: PGID
+      value: "1000"
+    - name: TZ
+      value: "America/Los_Angeles"
+    - name: BASE_URL
+      value: "https://change.shakir.cloud"
 
 ingress:
   enabled: true
   host: "change.shakir.cloud"
   ingressClassName: nginx
 
-pvc:
+nfspersistence:
   enabled: true
-  claimName: change-detection
-  mountPaths:
-    - /data
+  persistence:
+    name: change-detection-pvc
+    storageClassName: "nfs-client"
+    accessMode: ReadWriteMany
+    reclaimPolicy: Retain
+    size: 200Mi
+  labels:
+    app: "change-detection"
+  annotations:
+    volume.kubernetes.io/description: "Shared volume for change-detection"
+    custom.synology/path-hint: "Dynamic Provision - Check the PVC-ID"
 
 # -- Affinity rules for pod scheduling.
 affinity:

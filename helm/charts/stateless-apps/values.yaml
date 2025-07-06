@@ -1,38 +1,67 @@
 ---
-# Optional override; otherwise Helm's `--namespace`,`-n` or default is used
-# namespace: ""
 app:
-  name: ""
+  name: "stateless-app"
   image:
     repository: ""
     tag: ""
     pullPolicy: IfNotPresent
 
-replicaCount: 1
+  # The port the application listens on inside the container.
+  containerPort: 80
 
-service:
-  port: 80
-  targetPort: 80
+  service:
+    # The port exposed by the K8s Service.
+    port: 80
+    # The targetPort that maps to containerPort.
+    targetPort: 80
 
-# Add environment variables to deployment. Supports
-# adding multiple env-vars. Comment this section if
-# your app does not need environment variables.
-env: []
-# env:
-#   - name: ENV_NAME
-#     value: "env_value"
+  volumeMounts:
+    # Mount path for the Deployment.
+    ## -- `mountPath`: Pointing to the app container image volume (e.g., /app/data).
+    ## -- `subPath`: Pointing to the volume on the backend PVC (e.g., /mnt/nfs/someapp/data). The directory will be created automatically on the storage backend.
+    - mountPath: ""
+      subPath: ""
+
+  # List of additional environment variables the app needs.
+  # Format:
+  # - name: ENV_VAR_NAME
+  #   value: somevalue
+  env: []
+
+  envFromSecrets:
+    # Optional: Reference a secret to inject environment variables.
+    # This assumes the secret is created separately.
+    enabled: false
+    secretRefNames: []
+
+  replicaCount: 1
+
+  # A naive probes to check if the container is up. It will
+  # run the target the `containerPort` defined above and run
+  # against the root path ("/"). Returns 200 OK if the app is ready.
+  readinessProbe:
+    enabled: false
 
 ingress:
-  # Set to `true` if the app needs an ingress resource.
-  # Ingress Controller must be implemented first.
-  enabled: false
-  # Example app.example.com
-  host: ""
-  # Specify which ingress controller should handle the resource,
-  # must match the Nginx Ingress Controller's `controller.ingressClassResource.name` field
-  ingressClassName: nginx
+  # Whether to enable Ingress for the app.
+  enabled: true
 
-# Some containers require healthcehcks
+  # Hostname for external access
+  host: ""
+
+  # IngressClass to use (e.g., "nginx", "traefik", etc.)
+  ingressClassName: "nginx"
+
+  # The port to expose via ingress (typically 80 or 443).
+  port: ""
+
+  # Extra annotations for the ingress resource.
+  # Example for cert-manager:
+  # annotations:
+  #   cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  annotations: {}
+
+# Some containers require healthchecks
 livenessProbe:
   enabled: false
   command: ["", ""]
@@ -41,13 +70,26 @@ livenessProbe:
   timeoutSeconds: 10
   failureThreshold: 3
 
-# This chart will not provision a PVC. If the app needs a storage, then a PVC
-# must be up and running before deploying this chart. This is a single PVC
-# with multiple mount points.
-pvc:
+# If you have an existing PersistentVolumeClaim.
+# Otherwise, use `nfspersistent` to create a new PVC.
+# Each container will mount their subPaths within this PVC as defined in `app.volumeMounts`.
+existingClaim: ""
+
+# Uses the `nfspersistence` sub-chart to create a new NFS-backed PVC.
+# For dynamic provisioning, specify the `storageClassName` to use,  and remove the `nfs` block.
+# For static provisionging, set the appropriate info in the `nfs` block, and ignore the `storageClassName`.
+nfspersistence:
   enabled: false
-  claimName: ""
-  mountPaths: []
+
+  persistence:
+    name: ""
+    size: ""
+    accessMode: ""
+    reclaimPolicy: ""
+    storageClassName: ""
+    nfs:
+      server: ""
+      path: ""
 
 # Affinity rules for pod scheduling.
 affinity: {}

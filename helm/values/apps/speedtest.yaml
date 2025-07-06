@@ -7,34 +7,45 @@ app:
     tag: "latest"
     pullPolicy: IfNotPresent
 
-replicaCount: 1
+  replicaCount: 1
 
-service:
-  port: 80
-  targetPort: 80
+  service:
+    port: 80
+    targetPort: 80
+
+  volumeMounts:
+    - mountPath: /config
+      subPath: config
+
+  env:
+    - name: PUID
+      value: "1000"
+    - name: PGID
+      value: "1000"
+    - name: TZ
+      value: "America/Los_Angeles"
+    - name: OOKLA_EULA_GDPR
+      value: "true"
 
 ingress:
   enabled: true
   host: "speedtest.shakir.cloud"
   ingressClassName: nginx
 
-env:
-  - name: PUID
-    value: "1000"
-  - name: PGID
-    value: "1000"
-  - name: TZ
-    value: "America/Los_Angeles"
-  - name: OOKLA_EULA_GDPR
-    value: "true"
-
-pvc:
+nfspersistence:
   enabled: true
-  claimName: speedtest
-  mountPaths:
-    - /config
+  persistence:
+    name: speedtest-pvc
+    storageClassName: "nfs-client"
+    accessMode: ReadWriteMany
+    reclaimPolicy: Retain
+    size: 200Mi
+  labels:
+    app: "speedtest"
+  annotations:
+    volume.kubernetes.io/description: "Shared volume for speedtest"
+    custom.synology/path-hint: "Dynamic Provision - Check the PVC-ID"
 
-# -- Affinity rules for pod scheduling.
 affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:

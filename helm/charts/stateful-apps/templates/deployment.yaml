@@ -12,7 +12,7 @@ spec:
       labels: {{ include "stateful-app.selectorLabels" (dict "role" "app" "context" .) | nindent 8 }}-deployment
     spec:
       containers:
-        - name: stateful-app
+        - name: {{ .Values.app.name }}
           image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
           imagePullPolicy: {{ .Values.app.image.pullPolicy }}
           ports:

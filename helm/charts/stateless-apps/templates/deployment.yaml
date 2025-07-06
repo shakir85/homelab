@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.app.name }}
   namespace: {{ .Values.namespace | default .Release.Namespace }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.app.replicaCount }}
   selector:
     matchLabels:
       app: {{ .Values.app.name }}
@@ -17,16 +17,41 @@ spec:
         - name: {{ .Values.app.name }}
           image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
           imagePullPolicy: {{ .Values.app.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.app.containerPort }}
           env:
-            {{- if .Values.env }}
-            {{- range .Values.env }}
+            {{- if .Values.app.env }}
+            {{- range .Values.app.env }}
             - name: {{ .name | quote }}
               value: {{ .value | quote }}
             {{- end }}
             {{- end }}
-          ports:
-            - containerPort: {{ .Values.service.port }}
-
+          {{- if .Values.app.envFromSecrets.enabled }}
+          envFrom:
+            {{- range .Values.app.envFromSecrets.secretRefNames }}
+            - secretRef:
+                name: {{ . | quote }}
+            {{- end }}
+          {{- end }}
+          volumeMounts:
+            {{- $claimName := .Values.existingClaim | default .Values.nfspersistence.persistence.name }}
+            {{- if $claimName }}
+            {{- range .Values.app.volumeMounts }}
+            - name: {{ $claimName }}
+              mountPath: {{ .mountPath }}
+              subPath: {{ .subPath }}
+            {{- end }}
+            {{- end }}
+          {{- if .Values.app.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.app.containerPort }}
+            initialDelaySeconds: 5
+            periodSeconds: 15
+            timeoutSeconds: 2
+            failureThreshold: 5
+          {{- end }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             exec:
@@ -36,22 +61,13 @@ spec:
             timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
             failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
           {{- end }}
-
-          {{- if .Values.pvc.enabled }}
-          volumeMounts:
-            {{- $claimName := .Values.pvc.claimName }}
-            {{- range .Values.pvc.mountPaths }}
-            - name: {{ $claimName }}
-              mountPath: {{ . }}
-              subPath: {{ trimPrefix "/" . }}
-            {{- end }}
-          {{- end }}
-      {{- if .Values.pvc.enabled }}
       volumes:
-        - name: {{ .Values.pvc.claimName }}
+        {{- $claimName := .Values.existingClaim | default .Values.nfspersistence.persistence.name }}
+        {{- if $claimName }}
+        - name: {{ $claimName }}
           persistentVolumeClaim:
-            claimName: {{ .Values.pvc.claimName }}
-      {{- end }}
+            claimName: {{ $claimName }}
+        {{- end }}
       {{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}

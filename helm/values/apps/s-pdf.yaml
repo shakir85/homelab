@@ -1,5 +1,4 @@
 ---
-namespace: apps
 app:
   name: "s-pdf"
   image:
@@ -7,32 +6,46 @@ app:
     tag: "latest"
     pullPolicy: IfNotPresent
 
-replicaCount: 1
+  replicaCount: 1
 
-service:
-  port: 80
-  targetPort: 8080
+  service:
+    port: 80
+    targetPort: 8080
+
+  volumeMounts:
+    - mountPath: /customfiles
+      subPath: customfiles
+    - mountPath: /configs
+      subPath: configs
+    - mountPath: /usr/share/tessdata
+      subPath: tessdata
+
+  env:
+    - name: DOCKER_ENABLE_SECURITY
+      value: "true"
+    - name: INSTALL_BOOK_AND_ADVANCED_HTML_OPS
+      value: "false"
+    - name: LANGS
+      value: "en_US"
 
 ingress:
   enabled: true
   host: "spdf.shakir.cloud"
   ingressClassName: nginx
 
-env:
-  - name: DOCKER_ENABLE_SECURITY
-    value: "false"
-  - name: INSTALL_BOOK_AND_ADVANCED_HTML_OPS
-    value: "false"
-  - name: LANGS
-    value: "en_US"
-
-pvc:
+nfspersistence:
   enabled: true
-  claimName: s-pdf
-  mountPaths:
-    - /customfiles
-    - /configs
-    - /usr/share/tessdata
+  persistence:
+    name: spdf-pvc
+    storageClassName: "nfs-client"
+    accessMode: ReadWriteMany
+    reclaimPolicy: Retain
+    size: 200Mi
+  labels:
+    app: "spdf"
+  annotations:
+    volume.kubernetes.io/description: "Shared volume for spdf"
+    custom.synology/path-hint: "Dynamic Provision - Check the PVC-ID"
 
 # -- Affinity rules for pod scheduling.
 affinity:

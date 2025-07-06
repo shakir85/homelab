@@ -51,16 +51,10 @@ resource "kubernetes_service" "promtail_syslog" {
     type = "LoadBalancer"
 
     port {
-      name        = "syslog-tcp"
+      name        = "syslog"
       port        = 1514
       target_port = 1514
       protocol    = "TCP"
-    }
-    port {
-      name        = "syslog-udp"
-      port        = 1514
-      target_port = 1514
-      protocol    = "UDP"
     }
   }
 }

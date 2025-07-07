@@ -36,10 +36,14 @@ app:
 
   replicaCount: 1
 
-  # A naive probes to check if the container is up. It will
+  # A naive probes to check if the container is ready. It will
   # run the target the `containerPort` defined above and run
   # against the root path ("/"). Returns 200 OK if the app is ready.
   readinessProbe:
+    enabled: false
+
+  # If the app requires a liveness probe, it can be defined here.
+  livenessProbe:
     enabled: false
 
 ingress:

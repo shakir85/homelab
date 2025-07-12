@@ -2,7 +2,7 @@ terraform {
   required_version = "~> 1.5.7"
   backend "s3" {
     region = "us-east-1"
-    key    = "lxc-chartmuseum-state"
+    key    = "lxc-vault-state"
   }
   required_providers {
     proxmox = {

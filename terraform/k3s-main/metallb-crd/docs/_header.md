@@ -1,4 +1,3 @@
-
  ## MetalLB Custom Resource Definitions (CRDs) Deployment
 
  This module installs the official MetalLB CRDs for Layer 2 advertisement with a static IP address pool using Terraform.

@@ -1,5 +1,5 @@
 ## Usage
- This configuration provisions a dynamic K3s cluster on Proxmox by grouping and filtering VMs based on their `role` and `size`.
+This configuration provisions a dynamic K3s cluster on Proxmox by grouping and filtering VMs based on their `role` and `size`.
 
 It uses the [proxmox/vm](https://github.com/shakir85/proxmox-tf-modules) module to create each VM, and the [tags](https://github.com/shakir85/proxmox-tf-modules/tree/main/proxmox/tags) module to provide consistent tagging metadata.
 

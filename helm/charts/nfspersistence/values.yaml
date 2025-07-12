@@ -4,14 +4,11 @@
 # to disable this chart.
 enabled: true
 
-labels:
-  app: ""
-annotations:
-  volume.kubernetes.io/description: "Shared volume for app"
-  custom.synology/path-hint: ""
+labels: {}
+annotations: {}
 
 persistence:
-  name: "persistence-foo"
+  name: ""
   size: 1Gi
   accessMode: ReadWriteMany
   reclaimPolicy: Retain

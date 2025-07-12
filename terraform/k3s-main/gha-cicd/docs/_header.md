@@ -1,6 +1,5 @@
 ## Service Account Setup for GitHub Actions (GHA)
 This Terraform config provisions the required Kubernetes resources to enable GHA runners to deploy into one or more namespaces.
-This pattern supports centralized CI/CD with a principle of least privilege.
 
 ### What This Does
 

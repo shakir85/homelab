@@ -6,18 +6,6 @@
 {{- $commonNamespace := "apps" -}}
 
 releases:
-  - name: storage-deemix
-    namespace: {{ $commonNamespace }}
-    chart: {{ $storageChartPath }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "deemix.yaml" }}
-
-  - name: storage-actualbudget
-    namespace: {{ $commonNamespace }}
-    chart: {{ $storageChartPath }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "actualbudget.yaml" }}
-
   - name: storage-jellyfin-config
     namespace: {{ $commonNamespace }}
     chart: {{ $storageChartPath }}

@@ -8,27 +8,42 @@ app:
     tag: "sha-a9047bf"
     pullPolicy: IfNotPresent
 
-replicaCount: 1
+  replicaCount: 1
 
-service:
-  port: 80
-  targetPort: 5006
+  service:
+    port: 80
+    targetPort: 5006
+
+  volumeMounts:
+    - mountPath: /data
+      subPath: data
+
+  livenessProbe:
+    enabled: true
+    command: ["node", "src/scripts/health-check.js"]
+    initialDelaySeconds: 20
+    periodSeconds: 60
+    timeoutSeconds: 10
+    failureThreshold: 3
 
 ingress:
   enabled: true
   host: "budget.shakir.cloud"
   ingressClassName: nginx
 
-livenessProbe:
+nfspersistence:
   enabled: true
-  command: ["node", "src/scripts/health-check.js"]
-  initialDelaySeconds: 20
-  periodSeconds: 60
-  timeoutSeconds: 10
-  failureThreshold: 3
-
-pvc:
-  enabled: true
-  claimName: actualbudget
-  mountPaths:
-    - /data
+  persistence:
+    name: "actualbudget"
+    size: 100Mi
+    accessMode: ReadWriteMany
+    reclaimPolicy: Retain
+    storageClassName: ""
+    nfs:
+      server: "10.10.50.38"
+      path: "/volume1/k3s-main/actualbudget"
+  labels:
+    app: "actualbudget"
+  annotations:
+    volume.kubernetes.io/description: "Shared volume for actualbudget"
+    custom.synology/path-hint: "/volume1/k3s-main/actualbudget"

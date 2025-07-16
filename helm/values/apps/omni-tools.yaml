@@ -14,7 +14,7 @@ app:
 
 ingress:
   enabled: true
-  host: "omnitool.shakir.cloud"
+  host: "omnitools.shakir.cloud"
   ingressClassName: nginx
 
 # -- Affinity rules for pod scheduling.

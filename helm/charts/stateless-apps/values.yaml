@@ -46,6 +46,20 @@ app:
   livenessProbe:
     enabled: false
 
+  # Security context for the app container.
+  securityContext:
+    enabled: false
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: false # Set to true if the app does not need to write to the root filesystem.
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+
+
 ingress:
   # Whether to enable Ingress for the app.
   enabled: true

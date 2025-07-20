@@ -33,6 +33,20 @@ spec:
                 name: {{ . | quote }}
             {{- end }}
           {{- end }}
+          {{- if .Values.app.securityContext.enabled }}
+          securityContext:
+            allowPrivilegeEscalation: {{ .Values.app.securityContext.allowPrivilegeEscalation }}
+            readOnlyRootFilesystem: {{ .Values.app.securityContext.readOnlyRootFilesystem }}
+            runAsNonRoot: {{ .Values.app.securityContext.runAsNonRoot }}
+            runAsUser: {{ .Values.app.securityContext.runAsUser }}
+            capabilities:
+              drop:
+                {{- range .Values.app.securityContext.capabilities.drop }}
+                - {{ . }}
+                {{- end }}
+            seccompProfile:
+              type: {{ .Values.app.securityContext.seccompProfile.type }}
+          {{- end }}
           volumeMounts:
             {{- $claimName := .Values.existingClaim | default .Values.nfspersistence.persistence.name }}
             {{- if $claimName }}

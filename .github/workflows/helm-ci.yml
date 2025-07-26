@@ -49,3 +49,19 @@ jobs:
 
       - name: Run helmfile lint
         run: helmfile lint
+
+  apiversion-check:
+    runs-on: self-hosted
+    steps:
+      - uses: FairwindsOps/pluto/github-action@master
+
+      - name: Use pluto
+        run: |
+          pluto detect-helm -oyaml > pluto-report.yaml
+
+      - name: Upload Pluto YAML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pluto-report
+          path: pluto-report.yaml
+          retention-days: 14

@@ -77,9 +77,9 @@ Each VM receives tags including its role, and resources are scaled by their `siz
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.5.7)
+- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.5.7)
 
-- <a name="requirement_local"></a> [local](#requirement\_local) (>= 2.5.1)
+- <a name="requirement_local"></a> [local](#requirement\_local) (~> 2.5.1)
 
 - <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) (0.70.0)
 

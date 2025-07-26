@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.5.7"
+  required_version = "~> 1.5.7"
   backend "s3" {
     region = "us-east-1"
     key    = "vm-k3s_utils-state"
@@ -12,7 +12,7 @@ terraform {
     }
     local = {
       source  = "hashicorp/local"
-      version = ">= 2.5.1"
+      version = "~> 2.5.1"
     }
   }
 }

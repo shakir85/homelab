@@ -23,7 +23,7 @@ It uses a `null_resource` and a `local-exec` provisioner to run `kubectl label` 
 
 For each node and its labels, the module runs:
 ```sh
-kubectl label node <node> <key>=<value> --overwrite
+kubectl label node <node> <key~><value> --overwrite
 ```
 
 >[!Note]

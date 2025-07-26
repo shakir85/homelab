@@ -3,11 +3,11 @@
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.5.7)
+- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.5.7)
 
-- <a name="requirement_helm"></a> [helm](#requirement\_helm) (>= 2.9.0)
+- <a name="requirement_helm"></a> [helm](#requirement\_helm) (~> 2.9.0)
 
-- <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) (>= 2.36.0)
+- <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) (~> 2.36.0)
 
 ## Providers
 

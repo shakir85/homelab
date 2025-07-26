@@ -21,15 +21,15 @@ module "nginx\_ingress" {
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.5.7)
+- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.5.7)
 
-- <a name="requirement_helm"></a> [helm](#requirement\_helm) (>= 2.9.0)
+- <a name="requirement_helm"></a> [helm](#requirement\_helm) (~> 2.9.0)
 
 ## Providers
 
 The following providers are used by this module:
 
-- <a name="provider_helm"></a> [helm](#provider\_helm) (>= 2.9.0)
+- <a name="provider_helm"></a> [helm](#provider\_helm) (~> 2.9.0)
 
 ## Modules
 

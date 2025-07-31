@@ -32,8 +32,8 @@ db:
   host: gsdb
   port: 3306
   image:
-    repository: bitnami/mariadb
-    tag: latest
+    repository: shakir85/bitnami-mariadb
+    tag: 30072025
     pullPolicy: IfNotPresent
   volumeMounts:
     - mountPath: /bitnami/mariadb

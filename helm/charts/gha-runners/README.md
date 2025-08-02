@@ -1,4 +1,4 @@
-# GitHub Actions Runner Helm Chart
+# GitHub Actions Runner Helm Chart - To be updated...
 
 This Helm chart deploys GitHub Actions Runners in multiple modes:
 

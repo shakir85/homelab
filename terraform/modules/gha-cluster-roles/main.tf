@@ -19,6 +19,12 @@ resource "kubernetes_cluster_role" "gha_namespace_reader" {
     resources  = ["namespaces"]
     verbs      = ["get", "list", "create"]
   }
+
+  rule {
+    api_groups = [""]
+    resources  = ["persistentvolumes"]
+    verbs      = ["get", "list"]
+  }
 }
 
 resource "kubernetes_cluster_role_binding" "gha_namespace_reader_binding" {

@@ -16,7 +16,7 @@ crash.*.log
 *.tfplan
 terraform.tfstate
 *.plan
-*tfvars
+# *tfvars
 # misc
 *.cer
 *.crt

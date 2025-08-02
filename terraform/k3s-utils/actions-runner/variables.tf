@@ -28,6 +28,14 @@ variable "runner_name" {
   description = "GHA runner name"
 }
 
+variable "gha_runners" {
+  type = map(object({
+    gha_runner_release_name    = string
+    repo_values_file   = string
+  }))
+  description = "Map of GHA runners to deploy per repository"
+}
+
 variable "kube_namespace" {
   default     = "actions"
   type        = string

@@ -1,36 +1,9 @@
-# Global configuration
-global:
-  labels:
-    - default
+name:
+namespace:
+replicas: 1
+repository: ""
+replicas: ""
 
-# Labels for the resource itself (e.g., runnerDeployment or runnerSet)
 labels: {}
 
-# Labels to add to the pod container metadata
 podLabels: {}
-
-# Boolean values to control what resource to deploy from this chart.
-deployRunner: false
-deployRunnerDeployment: false
-deployRunnerSet: false
-deployHorizontalRunnerAutoscaler: false
-
-namespace: actions
-repository: shakir85/homelab
-runner_name: default-runner
-runner_deployment_name: default-runner-deployment
-runnerset_name: default-runnerset
-runner_autoscaler_name: default-autoscaler
-
-runnerDeployment:
-  replicas: 2
-
-runnerSet:
-  replicas: 2
-
-horizontalRunnerAutoscaler:
-  targetRef:
-    kind: RunnerDeployment
-    name: "{{ .Values.runner_deployment_name }}"
-  minReplicas: 1
-  maxReplicas: 5

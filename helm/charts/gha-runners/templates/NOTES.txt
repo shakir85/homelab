@@ -1,24 +1,8 @@
 ====================================================
-GitHub Actions Runner Deployment - {{ .Release.Name }}
+GitHub Actions RunnerDeployment - {{ .Release.Name }}
 ====================================================
 
 App Name:    {{ .Chart.Name }}
 Namespace:   {{ .Release.Namespace }}
 Status:      {{ .Release.Status }}
 Revision:    {{ .Release.Revision }}
-
-NOTES:
-- Ensure that the appropriate resources are deployed by setting the relevant flags:
-  --set deployRunner=true
-  --set deployRunnerDeployment=true
-  --set deployRunnerSet=true
-  --set deployHorizontalRunnerAutoscaler=true
-
-- To set runner labels, use:
-  --set-json global.labels='["selfhosted", "linux", "custom-label"]'
-
-- Check the runner Pods' logs to verify connection to GitHub:
-  kubectl logs -n {{ .Release.Namespace }} -l app.kubernetes.io/instance={{ .Release.Name }}
-
-- To uninstall the release, run:
-  helm uninstall {{ .Release.Name }} -n {{ .Release.Namespace }}

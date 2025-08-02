@@ -1,0 +1,14 @@
+name: homelab-runners
+namespace: actions
+
+repository: shakir85/homelab
+
+replicas: 2
+
+labels:
+  app.kubernetes.io/managed-by: terraform
+  repository/name: homelab
+
+podLabels:
+  app.kubernetes.io/managed-by: terraform
+  repository/name: homelab

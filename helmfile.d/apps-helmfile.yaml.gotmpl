@@ -13,6 +13,8 @@ repositories:
     url: https://jellyfin.github.io/jellyfin-helm
   - name: nfspersistence
     url: https://shakir85.github.io/homelab
+  # - name: karakeep
+  #   url: https://karakeep-app.github.io/helm-charts
 
 {{/* Helm releases that are deployed from selfhosted charts */}}
 releases:
@@ -93,3 +95,13 @@ releases:
     chart: {{ $statefulChartsDir  }}
     values:
       - {{ printf "%s/%s" $valuesDir "gaseous.yaml" }}
+
+  # - name: karakeep
+  #   namespace: {{ $commonNamespace }}
+  #   chart: {{ "karakeep/karakeep" }}
+  #   values:
+  #     - {{ printf "%s/%s" $valuesDir "karakeep.yaml" }}
+
+  - name: karakeep
+    namespace: {{ $commonNamespace }}
+    chart: {{ printf "%s/%s" $rootChartsDir "karakeep" }}

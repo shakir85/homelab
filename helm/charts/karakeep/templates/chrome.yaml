@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "karakeep.fullname" . }}-chrome
+  labels:
+    app: {{ include "karakeep.name" . }}
+    component: chrome
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "karakeep.name" . }}
+      component: chrome
+  template:
+    metadata:
+      labels:
+        app: {{ include "karakeep.name" . }}
+        component: chrome
+    spec:
+      containers:
+        - name: chrome
+          image: "{{ .Values.chrome.image.repository }}:{{ .Values.chrome.image.tag }}"
+          command:
+            - "chromium-browser"
+            - "--headless"
+            - "--disable-gpu"
+            - "--remote-debugging-address=0.0.0.0"
+            - "--remote-debugging-port=9222"
+            - "--no-sandbox"
+          ports:
+            - containerPort: 9222

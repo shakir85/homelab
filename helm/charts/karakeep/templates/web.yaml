@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "karakeep.fullname" . }}-web
+  labels:
+    app: {{ include "karakeep.name" . }}
+    component: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "karakeep.name" . }}
+      component: web
+  template:
+    metadata:
+      labels:
+        app: {{ include "karakeep.name" . }}
+        component: web
+    spec:
+      containers:
+        - name: web
+          image: "{{ .Values.web.image.repository }}:{{ .Values.web.image.tag }}"
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MEILI_ADDR
+              value: http://{{ include "karakeep.fullname" . }}-meilisearch:7700
+            - name: BROWSER_WEB_URL
+              value: http://{{ include "karakeep.fullname" . }}-chrome:9222
+            - name: NEXTAUTH_URL
+              value: http://{{ include "karakeep.fullname" . }}-web:3000
+            - name: DATA_DIR
+              value: {{ .Values.web.env.DATA_DIR | default "/data" | quote }}
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: karakeep-web-secret
+                  key: NEXTAUTH_SECRET
+            - name: MEILI_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: karakeep-web-secret
+                  key: MEILI_MASTER_KEY
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          emptyDir: {}

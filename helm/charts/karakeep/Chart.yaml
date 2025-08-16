@@ -1,0 +1,4 @@
+apiVersion: v2
+name: karakeep
+version: 0.0.1
+description: A Helm chart for Karakeep app

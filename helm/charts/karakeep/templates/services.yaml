@@ -1,0 +1,22 @@
+{{- range .Values.services }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "karakeep.fullname" $ }}-{{ .name }}
+  labels:
+    app: {{ include "karakeep.name" $ }}
+    component: {{ .name }}
+spec:
+  type: {{ .type | default "ClusterIP" }}
+  ports:
+    {{- range .ports }}
+    - port: {{ .port }}
+      targetPort: {{ .targetPort | default .port }}
+      protocol: {{ .protocol | default "TCP" }}
+      name: {{ .name | default "http" }}
+    {{- end }}
+  selector:
+    app: {{ include "karakeep.name" $ }}
+    component: {{ .name }}
+{{- end }}

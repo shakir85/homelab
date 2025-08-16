@@ -52,7 +52,7 @@ controllers:
       volumeClaimTemplates:
         - name: data
           accessMode: ReadWriteOnce
-          size: 2Gi
+          size: 500Mi
           globalMounts:
             - path: /data
 
@@ -153,6 +153,7 @@ meilisearch:
     existingMasterKeySecret: "{{ .Release.Name }}-meilesearch"
   environment:
     MEILI_ENV: production
+    MEILI_NO_ANALYTICS: "true"
   persistence:
     enabled: true
-    size: 1Gi
+    size: 500Mi

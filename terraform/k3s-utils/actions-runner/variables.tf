@@ -12,8 +12,8 @@ variable "kube_context" {
 
 variable "gha_runners" {
   type = map(object({
-    gha_runner_release_name    = string
-    repo_values_file   = string
+    gha_runner_release_name = string
+    repo_values_file        = string
   }))
   description = "Map of GHA runners to deploy per repository"
 }

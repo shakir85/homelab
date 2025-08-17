@@ -20,11 +20,11 @@ jobs:
       - run: |
           echo "${{ secrets.KUBECONFIG_K3S_MAIN }}" > "${KUBECONFIG}"
 
-      - name: Install required executables
-        run: |
-          # Helm
-          curl -s https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+      - uses: azure/setup-helm@v4
+        with:
+          version: v3.14.0
 
+      - run: |
           # Helm diff plugin
           helm plugin install https://github.com/databus23/helm-diff
 

@@ -10,34 +10,10 @@ variable "kube_context" {
   default     = "k3s-utils-ctx"
 }
 
-variable "gha_runner_name" {
-  default     = "tf-runners-k3s"
-  type        = string
-  description = "Name of the GHA runners"
-}
-
-variable "runner_type" {
-  default     = "deployRunnerDeployment"
-  type        = string
-  description = "GHA runner type. See chart's notes for more info"
-}
-
-variable "runner_name" {
-  default     = "tf-managed"
-  type        = string
-  description = "GHA runner name"
-}
-
 variable "gha_runners" {
   type = map(object({
-    gha_runner_release_name    = string
-    repo_values_file   = string
+    gha_runner_release_name = string
+    repo_values_file        = string
   }))
   description = "Map of GHA runners to deploy per repository"
-}
-
-variable "kube_namespace" {
-  default     = "actions"
-  type        = string
-  description = "Namespace where the runners will be deployed"
 }

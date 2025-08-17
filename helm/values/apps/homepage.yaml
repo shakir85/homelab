@@ -140,7 +140,7 @@ config:
               href: https://budget.shakir.cloud
               description: Actual Budget Personal Finance
           - Karakeep:
-              icon: sh-Karakeep
+              icon: sh-karakeep
               href: https://karakeep.shakir.cloud
               description: Karakeep Bookmarks Manager
 

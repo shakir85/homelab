@@ -3,7 +3,7 @@ resource "helm_release" "gha_runners" {
 
   name             = each.value.gha_runner_release_name
   chart            = "../../../helm/charts/gha-runners/"
-  namespace        = var.kube_namespace
+  namespace        = "actions"
   create_namespace = false
 
   values = [

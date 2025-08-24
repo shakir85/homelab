@@ -33,7 +33,7 @@ db:
   port: 3306
   image:
     repository: shakir85/bitnami-mariadb
-    tag: 30072025
+    tag: "30072025"
     pullPolicy: IfNotPresent
   volumeMounts:
     - mountPath: /bitnami/mariadb

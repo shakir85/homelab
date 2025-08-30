@@ -32,6 +32,7 @@ resource "helm_release" "actions_runner_controller" {
     name  = "containerMode.type"
     value = "kubernetes"
   }
+
   values = [
     yamlencode({
       labels = {

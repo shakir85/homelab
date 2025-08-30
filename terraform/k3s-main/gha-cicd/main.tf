@@ -30,25 +30,30 @@ resource "kubernetes_secret_v1" "gha_token" {
 # Create role and role binding for the 'gha_runner' service account
 # in the namespace 'var.kube_namespace'
 module "rbac_gha" {
-  source                        = "../../modules/gha-rbac"
-  target_namespace              = var.kube_namespace
-  gha_service_account_namespace = var.kube_namespace
-  gha_service_account_name      = kubernetes_service_account.gha_runner.metadata[0].name
+  source = "../../modules/k8s-roles"
+
+  role_name                 = "gha-helm-deployer"
+  namespace                 = var.kube_namespace
+  service_account_namespace = var.kube_namespace
+  service_account_name      = kubernetes_service_account.gha_runner.metadata[0].name
 }
 
 # Add additional roles and role bindings for service-account 'gha_runner'
 # in namespaces that the runner should be able to deploy to?
 # Use one module call per namespace. namespace must be created first!
 module "rbac_apps" {
-  source                        = "../../modules/gha-rbac"
-  target_namespace              = "apps"
-  gha_service_account_namespace = var.kube_namespace
-  gha_service_account_name      = kubernetes_service_account.gha_runner.metadata[0].name
+  source = "../../modules/k8s-roles"
+
+  role_name                 = "gha-helm-deployer"
+  namespace                 = "apps"
+  service_account_namespace = var.kube_namespace
+  service_account_name      = kubernetes_service_account.gha_runner.metadata[0].name
 }
 
 # Helm needs access to namespaces
 module "gha_cluster_access" {
-  source                        = "../../modules/gha-cluster-roles"
-  gha_service_account_namespace = var.kube_namespace
-  gha_service_account_name      = kubernetes_service_account.gha_runner.metadata[0].name
+  source                    = "../../modules/k8s-cluster-roles"
+  service_account_namespace = var.kube_namespace
+  service_account_name      = kubernetes_service_account.gha_runner.metadata[0].name
+  role_name                 = "gha-read-namespaces"
 }

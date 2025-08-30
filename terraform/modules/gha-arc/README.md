@@ -1,3 +1,7 @@
+# Github Actions - Actions Runner Controller
+
+Module for deploying Actions Runner Controller.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

@@ -1,5 +1,4 @@
 variable "kube_config_path" {
-  default     = "~/.kube/config"
   type        = string
   description = "Path to kubeconfig file relative to where this script will run"
 }
@@ -7,13 +6,11 @@ variable "kube_config_path" {
 variable "kube_context" {
   description = "The name of the kubeconfig context to use"
   type        = string
-  default     = "k3s-utils-ctx"
 }
 
 variable "kube_namespace" {
   description = "The name of the namespace where resource will be deployed"
   type        = string
-  default     = "actions"
 }
 
 variable "github_app_id" {

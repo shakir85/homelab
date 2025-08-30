@@ -1,18 +1,7 @@
-terraform {
-  required_version = "~> 1.5.7"
-
-  required_providers {
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.36.0"
-    }
-  }
-}
-
-resource "kubernetes_role" "gha_target_ns_role" {
+resource "kubernetes_role" "this" {
   metadata {
     name      = var.role_name
-    namespace = var.target_namespace
+    namespace = var.namespace
     labels    = var.shared_labels
   }
 
@@ -50,22 +39,22 @@ resource "kubernetes_role" "gha_target_ns_role" {
 
 }
 
-resource "kubernetes_role_binding" "gha_target_ns_binding" {
+resource "kubernetes_role_binding" "this" {
   metadata {
-    name      = "sa-${var.gha_service_account_name}-${var.gha_service_account_namespace}-binding"
-    namespace = var.target_namespace
+    name      = "sa-${var.service_account_name}-${var.service_account_namespace}-binding"
+    namespace = var.namespace
     labels    = var.shared_labels
   }
 
   role_ref {
     kind      = "Role"
-    name      = kubernetes_role.gha_target_ns_role.metadata[0].name
+    name      = kubernetes_role.this.metadata[0].name
     api_group = "rbac.authorization.k8s.io"
   }
 
   subject {
     kind      = "ServiceAccount"
-    name      = var.gha_service_account_name
-    namespace = var.gha_service_account_namespace
+    name      = var.service_account_name
+    namespace = var.service_account_namespace
   }
 }

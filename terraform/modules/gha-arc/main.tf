@@ -23,15 +23,14 @@ resource "helm_release" "actions_runner_controller" {
   chart      = "actions-runner-controller"
   version    = "0.23.7"
 
-  set {
+  set = [{
     name  = "syncPeriod"
     value = "1m"
-  }
-
-  set {
-    name  = "containerMode.type"
-    value = "kubernetes"
-  }
+    },
+    {
+      name  = "containerMode.type"
+      value = "kubernetes"
+  }]
 
   values = [
     yamlencode({

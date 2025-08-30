@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~> 1.5.7"
+  required_version = "~> 1.13.1"
   backend "s3" {
     region = "us-east-1"
     key    = "vm-k3s_utils-state"

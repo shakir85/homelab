@@ -1,5 +1,5 @@
 module "cicd_namespace" {
-  source = "../../modules/namespace"
+  source = "../../modules/k8s-namespace"
   name   = var.kube_namespace
   labels = var.shared_labels
 }

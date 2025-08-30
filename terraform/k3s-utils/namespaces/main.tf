@@ -1,5 +1,5 @@
 module "actions_namespace" {
-  source = "../../modules/namespace"
+  source = "../../modules/k8s-namespace"
   name   = "actions"
   labels = {
     "app.kubernetes.io/managed-by" = "terraform"
@@ -7,7 +7,7 @@ module "actions_namespace" {
 }
 
 module "monitoring_namespace" {
-  source = "../../modules/namespace"
+  source = "../../modules/k8s-namespace"
   name   = "monitoring"
   labels = {
     "app.kubernetes.io/managed-by" = "terraform"

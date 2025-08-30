@@ -1,0 +1,9 @@
+namespace:  metallb-system
+
+IPAddressPool:
+  name: first-pool
+  ranges:
+    - 10.10.50.90-10.10.50.99
+
+L2Advertisement:
+  name: main-advertisement

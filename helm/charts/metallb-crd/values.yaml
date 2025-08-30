@@ -1,0 +1,8 @@
+namespace: ""
+
+IPAddressPool:
+  name: ""
+  ranges: []
+
+L2Advertisement:
+  name: ""

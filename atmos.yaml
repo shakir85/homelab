@@ -1,0 +1,12 @@
+base_path: "./"
+
+stacks:
+  base_path: stacks
+  included_paths:
+    - "**/**/*.yaml"
+  name_pattern: ".*"
+
+components:
+  terraform:
+    base_path: components/terraform
+    deploy_run_init: true

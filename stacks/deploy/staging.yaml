@@ -1,0 +1,7 @@
+components:
+  terraform:
+    cert-manager:
+      vars:
+        namespace: "cert-manager"
+        kube_context: "k3s-utils-ctx"
+        kube_config_path: "~/.kube/config"

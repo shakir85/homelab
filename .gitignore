@@ -50,3 +50,5 @@ terraform.rc
 !.terraform-docs.yml
 admin
 admin-login
+
+.atmos/

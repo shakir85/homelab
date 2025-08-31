@@ -8,7 +8,7 @@
 crash.log
 crash.*.log
 
-# Terraform files
+# Terraform & Terragrunt files
 .terraform/*
 **/.terraform*
 *.tfstate
@@ -27,6 +27,7 @@ key.yml
 ansible_id_rsa.pub
 **/.DS_Store
 *.tfvars.json
+.terragrunt-cache
 
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
@@ -51,4 +52,3 @@ terraform.rc
 admin
 admin-login
 
-.atmos/

@@ -3,7 +3,7 @@ resource "helm_release" "cert_manager" {
   repository = "https://charts.jetstack.io"
   chart      = "cert-manager"
   namespace  = var.namespace
-  version    = var.version
+  version    = var.chart_version
 
   set = [{
     name  = "prometheus.enabled"

@@ -3,11 +3,12 @@ include {
 }
 
 terraform {
-  source = "../../../modules/root-modules/platform"
+  source = "${get_repo_root()}/terraform/root-modules/platform"
 }
 
 locals {
-  env = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+  common = read_terragrunt_config(find_in_parent_folders("common.hcl"))
+  env    = read_terragrunt_config("${get_terragrunt_dir()}/env.hcl")
 }
 
-inputs = local.env.inputs
+inputs = merge(local.common.inputs, local.env.inputs)

@@ -1,0 +1,20 @@
+name: Smoke Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-kubectl:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Test kubectl access
+        run: |
+          kubectl get namespaces
+          kubectl get pods -A

@@ -1,0 +1,1 @@
+This directory contains *instances of Terraform root modules* managed by Terragrunt. Each *stack* (e.g. `./platform/prod/`) represents an environment and wires together one or more root modules.  Within a stack, the `terragrunt.hcl` files act as *components*; thin wrappers that connect Terraform modules with environment-specific configuration and logic.

@@ -1,8 +1,0 @@
-====================================================
-GitHub Actions RunnerDeployment - {{ .Release.Name }}
-====================================================
-
-App Name:    {{ .Chart.Name }}
-Namespace:   {{ .Release.Namespace }}
-Status:      {{ .Release.Status }}
-Revision:    {{ .Release.Revision }}

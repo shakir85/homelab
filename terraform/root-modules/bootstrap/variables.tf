@@ -1,7 +1,6 @@
-variable "kube_config" {
+variable "config_path" {
   description = "Path to the Kubernetes config file"
   type        = string
-  default     = "~/.kube/config"
 }
 
 variable "github_app_id" {
@@ -19,7 +18,17 @@ variable "github_app_private_key" {
   type        = string
 }
 
-variable "runner_name" {
+variable "name" {
   description = "Name of the GitHub Actions runner"
+  type        = string
+}
+
+variable "repo" {
+  description = "GitHub repository where the runner will be linked with"
+  type        = string
+}
+
+variable "org" {
+  description = "GitHub organization for the repository"
   type        = string
 }

@@ -1,7 +1,0 @@
-apiVersion: v2
-description: A Helm chart for Installing Github Actions runner set
-name: gha-runners
-type: application
-version: 1.0.0
-# This is the version of the Actions Runner Controller that this chart is compatible with.
-appVersion: "0.23.7"

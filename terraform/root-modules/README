@@ -1,0 +1,1 @@
+Consist of monolithic root modules that wire up child modules per infra layer (core, platform, ...etc)

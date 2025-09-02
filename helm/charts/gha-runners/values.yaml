@@ -1,9 +1,0 @@
-name:
-namespace:
-replicas: 1
-repository: ""
-replicas: ""
-
-labels: {}
-
-podLabels: {}

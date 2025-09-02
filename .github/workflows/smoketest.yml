@@ -17,4 +17,4 @@ jobs:
       - name: Test kubectl access
         run: |
           kubectl get namespaces
-          kubectl run foo --image alpine -n arc-system
+          kubectl run nginx --image nginx:latest -n default

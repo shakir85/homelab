@@ -32,3 +32,8 @@ variable "org" {
   description = "GitHub organization for the repository"
   type        = string
 }
+
+variable "rbac_namespaces" {
+  description = "List of namespaces to which the GitHub Actions runner will have RBAC access"
+  type        = list(string)
+}

@@ -17,4 +17,4 @@ jobs:
       - name: Test kubectl access
         run: |
           kubectl get namespaces
-          kubectl get pods -A
+          kubectl run foo --image alpine -n arc-system

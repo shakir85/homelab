@@ -1,11 +1,11 @@
 locals {
   kube = {
     config_path    = "~/.kube/config"
-    config_context = "k3s-utils-ctx"
+    config_context = "k3s-main-ctx"
   }
 
   runner = {
-    name = "staging-homelab"
+    name = "prod-homelab"
     repo = "homelab"
     org  = "shakir85"
     rbac_namespaces = ["kube-system", "cert-manager", "runners", "arc-system"]

@@ -3,6 +3,11 @@ variable "config_path" {
   type        = string
 }
 
+variable "config_context" {
+  description = "Kubernetes context to use"
+  type        = string
+}
+
 variable "github_app_id" {
   description = "GitHub App ID"
   type        = string

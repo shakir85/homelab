@@ -1,6 +1,20 @@
-inputs = {
-  # kube_context     = "k3s-staging-ctx"
-  environment      = "staging"
-  metallb_ipv4_address_pools = ["192.168.1.240-192.168.1.250"]
-  metallb_ipv4_address_pool_name = "default-pool"
+locals{
+  kube = {
+    config_path    = "~/.kube/config"
+    config_context = "k3s-utils-ctx"
+  }
+
+  metallb = {
+    ipv4_address_pool_name = "default-pool"
+    ipv4_address_pools     = ["10.10.50.95-10.10.50.99"]
+    metallb_namespace      = "metallb-system"
+  }
+
+  nginx-ingress = {
+    nginx_namespace         = "ingress-nginx"
+    ingress_controller_name = "nginx"
+  }
+
 }
+
+inputs = merge(local.kube, local.metallb, local.nginx-ingress)

@@ -11,4 +11,4 @@ locals {
   env    = read_terragrunt_config("${get_terragrunt_dir()}/env.hcl")
 }
 
-inputs = merge(local.common.inputs, local.env.inputs)
+inputs = merge(local.env.inputs)

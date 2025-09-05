@@ -1,0 +1,45 @@
+---
+# tasks for installing nfs client on Debian
+- name: Install NFS utils for Debian based servers
+  ansible.builtin.apt:
+    name:
+      - nfs4-acl-tools
+      - nfs-common
+    state: present
+
+# This task serves as a workaround for what appears to be a bug when starting the NFS service using systemd.
+# In a fresh `nfs-common` installation on Debian 11 and 12, the systemd service path mentioned below is a symbolic
+# link to /dev/null. As a result, systemd marks the NFS service status as 'dead'.
+#
+# This situation creates a circular issue: to enable a dead service, you need to 'unmask' it first.
+# But, because the service is dead, systemd cannot unmask it! :).
+#
+# The solution is to remove the symbolic link to /dev/null and reload the NFS systemd service to generate
+# the correct symlink to the NFS systemd service file.
+#
+# Discovering this bug was challenging because the error message from the mounting command was misleading:
+#   >> Error message: mount: 10.10.50.38:/volume1/test /data: can't find in /etc/fstab.
+#   >> Error from Ansible: Unable to start service nfs-common: Failed to start nfs-common.service:
+# Unit nfs-common.service is masked.
+#
+# Note: Neither the 'masked: false' Ansible directive nor 'command: systemctl unmask ...' worked.
+- name: Fix NFS Systemd service file
+  when: ansible_distribution == 'Debian'
+  block:
+    - name: Remove broken NFS service file
+      ansible.builtin.file:
+        path: /lib/systemd/system/nfs-common.service
+        state: absent
+    # This should generate the correct '/lib/systemd/system/nfs-common.service' file
+    - name: Force systemd daemon to reread systemd-units configs
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+- name: Ensure NFS client service is running
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  loop:
+    - nfs-common
+    - nfs-client.target

@@ -1,0 +1,34 @@
+---
+- name: Download Helm binary
+  ansible.builtin.get_url:
+    url: "https://get.helm.sh/helm-{{ helm_version }}-linux-amd64.tar.gz"
+    dest: "/tmp/helm.tar.gz"
+    mode: "0644"
+
+- name: Extract Helm binary
+  ansible.builtin.unarchive:
+    src: "/tmp/helm.tar.gz"
+    dest: "/tmp/"
+    remote_src: true
+
+- name: Move Helm binary to install path
+  ansible.builtin.command:
+    cmd: "mv /tmp/linux-amd64/helm {{ helm_install_path }}"
+  become: true
+  register: task_stdout
+  changed_when: task_stdout.rc != 0
+
+- name: Ensure helm is executable
+  ansible.builtin.file:
+    path: "{{ helm_install_path }}"
+    mode: "0755"
+
+- name: Clean up temporary files
+  ansible.builtin.file:
+    path: "/tmp/helm.tar.gz"
+    state: absent
+
+- name: Clean up extracted directory
+  ansible.builtin.file:
+    path: "/tmp/linux-amd64"
+    state: absent

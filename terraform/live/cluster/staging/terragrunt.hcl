@@ -10,9 +10,18 @@ locals {
   common = read_terragrunt_config("${get_terragrunt_dir()}/common.hcl").locals
 
   cluster = [
-    { name = "ctrl",   size = "large",  count = 1 },
-    { name = "wx", size = "medium", count = 2 },
-    { name = "wy", size = "small",  count = 1 },
+    {
+      # Control plane
+      name  = "staging-ctrl",
+      size  = "large",
+      count = 1
+    },
+    {
+      # Node group - small
+      name  = "staging-small-w",
+      size  = "small",
+      count = 2
+    },
   ]
 }
 

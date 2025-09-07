@@ -3,10 +3,12 @@
 # Only run this Playbook via the script: bootstrap.sh
 # This Playbook sets the Ansible user configured in ansible.cfg
 # as a remote user using the provided SSH public key.
-# This way, the Ansible controller can connect to the managed hosts
+# This way, the Ansible controller can connect to the managed hosts.
+# The bootstrap playbook will initially use a user that already exists on the remote host, provisioned via cloud-init.
 - name: Playbook for bootstrapping hosts with Ansible controller host
   hosts:
-    - staging_managed_hosts
+    - staging_all_hosts
+    - dev_all_hosts
   become: true
 
   vars:

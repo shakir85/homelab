@@ -27,7 +27,6 @@ all:
             staging_workers:
 
     # Global group of all control planes
-    # DO NOT REMOVE - the role needs this to identify the ctrl plane IP
     k3s_ctrl_nodes:
-      children:
-        staging_ctrl_plane:
+      hosts:
+        staging-ctrl-0:

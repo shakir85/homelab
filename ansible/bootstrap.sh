@@ -15,6 +15,7 @@ fi
 if [ "$PUB_KEY_FILE_PATH" == "" ]; then
     echo "Pass the absolute path to id_rsa.pub"
     exit 1
+fi
 
 if [ "$ANSIBLE_KEY" == "" ]; then
     echo "Pass the absolute path to id_rsa"

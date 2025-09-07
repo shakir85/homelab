@@ -51,10 +51,6 @@ variable "proxmox_node_name" {
   description = "Name of the Proxmox node to deploy the VM on"
 }
 
-variable "hostname" {
-  description = "Hostname to set for the VM"
-}
-
 # variable "node_size" {
 #   description = "Size of the VM (small, medium, large)"
 #   type        = string

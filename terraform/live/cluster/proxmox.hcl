@@ -12,15 +12,21 @@ generate "providers" {
   path      = "providers.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
-provider "helm" {
-  kubernetes = {
-    config_path = var.config_path
-  }
-}
+provider "proxmox" {
+  endpoint = "https://10.10.50.20:8006/"
+  username = "$${var.pve_user}@pam"
+  password = var.pve_pwd
+  insecure = true
 
-provider "kubernetes" {
-  config_path = var.config_path
-  config_context = var.config_context
+  ssh {
+    agent       = false
+    private_key = file(var.id_rsa)
+    username    = var.pve_user
+    node {
+      name    = "pve1"
+      address = "10.10.50.20"
+    }
+  }
 }
 EOF
 }
@@ -32,8 +38,16 @@ generate "terraform" {
 terraform {
   required_version = "~> 1.13.1"
 
-  # The root module uses Hashicorp's k8s & Helm proviers
-  # No need to specify them here.
+  required_providers {
+    proxmox = {
+      source  = "bpg/proxmox"
+      version = "0.70.0"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = ">= 2.5.1"
+    }
+  }
 
   # stub-backend, real backend config is injected above
   backend "s3" {}

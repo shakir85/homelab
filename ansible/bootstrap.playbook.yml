@@ -1,0 +1,51 @@
+---
+#
+# Only run this Playbook via the script: bootstrap.sh
+# This Playbook sets the Ansible user configured in ansible.cfg
+# as a remote user using the provided SSH public key.
+# This way, the Ansible controller can connect to the managed hosts
+- name: Playbook for bootstrapping hosts with Ansible controller host
+  hosts:
+    - staging_managed_hosts
+  become: true
+
+  vars:
+    ansible_ctrl_user: ansible-user
+    pub_ssh_key_file: ""
+
+  tasks:
+    - name: Check variables
+      ansible.builtin.debug:
+        msg:
+          - "Default user is  => {{ ansible_ctrl_user }}"
+          - "SSH public key path is => {{ pub_ssh_key_file }}"
+
+    - name: Create ansible user group
+      ansible.builtin.group:
+        name: "{{ ansible_ctrl_user }}"
+        state: present
+
+    - name: Create ansible user
+      ansible.builtin.user:
+        name: "{{ ansible_ctrl_user }}"
+        group: "{{ ansible_ctrl_user }}"
+        groups:
+          - sudo
+        create_home: true
+        state: present
+        shell: /bin/bash
+
+    - name: Append SSH public key to authorized_keys for ansible user
+      ansible.posix.authorized_key:
+        user: "{{ ansible_ctrl_user }}"
+        key: "{{ lookup('file', '{{ pub_ssh_key_file }}') }}"
+        state: present
+        exclusive: true
+        manage_dir: true
+
+    - name: Give ansible user privilege escalation
+      community.general.sudoers:
+        name: allow-ansible-user-all
+        state: present
+        user: "{{ ansible_ctrl_user }}"
+        commands: ALL

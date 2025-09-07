@@ -6,9 +6,7 @@
 # This way, the Ansible controller can connect to the managed hosts.
 # The bootstrap playbook will initially use a user that already exists on the remote host, provisioned via cloud-init.
 - name: Playbook for bootstrapping hosts with Ansible controller host
-  hosts:
-    - staging_all_hosts
-    - dev_all_hosts
+  hosts: all
   become: true
 
   vars:

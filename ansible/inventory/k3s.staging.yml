@@ -1,67 +1,28 @@
----
-all:
-  children:
-    staging:
-      hosts:
-        staging-ctrl-0:
-          ansible_host: 10.10.50.60
-        staging-small-w-1:
-          ansible_host: 10.10.50.61
-        staging-small-w-2:
-          ansible_host: 10.10.50.62
-
-      children:
-        # For k3s role - control plane setup
-        staging_ctrl_plane:
-          hosts:
-            staging-ctrl-0:
-        # For k3s role - worker nodes setup
-        staging_workers:
-          hosts:
-            staging-small-w-1:
-            staging-small-w-2:
-        # For k3s role - boostrapping and common
-        staging_managed_hosts:
-          children:
-            staging_ctrl_plane:
-            staging_workers:
-
-        # Global group of all control planes
-        k3s_ctrl_nodes:
-          hosts:
-            staging-ctrl-0:
-
----
 # Important:
 # Hostnames must match the acceptable DNS subdomain name.
 # The roles/common will use the the below hostnames to set
 # proper subdomain and FQDN for the host in /etc/hosts
-# all:
-#   hosts:
-#     k3s-utils-ctrl:
-#       ansible_host: 10.10.50.60
-#     k3s-utils-node-1:
-#       ansible_host: 10.10.50.61
-#     k3s-utils-node-2:
-#       ansible_host: 10.10.50.62
+all:
+  hosts:
+    staging-ctrl-0:
+      ansible_host: 10.10.50.60
+    staging-small-w-1:
+      ansible_host: 10.10.50.61
+    staging-small-w-2:
+      ansible_host: 10.10.50.62
 
-#   children:
-#     k3s_utils_managed_hosts:
-#       hosts:
-#         k3s-utils-ctrl:
-#         k3s-utils-node-1:
-#         k3s-utils-node-2:
+  children:
+    staging_all_hosts:
+      hosts:
+        staging-ctrl-0:
+        staging-small-w-1:
+        staging-small-w-2:
 
-#     k3s_utils_cluster:
-#       children:
-#         k3s_ctrl_nodes:
-#         k3s_worker_nodes:
+    k3s_ctrl_nodes:
+      hosts:
+        staging-ctrl-0:
 
-#     k3s_ctrl_nodes:
-#       hosts:
-#         k3s-utils-ctrl:
-
-#     k3s_worker_nodes:
-#       hosts:
-#         k3s-utils-node-1:
-#         k3s-utils-node-2:
+    k3s_worker_nodes:
+      hosts:
+        staging-small-w-1:
+        staging-small-w-2:

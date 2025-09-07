@@ -4,6 +4,7 @@ set -e
 ANSIBLE_KEY=$1
 BOOTSTRAP_USER=$2
 PUB_KEY_FILE_PATH=$3
+INVENTORY=$4
 
 echo "Setting remote user..."
 
@@ -25,5 +26,5 @@ else
     echo -e "Bootstrapping using: \nremote_user = $BOOTSTRAP_USER\npublic key = $PUB_KEY_FILE_PATH"
     sleep 3
     echo ""
-    ansible-playbook bootstrap.playbook.yml --key-file="$ANSIBLE_KEY" -u "$BOOTSTRAP_USER" --extra-vars="pub_ssh_key_file=$PUB_KEY_FILE_PATH"
+    ansible-playbook bootstrap.playbook.yml --key-file="$ANSIBLE_KEY" -u "$BOOTSTRAP_USER" --extra-vars="pub_ssh_key_file=$PUB_KEY_FILE_PATH" --inventory=${$INVENTORY}
 fi

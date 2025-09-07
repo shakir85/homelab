@@ -1,8 +1,4 @@
 ---
-# Important:
-# Hostnames must match the acceptable DNS subdomain name.
-# The roles/common will use the the below hostnames to set
-# proper subdomain and FQDN for the host in /etc/hosts
 all:
   children:
     staging:
@@ -30,17 +26,8 @@ all:
             staging_ctrl_plane:
             staging_workers:
 
-    # drop in prod later in the same structure:
-    # prod:
-    #   hosts:
-    #     prod-ctrl-0:
-    #       ansible_host: 10.20.50.60
-    #     prod-small-w-1:
-    #       ansible_host: 10.20.50.61
-    #   children:
-    #     ctrl_plane:
-    #       hosts:
-    #         prod-ctrl-0:
-    #     workers:
-    #       hosts:
-    #         prod-small-w-1:
+    # Global group of all control planes
+    # DO NOT REMOVE - the role needs this to identify the ctrl plane IP
+    k3s_ctrl_nodes:
+      children:
+        staging_ctrl_plane:

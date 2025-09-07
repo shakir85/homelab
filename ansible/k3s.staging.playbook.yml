@@ -15,7 +15,7 @@
 # I disabled the built-in load balancer of k3s, allowing me to use MetalLB as an alternative.
 
 - name: Play for common configurations
-  hosts: staging_managed_hosts
+  hosts: staging_all_hosts
   # ignore_unreachable: true
   gather_facts: true
   become: true
@@ -25,7 +25,7 @@
     - role: helm
 
 - name: Play for configuring k3s staging cluster
-  hosts: staging_managed_hosts
+  hosts: staging_all_hosts
   # ignore_unreachable: true
   gather_facts: true
   become: true
@@ -34,7 +34,7 @@
     - role: k3s/download
 
 - name: Configure k3s control nodes
-  hosts: staging_ctrl_plane
+  hosts: k3s_ctrl_nodes
   # ignore_unreachable: true
   become: true
   roles:
@@ -42,7 +42,7 @@
     - role: helm
 
 - name: Configure k3s worker nodes
-  hosts: staging_workers
+  hosts: k3s_worker_nodes
   # ignore_unreachable: true
   become: true
   roles:

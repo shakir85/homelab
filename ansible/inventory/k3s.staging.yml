@@ -6,17 +6,17 @@ all:
   hosts:
     staging-ctrl-0:
       ansible_host: 10.10.50.60
-    staging-small-w-1:
+    staging-small-w-0:
       ansible_host: 10.10.50.61
-    staging-small-w-2:
+    staging-small-w-1:
       ansible_host: 10.10.50.62
 
   children:
     staging_all_hosts:
       hosts:
         staging-ctrl-0:
+        staging-small-w-0:
         staging-small-w-1:
-        staging-small-w-2:
 
     k3s_ctrl_nodes:
       hosts:
@@ -24,5 +24,5 @@ all:
 
     k3s_worker_nodes:
       hosts:
+        staging-small-w-0:
         staging-small-w-1:
-        staging-small-w-2:

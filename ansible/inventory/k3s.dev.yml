@@ -1,0 +1,28 @@
+# Important:
+# Hostnames must match the acceptable DNS subdomain name.
+# The roles/common will use the the below hostnames to set
+# proper subdomain and FQDN for the host in /etc/hosts
+all:
+  hosts:
+    dev-ctrl-0:
+      ansible_host: 10.10.50.104
+    dev-small-w-0:
+      ansible_host: 10.10.50.107
+    dev-small-w-1:
+      ansible_host: 10.10.50.105
+
+  children:
+    dev_all_hosts:
+      hosts:
+        dev-ctrl-0:
+        dev-small-w-0:
+        dev-small-w-1:
+
+    k3s_ctrl_nodes:
+      hosts:
+        dev-ctrl-0:
+
+    k3s_worker_nodes:
+      hosts:
+        dev-small-w-0:
+        dev-small-w-1:

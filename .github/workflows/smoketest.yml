@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Setup kubectl
-        uses: azure/setup-kubectl@v3
+        uses: azure/setup-kubectl@v4
 
       - name: Test kubectl access
         run: |

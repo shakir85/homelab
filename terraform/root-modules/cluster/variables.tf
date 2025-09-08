@@ -51,17 +51,6 @@ variable "proxmox_node_name" {
   description = "Name of the Proxmox node to deploy the VM on"
 }
 
-# variable "node_size" {
-#   description = "Size of the VM (small, medium, large)"
-#   type        = string
-#   default     = "small"
-
-#   validation {
-#     condition     = contains(["small", "medium", "large"], var.node_size)
-#     error_message = "node_size must be one of: small, medium, large."
-#   }
-# }
-
 variable "cluster" {
   type = list(object({
     name  = string

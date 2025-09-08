@@ -10,6 +10,10 @@ locals {
     org  = "shakir85"
     rbac_namespaces = ["kube-system", "cert-manager", "runners", "arc-system"]
   }
+
+  metallb = {
+    metallb_namespace = "metallb-system"
+  }
 }
 
-inputs = merge(local.kube, local.runner)
+inputs = merge(local.kube, local.runner, local.metallb)

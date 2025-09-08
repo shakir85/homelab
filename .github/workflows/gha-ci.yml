@@ -10,4 +10,4 @@ jobs:
     runs-on: self-hosted
     steps:
     - name: "Label PRs"
-      uses: actions/labeler@v5
+      uses: actions/labeler@v6

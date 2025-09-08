@@ -4,7 +4,6 @@ default_user: shakir
 default_user_home: "/home/{{ default_user }}"
 default_timezone: America/Los_Angeles
 fqdn: "{{ inventory_hostname }}.{{ domain }}"
-harbor_ip: "10.10.50.40"
 # Vars needed for: roles/k3s
 controller_ip: "{{ hostvars[groups['k3s_ctrl_nodes'][0]]['ansible_host'] | default(groups['k3s_ctrl_nodes'][0]) }}"
 systemd_dir: /etc/systemd/system

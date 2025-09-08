@@ -1,3 +1,6 @@
+# ------------------------
+# -- Provider vars
+# ------------------------
 variable "config_path" {
   description = "Path to the Kubernetes config file"
   type        = string
@@ -8,6 +11,9 @@ variable "config_context" {
   type        = string
 }
 
+# ------------------------
+# -- Module vars
+# ------------------------
 variable "ipv4_address_pools" {
   description = "List of IPv4 address pools for MetalLB"
   type        = list(string)

@@ -1,4 +1,4 @@
 # This file contains ignores rule violations for ansible-lint
-k3s.reset.playbook.yml role-name[path]
 k3s_main.playbook.yml role-name[path]
-k3s_utils.playbook.yml role-name[path]
+k3s.dev.playbook.yml role-name[path]
+k3s.staging.playbook.yml role-name[path]

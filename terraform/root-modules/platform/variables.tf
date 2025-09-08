@@ -28,9 +28,3 @@ variable "nginx_namespace" {
   type        = string
 
 }
-
-variable "ingress_controller_name" {
-  description = "Name of the NGINX Ingress Controller"
-  type        = string
-
-}

@@ -1,3 +1,9 @@
+module "metallb" {
+  source           = "git::https://github.com/shakir85/tf-modules.git//metallb?ref=v0.3.2"
+  kube_namespace   = var.metallb_namespace
+  create_namespace = true
+}
+
 module "cert-manager" {
   source = "git::https://github.com/shakir85/tf-modules.git//cert-manager?ref=v0.3.2"
 }

@@ -42,3 +42,8 @@ variable "rbac_namespaces" {
   description = "List of namespaces to which the GitHub Actions runner will have RBAC access"
   type        = list(string)
 }
+
+variable "metallb_namespace" {
+  description = "Kubernetes namespace for MetalLB"
+  type        = string
+}

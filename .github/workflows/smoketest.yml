@@ -19,4 +19,4 @@ jobs:
       - name: Test
         run: |
           cd ansible
-          ansible all -i inventory/k3s.dev.yml -m ping
+          ansible all -u shakir --key-file $ANSIBLE_KEY -i inventory/k3s.dev.yml -m ping

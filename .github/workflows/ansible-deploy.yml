@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: "Ansible Pipeline"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-dev:
+    uses: ./.github/workflows/callable-ansible-playbook.yml
+    with:
+      playbook: k3s.dev.playbook.yml
+      inventory: inventory/k3s.dev.yml
+      environment: dev

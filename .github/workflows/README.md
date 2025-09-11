@@ -1,7 +1,15 @@
-### My GitHub Actions Workflow Naming Conventions
+Workflow files naming (WIP)
+```
+If callable workflow:
+callable-<tool>-<function>
 
-| Type                     | Pattern             | Example               | Purpose                                |
-|--------------------------|---------------------|------------------------|----------------------------------------|
-| Tool-specific CI         | `*-ci.yml`          | `ansible-ci.yml`       | Run validation/lint/test for a tool    |
-| CD / Deployment flows    | `*-cd.yml`          | `helmfile-cd.yml`      | Deploy apps or infra (orchestrators)   |
-| Callable (tool-specific) | `<tool>-<type>.yml` | `ansible-lint.yml`<br>`tf-lint.yml`, `tf-docs.yml` | Reusable jobs scoped to a tool |
+Example:
+callable-ansible-playbook.yml
+
+
+Others:
+<tool>-<function>
+
+Example:
+helm-deploy-staging.yml
+```

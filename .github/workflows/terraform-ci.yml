@@ -11,10 +11,10 @@ on:
 
 jobs:
   lint:
-    uses: ./.github/workflows/tf-lint.yml
+    uses: ./.github/workflows/callable-tf-lint.yml
 
   docs:
     needs: lint
-    uses: ./.github/workflows/tf-docs.yml
+    uses: ./.github/workflows/callable-tf-docs.yml
     with:
       path: "terraform/"

@@ -1,0 +1,27 @@
+name: Run Ansible playbook
+
+on:
+  workflow_call:
+    inputs:
+      playbook:
+        type: string
+        required: true
+        description: "Name of the Ansible playbook to run"
+      inventory:
+        type: string
+        required: true
+        description: "Path to the inventory file"
+
+jobs:
+  ansible-run:
+    runs-on: controller
+
+    steps:
+      - uses: shakir85/checkout@v4
+
+      - name: Run Ansible Playbook
+        env:
+          ANSIBLE_KEY: ${{ secrets.ANSIBLE_KEY_PATH }}
+        run: |
+          cd ansible
+          ansible-playbook --key-file=$ANSIBLE_KEY ${{ inputs.playbook }} --inventory=${{ inputs.inventory }}

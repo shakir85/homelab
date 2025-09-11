@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: "Ansible Pipeline"
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        type: choice
+        options:
+          - dev
+          - staging
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/callable-ansible-playbook.yml
+    with:
+      playbook: k3s.${{ github.event.inputs.environment }}.playbook.yml
+      inventory: inventory/k3s.${{ github.event.inputs.environment }}.yml
+    environment: ${{ github.event.inputs.environment }}

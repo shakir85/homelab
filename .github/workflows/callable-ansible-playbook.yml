@@ -11,11 +11,15 @@ on:
         type: string
         required: true
         description: "Path to the inventory file"
+      environment:
+        type: string
+        required: true
+        description: "Deployment environment"
 
 jobs:
   ansible-run:
     runs-on: controller
-
+    environment: ${{ inputs.environment }}
     steps:
       - uses: shakir85/checkout@v4
 

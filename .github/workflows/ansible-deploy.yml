@@ -3,19 +3,11 @@ name: "Ansible Pipeline"
 
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: "Target environment"
-        type: choice
-        options:
-          - dev
-          - staging
 
 jobs:
-  deploy:
+  deploy-dev:
     uses: ./.github/workflows/callable-ansible-playbook.yml
     with:
-      playbook: k3s.${{ github.event.inputs.environment }}.playbook.yml
-      inventory: inventory/k3s.${{ github.event.inputs.environment }}.yml
-    environment:
-      name: ${{ github.event.inputs.environment }}
+      playbook: k3s.dev.playbook.yml
+      inventory: inventory/k3s.dev.yml
+      environment: dev

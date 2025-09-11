@@ -18,6 +18,5 @@ jobs:
 
       - name: Test
         run: |
-          whoami
-          pwd
-          ls -la
+          cd ansible
+          ansible all -i inventory/k3s.dev.yml -m ping

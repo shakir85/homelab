@@ -17,6 +17,8 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Test
+        env:
+          ANSIBLE_KEY: ${{ secrets.ANSIBLE_KEY_PATH }}
         run: |
           cd ansible
-          ansible all -u shakir --key-file $ANSIBLE_KEY -i inventory/k3s.dev.yml -m ping
+          ansible all -u shakir --key-file ${{ secrets.ANSIBLE_KEY_PATH }} -i inventory/k3s.dev.yml -m ping

@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-kubectl:
+  test:
     runs-on: controller
 
     steps:

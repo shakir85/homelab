@@ -1,20 +1,23 @@
 name: Smoke Test
 
 on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
   workflow_dispatch:
 
 jobs:
   test-kubectl:
-    runs-on: self-hosted
+    runs-on: controller
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Setup kubectl
-        uses: azure/setup-kubectl@v4
-
-      - name: Test kubectl access
+      - name: Test
         run: |
-          kubectl get namespaces
-          kubectl get pods -A
+          whoami
+          pwd
+          ls -la

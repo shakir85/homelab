@@ -28,5 +28,6 @@ jobs:
           ANSIBLE_KEY_PATH: ${{ secrets.ANSIBLE_KEY_PATH }}
           ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
         run: |
+          chmod 400 ~/.ssh/id_rsa
           cd ansible
           ansible-playbook ${{ inputs.playbook }} -i=${{ inputs.inventory }} --key-file=$ANSIBLE_KEY_PATH -u=$ANSIBLE_USER

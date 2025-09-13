@@ -28,9 +28,7 @@ jobs:
           ANSIBLE_KEY_PATH: ${{ secrets.ANSIBLE_KEY_PATH }}
           ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
         run: |
-          sudo su gitlab-runner
-          cd ansible
-          ansible-playbook ${{ inputs.playbook }} -i=${{ inputs.inventory }} --key-file=$ANSIBLE_KEY_PATH -u=$ANSIBLE_USER
+          ansible-playbook ${{ inputs.playbook }} -i=${{ inputs.inventory }} -u=$ANSIBLE_USER
 
   # run-playbooks:
   #   runs-on: controller

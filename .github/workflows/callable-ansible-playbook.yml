@@ -28,8 +28,6 @@ jobs:
           ANSIBLE_KEY_PATH: ${{ secrets.ANSIBLE_KEY_PATH }}
           ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
         run: |
-          chmod 400 ~/.ssh/id_rsa
-          ls -la ~/.ssh
           echo $ANSIBLE_KEY_PATH
           echo $ANSIBLE_USER
           cd ansible

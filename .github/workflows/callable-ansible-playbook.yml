@@ -28,7 +28,29 @@ jobs:
           ANSIBLE_KEY_PATH: ${{ secrets.ANSIBLE_KEY_PATH }}
           ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
         run: |
-          echo $ANSIBLE_KEY_PATH
-          echo $ANSIBLE_USER
+          sudo su gitlab-runner
           cd ansible
           ansible-playbook ${{ inputs.playbook }} -i=${{ inputs.inventory }} --key-file=$ANSIBLE_KEY_PATH -u=$ANSIBLE_USER
+
+  # run-playbooks:
+  #   runs-on: controller
+  #   environment: ${{ inputs.environment }}
+  #   steps:
+  #     - uses: shakir85/checkout@v4
+
+  #     - name: Setup SSH
+  #       shell: bash
+  #       run: |
+  #        eval `ssh-agent -s`
+  #        mkdir -p /home/runner/.ssh/
+  #        touch /home/runner/.ssh/id_rsa
+  #        echo -e "${{secrets.SSH_KEY}}" > /home/runner/.ssh/id_rsa
+  #        chmod 700 /home/runner/.ssh/id_rsa
+  #        ssh-keyscan -t rsa,dsa,ecdsa,ed25519 ${{secrets.SSH_HOST}} >> /home/runner/.ssh/known_hosts
+  #     - name: Run ansible script
+  #       shell: bash
+  #       run: |
+  #         service ssh status
+  #         cd infrastructure/ansible
+  #         cat setup-prod.yml
+  #         ansible-playbook -vvv --private-key /home/runner/.ssh/id_rsa -u ${{secrets.ANSIBLE_DEPLOY_USER}} -i hosts.yml setup-prod.yml

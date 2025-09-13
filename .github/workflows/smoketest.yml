@@ -18,3 +18,8 @@ jobs:
         run: |
           kubectl get namespaces
           kubectl get pods -A
+
+      - name: Ansible ping all
+        run: |
+          cd ansible
+          ansible all -m ping -i inventory/ --key-file=$ANSIBLE_KEY -u $ANSIBLE_USER

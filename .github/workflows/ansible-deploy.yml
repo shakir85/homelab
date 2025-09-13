@@ -1,6 +1,5 @@
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: "Ansible Pipeline"
-
+name: Ansible Pipeline
+run-name: Ansible Deployment from ${{ github.ref_name }}
 on:
   workflow_dispatch:
 

@@ -28,6 +28,7 @@ jobs:
           ANSIBLE_KEY_PATH: ${{ secrets.ANSIBLE_KEY_PATH }}
           ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
         run: |
+          cd ansible
           ansible-playbook ${{ inputs.playbook }} -i=${{ inputs.inventory }} -u=$ANSIBLE_USER
 
   # run-playbooks:

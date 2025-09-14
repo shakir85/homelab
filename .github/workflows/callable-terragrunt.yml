@@ -1,0 +1,38 @@
+name: Run Terragrunt Module
+
+on:
+  workflow_call:
+    inputs:
+      module-path:
+        type: string
+        required: true
+        description: "Path to the Terragrunt module"
+      environment:
+        type: string
+        required: true
+        description: "Deployment environment"
+      kube-context:
+        type: string
+        required: false
+        default: ""
+        description: "Target K8s context. Optional if the project provisions Helm/K8s resources."
+
+jobs:
+  set-kubectx:
+    runs-on: controller
+    if: ${{ inputs.kube-context }}
+    steps:
+      - name: Set kube context
+        run: kubectl config use-context ${{ inputs.kube-context }}
+
+  terragrunt-apply:
+    runs-on: controller
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: shakir85/checkout@v4
+
+      - name: Run Terragrunt Apply
+        run: |
+          cd ${{ inputs.module-path }}
+          terragrunt init
+          terragrunt apply --auto-approve

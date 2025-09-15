@@ -1,4 +1,4 @@
-name: Run Terragrunt Module
+name: Run Terragrunt Apply
 
 on:
   workflow_call:
@@ -17,22 +17,46 @@ on:
         default: ""
         description: "Target K8s context. Optional if the project provisions Helm/K8s resources."
 
+env:
+  working_dir: ${{ inputs.module-path }}
+
 jobs:
-  set-kubectx:
+  checks:
     runs-on: controller
-    if: ${{ inputs.kube-context }}
     steps:
-      - name: Set kube context
-        run: kubectl config use-context ${{ inputs.kube-context }}
+      - name: 'Checkout'
+        uses: shakir85/checkout@v4
 
-  terragrunt-apply:
+      - name: Check terragrunt HCL
+        uses: gruntwork-io/terragrunt-action@v3
+        with:
+          tg_dir: ${{ env.working_dir }}
+          tg_command: 'hcl fmt --check --diff'
+
+  plan:
     runs-on: controller
+    needs: [ checks ]
+    steps:
+      - name: 'Checkout'
+        uses: shakir85/checkout@v4
+
+      - name: Plan
+        uses: gruntwork-io/terragrunt-action@v3
+        with:
+          tg_dir: ${{ env.working_dir }}
+          tg_command: 'plan'
+
+  deploy:
+    runs-on: controller
+    needs: [ plan ]
     environment: ${{ inputs.environment }}
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     steps:
-      - uses: shakir85/checkout@v4
+      - name: 'Checkout'
+        uses: shakir85/checkout@v4
 
-      - name: Run Terragrunt Apply
-        run: |
-          cd ${{ inputs.module-path }}
-          terragrunt init
-          terragrunt apply --auto-approve
+      - name: Deploy
+        uses: gruntwork-io/terragrunt-action@v3
+        with:
+          tg_dir: ${{ env.working_dir }}
+          tg_command: 'apply'

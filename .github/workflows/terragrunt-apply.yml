@@ -4,9 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  bootstrap-dev:
+  cluster-dev:
     uses: ./.github/workflows/callable-terragrunt.yml
     with:
-      module-path: terraform/live/bootstrap/dev
+      module-path: terraform/live/cluster/dev
       environment: dev
-      kube-context: dev-ctx

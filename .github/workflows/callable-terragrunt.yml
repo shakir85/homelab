@@ -7,10 +7,6 @@ on:
         type: string
         required: true
         description: "Path to the Terragrunt module"
-      environment:
-        type: string
-        required: true
-        description: "Deployment environment"
       kube-context:
         type: string
         required: false
@@ -39,7 +35,6 @@ jobs:
   deploy:
     runs-on: controller
     needs: [ plan ]
-    environment: ${{ inputs.environment }}
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     steps:
       - name: 'Checkout'

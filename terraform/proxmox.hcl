@@ -1,13 +1,3 @@
-remote_state {
-  backend = "s3"
-  config = {
-    bucket         = "tfstate.shakir.cloud"
-    key            = "${path_relative_to_include()}/terraform.tfstate"
-    region         = "us-east-1"
-    encrypt        = true
-  }
-}
-
 generate "providers" {
   path      = "providers.tf"
   if_exists = "overwrite_terragrunt"
@@ -18,15 +8,6 @@ provider "proxmox" {
   password = var.pve_pwd
   insecure = true
 
-  ssh {
-    agent       = false
-    private_key = file(var.id_rsa)
-    username    = var.pve_user
-    node {
-      name    = "pve1"
-      address = "10.10.50.20"
-    }
-  }
 }
 EOF
 }
@@ -41,7 +22,7 @@ terraform {
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
-      version = "0.70.0"
+      version = "0.83.2"
     }
     local = {
       source  = "hashicorp/local"

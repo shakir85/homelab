@@ -2,6 +2,10 @@ include {
   path = find_in_parent_folders("proxmox.hcl")
 }
 
+include "backend" {
+  path = find_in_parent_folders("backend.hcl")
+}
+
 terraform {
   source = "${get_repo_root()}/terraform/root-modules/cluster"
 }

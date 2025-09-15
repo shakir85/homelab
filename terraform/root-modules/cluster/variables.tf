@@ -9,9 +9,6 @@ variable "pve_pwd" {
   type = string
 }
 
-variable "id_rsa" {
-  type = string
-}
 # ------------------------
 # -- Module vars
 # ------------------------

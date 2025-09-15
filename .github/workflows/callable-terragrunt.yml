@@ -1,0 +1,62 @@
+name: Run Terragrunt Apply
+
+on:
+  workflow_call:
+    inputs:
+      module-path:
+        type: string
+        required: true
+        description: "Path to the Terragrunt module"
+      environment:
+        type: string
+        required: true
+        description: "Deployment environment"
+      kube-context:
+        type: string
+        required: false
+        default: ""
+        description: "Target K8s context. Optional if the project provisions Helm/K8s resources."
+
+env:
+  working_dir: ${{ inputs.module-path }}
+
+jobs:
+  checks:
+    runs-on: controller
+    steps:
+      - name: 'Checkout'
+        uses: shakir85/checkout@v4
+
+      - name: Check terragrunt HCL
+        uses: gruntwork-io/terragrunt-action@v3
+        with:
+          tg_dir: ${{ env.working_dir }}
+          tg_command: 'hcl fmt --check --diff'
+
+  plan:
+    runs-on: controller
+    needs: [ checks ]
+    steps:
+      - name: 'Checkout'
+        uses: shakir85/checkout@v4
+
+      - name: Plan
+        uses: gruntwork-io/terragrunt-action@v3
+        with:
+          tg_dir: ${{ env.working_dir }}
+          tg_command: 'plan'
+
+  deploy:
+    runs-on: controller
+    needs: [ plan ]
+    environment: ${{ inputs.environment }}
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: 'Checkout'
+        uses: shakir85/checkout@v4
+
+      - name: Deploy
+        uses: gruntwork-io/terragrunt-action@v3
+        with:
+          tg_dir: ${{ env.working_dir }}
+          tg_command: 'apply'

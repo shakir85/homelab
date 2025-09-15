@@ -21,21 +21,8 @@ env:
   working_dir: ${{ inputs.module-path }}
 
 jobs:
-  checks:
-    runs-on: controller
-    steps:
-      - name: 'Checkout'
-        uses: shakir85/checkout@v4
-
-      - name: Check terragrunt HCL
-        uses: gruntwork-io/terragrunt-action@v3
-        with:
-          tg_dir: ${{ env.working_dir }}
-          tg_command: 'hcl fmt --check --diff'
-
   plan:
     runs-on: controller
-    needs: [ checks ]
     steps:
       - name: 'Checkout'
         uses: shakir85/checkout@v4

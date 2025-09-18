@@ -8,3 +8,4 @@ jobs:
     uses: ./.github/workflows/callable-terragrunt.yml
     with:
       module-path: terraform/live/cluster/dev
+    secrets: inherit

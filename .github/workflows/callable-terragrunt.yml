@@ -19,10 +19,10 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: shakir85/checkout@v4
-        env:
-          FOO: ${{ env.FOO }}
 
       - name: Test env var
+        env:
+          FOO: ${{ env.FOO }}
         run: |
           echo $FOO
 

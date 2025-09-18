@@ -21,8 +21,6 @@ jobs:
         uses: shakir85/checkout@v4
 
       - name: Test env var
-        env:
-          FOO: ${{ env.FOO }}
         run: |
           echo $FOO
 

@@ -13,12 +13,6 @@ on:
         default: ""
         description: "Target K8s context. Optional if the project provisions Helm/K8s resources."
 
-env:
-  working_dir: ${{ inputs.module-path }}
-  TF_VAR_pve_user: ${{ secrets.TF_VAR_PVE_USER }}
-  TF_VAR_pve_pwd: ${{ secrets.TF_VAR_PVE_PWD }}
-  TF_VAR_id_rsa_pub: ${{ secrets.TF_VAR_ID_RSA_PUB }}
-
 jobs:
   plan:
     runs-on: controller
@@ -28,8 +22,12 @@ jobs:
 
       - name: Plan
         uses: gruntwork-io/terragrunt-action@v3
+        env:
+          TF_VAR_pve_user: ${{ secrets.TF_VAR_PVE_USER }}
+          TF_VAR_pve_pwd: ${{ secrets.TF_VAR_PVE_PWD }}
+          TF_VAR_id_rsa_pub: ${{ secrets.TF_VAR_ID_RSA_PUB }}
         with:
-          tg_dir: ${{ env.working_dir }}
+          tg_dir: ${{ inputs.module-path }}
           tg_command: 'plan'
 
   deploy:
@@ -43,5 +41,5 @@ jobs:
       - name: Deploy
         uses: gruntwork-io/terragrunt-action@v3
         with:
-          tg_dir: ${{ env.working_dir }}
+          tg_dir: ${{ inputs.module-path }}
           tg_command: 'apply'

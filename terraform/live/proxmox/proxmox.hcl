@@ -6,7 +6,7 @@ provider "proxmox" {
   endpoint = "https://10.10.50.20:8006/"
   username = "$${var.pve_user}@pam"
   password = var.pve_pwd
-  # because of pxmx's self-signed cert
+  # because of Proxmox's self-signed cert
   insecure = true
 }
 EOF

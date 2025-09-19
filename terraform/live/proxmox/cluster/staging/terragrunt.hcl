@@ -24,7 +24,7 @@ locals {
       # Node group - small
       name  = "staging-small-w",
       size  = "small",
-      count = 2
+      count = 3
     },
   ]
 }

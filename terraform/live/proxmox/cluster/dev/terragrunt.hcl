@@ -7,7 +7,7 @@ include "backend" {
 }
 
 terraform {
-  source = "${get_repo_root()}/terraform/root-modules/cluster"
+  source = "${get_repo_root()}/terraform/root-modules/proxmox/cluster"
 }
 
 locals {

@@ -7,5 +7,5 @@ jobs:
   cluster-dev:
     uses: ./.github/workflows/callable-terragrunt.yml
     with:
-      module-path: terraform/live/cluster/dev
+      module-path: terraform/live/proxmox/cluster/dev
     secrets: inherit

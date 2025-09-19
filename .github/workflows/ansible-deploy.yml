@@ -1,12 +1,12 @@
-name: Ansible Pipeline
+name: Ansible K3s Plays
 run-name: Ansible Deployment from ${{ github.ref_name }}
 on:
   workflow_dispatch:
 
 jobs:
-  deploy-dev:
+  deploy-dev-cluster:
     uses: ./.github/workflows/callable-ansible-playbook.yml
     with:
       playbook: k3s.dev.playbook.yml
       inventory: inventory/k3s.dev.yml
-      environment: dev
+    secrets: inherit

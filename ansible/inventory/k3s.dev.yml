@@ -5,11 +5,11 @@
 all:
   hosts:
     dev-ctrl-0:
-      ansible_host: 10.10.50.104
+      ansible_host: 10.10.50.147
     dev-small-w-0:
-      ansible_host: 10.10.50.107
+      ansible_host: 10.10.50.148
     dev-small-w-1:
-      ansible_host: 10.10.50.105
+      ansible_host: 10.10.50.149
 
   children:
     dev_all_hosts:

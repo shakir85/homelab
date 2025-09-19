@@ -11,21 +11,14 @@ on:
         type: string
         required: true
         description: "Path to the inventory file"
-      environment:
-        type: string
-        required: true
-        description: "Deployment environment"
 
 jobs:
   ansible-run:
     runs-on: controller
-    environment: ${{ inputs.environment }}
     steps:
       - uses: shakir85/checkout@v4
-
       - name: Run Ansible Playbook
         env:
-          ANSIBLE_KEY_PATH: ${{ secrets.ANSIBLE_KEY_PATH }}
           ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
         run: |
           cd ansible

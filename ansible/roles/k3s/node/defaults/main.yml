@@ -1,4 +1,2 @@
----
-k3s_server_location: /var/lib/rancher/k3s
 systemd_dir: /etc/systemd/system
 controller_ip: "{{ hostvars[groups['k3s_ctrl_nodes'][0]]['ansible_host'] | default(groups['k3s_ctrl_nodes'][0]) }}"

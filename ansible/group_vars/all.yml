@@ -1,12 +1,13 @@
 ---
 domain: "shakir.cloud"
+custom_user: shakir
 default_user: debian
 default_user_home: "/home/{{ default_user }}"
 default_timezone: America/Los_Angeles
 fqdn: "{{ inventory_hostname }}.{{ domain }}"
 # Vars needed for: roles/k3s
-controller_ip: "{{ hostvars[groups['k3s_ctrl_nodes'][0]]['ansible_host'] | default(groups['k3s_ctrl_nodes'][0]) }}"
-systemd_dir: /etc/systemd/system
+# controller_ip: "{{ hostvars[groups['k3s_ctrl_nodes'][0]]['ansible_host'] | default(groups['k3s_ctrl_nodes'][0]) }}"
+# systemd_dir: /etc/systemd/system
 
 # Apply it globally, set default Python3 interpreter on Debian 12 (my default distro as of 09/2025)
 ansible_python_interpreter: /usr/bin/python3

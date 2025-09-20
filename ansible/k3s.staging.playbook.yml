@@ -7,12 +7,13 @@
 #
 # Customization Details:
 # ----------------------
-# In this playbook, I made a modification to the systemd unit file located at:
+# Modification to the systemd unit file located at:
 # ./roles/k3s/master/templates/k3s.service.j2
 #
 # Modification Purpose:
 # ---------------------
-# I disabled the built-in load balancer of k3s, allowing me to use MetalLB as an alternative.
+# - Disabled the built-in load balancer of k3s, allowing me to use MetalLB as an alternative.
+# - Various modifications/additions to fit my use case.
 
 - name: Play for common configurations
   hosts: staging_all_hosts

@@ -1,5 +1,5 @@
 name: Ansible K3s Plays
-run-name: Ansible K3s Run - ${{ github.event.inputs.environment }} - Branch ${{ github.ref_name }}
+run-name: Ansible K3s Run - ${{ github.event.inputs.environment }}
 on:
   workflow_dispatch:
     inputs:
@@ -18,7 +18,7 @@ jobs:
     uses: ./.github/workflows/callable-ansible-playbook.yml
     with:
       playbook: k3s.dev.playbook.yml
-      inventory: inventory/k3s.dev.yml
+      inventory: inventory/dev/k3s.yml
     secrets: inherit
 
   deploy-staging-cluster:
@@ -26,5 +26,5 @@ jobs:
     uses: ./.github/workflows/callable-ansible-playbook.yml
     with:
       playbook: k3s.staging.playbook.yml
-      inventory: inventory/k3s.staging.yml
+      inventory: inventory/staging/k3s.yml
     secrets: inherit

@@ -26,7 +26,6 @@ module "cluster" {
   proxmox_node_name   = var.proxmox_node_name
   disk_name           = var.disk_name
   ssh_public_key_path = var.id_rsa_pub
-  username            = var.username
   timezone            = var.timezone
   cloud_image_info    = var.cloud_image_info
   sockets             = 1

@@ -1,0 +1,5 @@
+- name: Fetch kubeconfig to control node
+  fetch:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: "./kube/{{ k3s_env }}-config"
+    flat: yes

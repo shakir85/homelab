@@ -54,16 +54,16 @@
   hosts: dev-ctrl-0
   become: true
   tasks:
-    - name: Ensure local kubeconfig dir exists on Ansible controller
+    - name: Ensure local kubeconfig dir exists
       delegate_to: localhost
       ansible.builtin.file:
         path: /home/{{ ansible_user }}/.kube
         state: directory
         mode: '0700'
 
-    - name: Fetch kubeconfig from control plane (VM B)
+    - name: Fetch kubeconfig from control plane
       ansible.builtin.fetch:
         src: /home/{{ ansible_user }}/.kube/config
-        dest: /home/{{ ansible_user }}/.kube/dev-config
+        dest: /home/shakir/.kube/dev-config
         flat: yes
         mode: '0600'

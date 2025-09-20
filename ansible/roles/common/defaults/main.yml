@@ -17,4 +17,3 @@ common_packages:
   - lsof
   - dnsutils
   - netcat-traditional
-  - qemu-guest-agent

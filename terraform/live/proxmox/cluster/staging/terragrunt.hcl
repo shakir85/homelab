@@ -7,7 +7,7 @@ include "backend" {
 }
 
 terraform {
-  source = "${get_repo_root()}/terraform/root-modules/cluster"
+  source = "${get_repo_root()}/terraform/root-modules/proxmox/cluster"
 }
 
 locals {
@@ -24,7 +24,7 @@ locals {
       # Node group - small
       name  = "staging-small-w",
       size  = "small",
-      count = 2
+      count = 3
     },
   ]
 }

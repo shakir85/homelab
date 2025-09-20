@@ -27,11 +27,6 @@ variable "cloud_image_info" {
   description = "Hosted cloud image information; [<image_data_store>, <image_name>]"
 }
 
-variable "username" {
-  type        = string
-  description = "Username to set in the cloud-init configuration"
-}
-
 variable "disk_name" {
   type        = string
   description = "VM backend data store ID/name"

@@ -13,7 +13,7 @@
 # Modification Purpose:
 # ---------------------
 # - Disabled the built-in load balancer of k3s, allowing me to use MetalLB as an alternative.
-# - Various modifications/additions to fit my usaecase.
+# - Various modifications/additions to fit my use case.
 
 - name: Play for common configurations
   hosts: dev_all_hosts

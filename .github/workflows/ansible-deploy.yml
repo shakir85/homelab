@@ -1,12 +1,30 @@
 name: Ansible K3s Plays
-run-name: Ansible K3s Deployment - from ${{ github.ref_name }}
+run-name: Ansible K3s Run - ${{ github.event.inputs.environment }} - Branch ${{ github.ref_name }}
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Which environment to deploy'
+        required: true
+        type: choice
+        default: 'dev'
+        options:
+          - dev
+          - staging
 
 jobs:
   deploy-dev-cluster:
+    if: ${{ github.event.inputs.environment == 'dev' }}
     uses: ./.github/workflows/callable-ansible-playbook.yml
     with:
       playbook: k3s.dev.playbook.yml
       inventory: inventory/k3s.dev.yml
+    secrets: inherit
+
+  deploy-staging-cluster:
+    if: ${{ github.event.inputs.environment == 'staging' }}
+    uses: ./.github/workflows/callable-ansible-playbook.yml
+    with:
+      playbook: k3s.staging.playbook.yml
+      inventory: inventory/k3s.staging.yml
     secrets: inherit

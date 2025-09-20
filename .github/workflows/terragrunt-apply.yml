@@ -9,3 +9,9 @@ jobs:
     with:
       module-path: terraform/live/proxmox/cluster/dev
     secrets: inherit
+
+  cluster-staging:
+    uses: ./.github/workflows/callable-terragrunt.yml
+    with:
+      module-path: terraform/live/proxmox/cluster/staging
+    secrets: inherit

@@ -64,6 +64,6 @@
     - name: Fetch kubeconfig from control plane
       ansible.builtin.fetch:
         src: /home/{{ ansible_user }}/.kube/config
-        dest: /home/shakir/.kube/dev-config
+        dest: /home/{{ custom_user }}/.kube/dev-config
         flat: yes
         mode: '0600'

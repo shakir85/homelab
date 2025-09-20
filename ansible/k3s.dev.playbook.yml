@@ -48,9 +48,3 @@
   become: true
   roles:
     - role: k3s/node
-
-- name: Copy kubeconfig to controller
-  hosts: k3s_ctrl_nodes
-  become: true
-  roles:
-    - k3s/kubeconfig

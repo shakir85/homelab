@@ -18,7 +18,7 @@ jobs:
     uses: ./.github/workflows/callable-ansible-playbook.yml
     with:
       playbook: k3s.dev.playbook.yml
-      inventory: inventory/k3s.dev.yml
+      inventory: inventory/dev/k3s.yml
     secrets: inherit
 
   deploy-staging-cluster:
@@ -26,5 +26,5 @@ jobs:
     uses: ./.github/workflows/callable-ansible-playbook.yml
     with:
       playbook: k3s.staging.playbook.yml
-      inventory: inventory/k3s.staging.yml
+      inventory: inventory/staging/k3s.yml
     secrets: inherit

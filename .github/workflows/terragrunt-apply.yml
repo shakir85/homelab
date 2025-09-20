@@ -1,5 +1,5 @@
 name: Terragrunt Pipeline
-run-name: Terragrunt Deployment from ${{ github.ref_name }}
+run-name: Terragrunt Deployment - {{ github.event.inputs.environment }} - Branch ${{ github.ref_name }}
 
 on:
   workflow_dispatch:

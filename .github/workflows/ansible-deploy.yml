@@ -1,5 +1,5 @@
 name: Ansible K3s Plays
-run-name: Ansible K3s Deployment - from ${{ github.ref_name }}
+run-name: Ansible K3s Run - {{ github.event.inputs.environment }} - Branch ${{ github.ref_name }}
 on:
   workflow_dispatch:
     inputs:

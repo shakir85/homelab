@@ -15,9 +15,6 @@ on:
 
 env:
   working_dir: ${{ inputs.module-path }}
-  TF_VAR_pve_user: ${{ secrets.TF_VAR_PVE_USER }}
-  TF_VAR_pve_pwd: ${{ secrets.TF_VAR_PVE_PWD }}
-  TF_VAR_id_rsa_pub: ${{ secrets.TF_VAR_ID_RSA_PUB }}
 
 jobs:
   plan:

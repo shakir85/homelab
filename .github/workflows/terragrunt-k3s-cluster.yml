@@ -1,5 +1,5 @@
-name: Terragrunt Pipeline
-run-name: Terragrunt Deployment - ${{ github.event.inputs.environment }}
+name: Terragrunt K3s Deployment
+run-name: K3s Cluster Deployment - ${{ github.event.inputs.environment }}
 
 on:
   workflow_dispatch:
@@ -13,17 +13,20 @@ on:
           - dev
           - staging
 
+env:
+  TF_VAR_pve_user: ${{ secrets.TF_VAR_PVE_USER }}
+  TF_VAR_pve_pwd: ${{ secrets.TF_VAR_PVE_PWD }}
+  TF_VAR_id_rsa_pub: ${{ secrets.TF_VAR_ID_RSA_PUB }}
+
 jobs:
   cluster-dev:
     if: ${{ github.event.inputs.environment == 'dev' }}
     uses: ./.github/workflows/callable-terragrunt.yml
     with:
       module-path: terraform/live/proxmox/cluster/dev
-    secrets: inherit
 
   cluster-staging:
     if: ${{ github.event.inputs.environment == 'staging' }}
     uses: ./.github/workflows/callable-terragrunt.yml
     with:
       module-path: terraform/live/proxmox/cluster/staging
-    secrets: inherit

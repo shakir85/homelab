@@ -1,5 +1,5 @@
-name: Terragrunt K3s Deployment
-run-name: K3s Cluster Deployment - ${{ github.event.inputs.environment }}
+name: Terragrunt K3s Cluster
+run-name: K3s Cluster - ${{ github.event.inputs.environment }}
 
 on:
   workflow_dispatch:

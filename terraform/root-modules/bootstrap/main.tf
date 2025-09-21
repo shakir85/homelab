@@ -9,7 +9,7 @@ module "cert-manager" {
 }
 
 module "gha-arc" {
-  source                     = "git::https://github.com/shakir85/tf-modules.git//gha-arc?ref=v0.3.3"
+  source                     = "git::https://github.com/shakir85/tf-modules.git//gha-arc?ref=main"
   github_app_id              = var.github_app_id
   github_app_installation_id = var.github_app_installation_id
   github_app_private_key     = var.github_app_private_key

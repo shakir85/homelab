@@ -1,4 +1,4 @@
-name: Terragrunt K3s Deployment
+name: Terragrunt K3s Bootstrap
 run-name: K3s Bootstrap - ${{ github.event.inputs.environment }}
 
 on:

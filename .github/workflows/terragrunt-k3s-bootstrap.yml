@@ -1,5 +1,5 @@
 name: Terragrunt K3s Deployment
-run-name: K3s Cluster Deployment - ${{ github.event.inputs.environment }}
+run-name: K3s Bootstrap - ${{ github.event.inputs.environment }}
 
 on:
   workflow_dispatch:
@@ -19,11 +19,11 @@ jobs:
     uses: ./.github/workflows/callable-terragrunt.yml
     secrets: inherit
     with:
-      module-path: terraform/live/proxmox/cluster/dev
+      module-path: terraform/live/bootstrap/dev
 
   cluster-staging:
     if: ${{ github.event.inputs.environment == 'staging' }}
     uses: ./.github/workflows/callable-terragrunt.yml
     secrets: inherit
     with:
-      module-path: terraform/live/proxmox/cluster/staging
+      module-path: terraform/live/bootstrap/staging

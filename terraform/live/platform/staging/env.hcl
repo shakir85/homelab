@@ -1,6 +1,6 @@
 locals{
   kube = {
-    config_path    = "~/.kube/config"
+    config_path    = "~/.kube/staging-config"
     config_context = "staging-ctx"
   }
 

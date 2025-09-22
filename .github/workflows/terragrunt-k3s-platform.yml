@@ -1,0 +1,29 @@
+name: Terragrunt K3s Platform
+run-name: K3s Platform - ${{ github.event.inputs.environment }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Which environment to deploy'
+        required: true
+        type: choice
+        default: 'dev'
+        options:
+          - dev
+          - staging
+
+jobs:
+  cluster-dev:
+    if: ${{ github.event.inputs.environment == 'dev' }}
+    uses: ./.github/workflows/callable-terragrunt.yml
+    secrets: inherit
+    with:
+      module-path: terraform/live/platform/dev
+
+  cluster-staging:
+    if: ${{ github.event.inputs.environment == 'staging' }}
+    uses: ./.github/workflows/callable-terragrunt.yml
+    secrets: inherit
+    with:
+      module-path: terraform/live/platform/staging

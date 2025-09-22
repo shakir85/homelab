@@ -24,6 +24,7 @@ module "runner-deployment" {
   runner_name      = var.name
   repo             = var.repo
   org              = var.org
+  runner_labels    = var.runner_labels
 
   depends_on = [module.gha-arc]
 }

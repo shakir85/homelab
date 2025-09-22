@@ -20,6 +20,7 @@ jobs:
     secrets: inherit
     with:
       module-path: terraform/live/platform/dev
+      runner: "dev"
 
   cluster-staging:
     if: ${{ github.event.inputs.environment == 'staging' }}

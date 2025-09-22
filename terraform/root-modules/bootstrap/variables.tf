@@ -53,3 +53,9 @@ variable "metallb_namespace" {
   description = "Kubernetes namespace for MetalLB"
   type        = string
 }
+
+variable "runner_labels" {
+  description = "Labels to assign to the GitHub Actions runner"
+  type        = list(string)
+  default     = []
+}

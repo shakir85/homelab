@@ -8,6 +8,7 @@ locals {
     name = "staging-homelab"
     repo = "homelab"
     org  = "shakir85"
+    runner_labels = ["staging"]
     rbac_namespaces = ["kube-system", "cert-manager", "runners", "arc-system"]
   }
 

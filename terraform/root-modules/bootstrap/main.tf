@@ -18,7 +18,7 @@ module "gha-arc" {
 }
 
 module "runner-deployment" {
-  source           = "git::https://github.com/shakir85/tf-modules.git//gha-runner?ref=0.3.6"
+  source           = "git::https://github.com/shakir85/tf-modules.git//gha-runner?ref=runnerlabels"
   kube_namespace   = "runners"
   create_namespace = true
   runner_name      = var.name

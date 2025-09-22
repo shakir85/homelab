@@ -1,7 +1,7 @@
 locals{
   kube = {
     config_path    = "~/.kube/dev-config"
-    config_context = "dev-ctx"
+    config_context = "default"
   }
 
   metallb = {

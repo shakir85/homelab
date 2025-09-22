@@ -18,7 +18,7 @@ locals {
 module "cluster" {
   for_each = { for c in local.expanded : "${c.name}-${c.idx}" => c }
 
-  source              = "git::https://github.com/shakir85/terraform_modules.git//proxmox/vm?ref=0.3.5"
+  source              = "git::https://github.com/shakir85/terraform_modules.git//proxmox/vm?ref=0.3.6"
   hostname            = "${each.value.name}-${each.value.idx}"
   memory              = local.node_specs[each.value.size].memory
   cores               = local.node_specs[each.value.size].cores

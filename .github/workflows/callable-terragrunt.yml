@@ -7,11 +7,11 @@ on:
         type: string
         required: true
         description: "Path to the Terragrunt module"
-      kube-context:
+      runner-label:
         type: string
         required: false
-        default: ""
-        description: "Target K8s context. Optional if the project provisions Helm/K8s resources."
+        default: "controller"
+        description: "Label of the self-hosted runner to use"
 
 env:
   working_dir: ${{ inputs.module-path }}
@@ -25,7 +25,7 @@ env:
 
 jobs:
   plan:
-    runs-on: controller
+    runs-on: ${{ inputs.runner-label }}
     steps:
       - name: 'Checkout'
         uses: shakir85/checkout@v4
@@ -37,7 +37,7 @@ jobs:
           tg_command: 'plan'
 
   deploy:
-    runs-on: controller
+    runs-on: ${{ inputs.runner-label }}
     needs: [ plan ]
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     steps:

@@ -5,7 +5,10 @@
 {{- $valuesDir := "../helm/values/apps" -}}
 {{- $commonNamespace := "apps" -}}
 
-{{/* Helm releases that are deployed from selfhosted charts */}}
+repositories:
+  - name: nfspersistence
+    url: https://shakir85.github.io/homelab
+
 releases:
   - name: excalidraw
     namespace: {{ $commonNamespace }}

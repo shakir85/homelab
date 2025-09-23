@@ -3,7 +3,7 @@
 # Templates with dependencies must be rendered after the resources they depend on.
 # For example, storage templates here must be processed first so that apps depending on them can deploy successfully.
 helmfiles:
-  - path: apps-helmfile.yaml.tmpl
+  - path: apps-helmfile.yaml.gotmpl
 
 # Avoids rebuilding or redownloading deps every time.
 # Helmfile will just use what’s already in `charts/` deps directory of the chart

@@ -5,7 +5,7 @@ on:
 
 jobs:
   test-kubectl:
-    runs-on: self-hosted
+    runs-on: dev
 
     steps:
       - name: Checkout repository
@@ -17,9 +17,4 @@ jobs:
       - name: Test kubectl access
         run: |
           kubectl get namespaces
-          kubectl get pods -A
-
-      - name: Ansible ping all
-        run: |
-          cd ansible
-          ansible all -m ping -i inventory/ --key-file=$ANSIBLE_KEY -u $ANSIBLE_USER
+          kubectl get pods

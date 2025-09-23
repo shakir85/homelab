@@ -13,9 +13,28 @@ on:
           - staging
 
 jobs:
-  helmfile-dev:
-    if: ${{ github.event.inputs.environment == 'dev' }}
-    uses: ./.github/workflows/callable-helmfile.yml
-    with:
-      workdirectory: 'helmfile.d.test'
-      runner-label: dev
+  deploy:
+    runs-on: dev
+
+    steps:
+      - uses: shakir85/checkout@v4
+
+      - uses: azure/setup-helm@v4
+        with:
+          version: v3.14.0
+
+      - run: |
+          # Helm diff plugin
+          helm plugin install https://github.com/databus23/helm-diff
+
+          # Helmfile
+          curl -s -Lo ./helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v1.1.0/helmfile_1.1.0_linux_amd64.tar.gz
+          tar xzf ./helmfile.tar.gz
+          sudo mv helmfile /usr/local/bin/
+          sudo chmod +x /usr/local/bin/helmfile
+
+      - name: Apply Helmfile releases
+        run: |
+          cd helmfile.d.test
+          pwd
+          helmfile apply

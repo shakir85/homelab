@@ -19,9 +19,7 @@ jobs:
     steps:
       - uses: shakir85/checkout@v4
 
-      - uses: azure/setup-helm@v4
-        with:
-          version: v3.14.0
+      - uses: azure/setup-helm@v4.3.0
 
       - run: |
           # Helm diff plugin

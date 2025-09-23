@@ -2,7 +2,7 @@ apiVersion: v2
 name: nfspersistence
 description: A generic Helm chart for deploying NFS based persistence storage.
 type: application
-version: 0.3.0
+version: 0.3.1
 appVersion: "1.0"
 
 # maintainers:

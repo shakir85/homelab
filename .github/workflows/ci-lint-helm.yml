@@ -29,24 +29,3 @@ jobs:
               echo "⚠️ Skipping $chart: missing ci-values.yaml or not a directory"
             fi
           done
-
-  helmfile-lint:
-    runs-on: self-hosted
-
-    steps:
-      - uses: shakir85/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-
-      - uses: azure/setup-helm@v4
-        with:
-          version: v3.14.0
-
-      - run: |
-          curl -s -Lo ./helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v1.1.0/helmfile_1.1.0_linux_amd64.tar.gz
-          tar xzf ./helmfile.tar.gz
-          sudo mv helmfile /usr/local/bin/
-          sudo chmod +x /usr/local/bin/helmfile
-
-      - name: Run helmfile lint
-        run: helmfile lint

@@ -14,16 +14,25 @@ docs:
 
 "tool: terraform":
   - changed-files:
-      - any-glob-to-any-file: "terraform/**/*"
+      - any-glob-to-any-file: "terraform/root-modules/**/*"
+
+"tool: terragrunt":
+  - changed-files:
+      - any-glob-to-any-file: "terraform/live/**/*"
 
 "tool: ansible":
   - changed-files:
       - any-glob-to-any-file: "ansible/**/*"
 
-"tool: gha":
+"github_actions":
   - changed-files:
       - any-glob-to-any-file: ".github/**/*"
 
-"tool: helmfile":
-  - changed-files:
-      - any-glob-to-any-file: "helmfile.d/**/*"
+"env: dev":
+  - "terraform/live/*/dev/**"
+
+"env: staging":
+  - "terraform/live/*/staging/**"
+
+"env: prod":
+  - "terraform/live/*/prod/**"

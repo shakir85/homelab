@@ -13,7 +13,7 @@ on:
           - staging
 
 jobs:
-  deploy-dev-cluster:
+  upgrade-dev-cluster:
     if: ${{ github.event.inputs.environment == 'dev' }}
     uses: ./.github/workflows/callable-ansible-playbook.yml
     with:
@@ -21,7 +21,7 @@ jobs:
       inventory: inventory/dev/k3s.yml
     secrets: inherit
 
-  deploy-staging-cluster:
+  upgrade-staging-cluster:
     if: ${{ github.event.inputs.environment == 'staging' }}
     uses: ./.github/workflows/callable-ansible-playbook.yml
     with:

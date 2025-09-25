@@ -40,7 +40,7 @@
       # For some reason, ansible-lint thinks using enviroment with command is an error
       # even though its valid https://ansible.readthedocs.io/projects/lint/rules/inline-env-var/#correct-code
       ansible.builtin.command: # noqa inline-env-var
-        cmd: /usr/local/bin/k3s.sh
+        cmd: /usr/local/bin/k3s
       environment: >-
           {{ extra_install_envs | combine({
             "INSTALL_K3S_SKIP_START": "true",

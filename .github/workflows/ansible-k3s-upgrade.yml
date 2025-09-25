@@ -1,5 +1,5 @@
-name: Ansible K3s Plays
-run-name: Ansible K3s Plays - ${{ github.event.inputs.environment }}
+name: Ansible K3s Upgrade
+run-name: Ansible K3s Upgrade - ${{ github.event.inputs.environment }}
 on:
   workflow_dispatch:
     inputs:

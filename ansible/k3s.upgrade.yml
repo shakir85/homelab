@@ -14,4 +14,4 @@
   hosts: k3s_worker_nodes
   become: true
   roles:
-    - role: k3s_upgrade
+    - role: k3s/upgrade

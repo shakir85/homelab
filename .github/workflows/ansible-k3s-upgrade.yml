@@ -1,0 +1,30 @@
+name: Ansible K3s Plays
+run-name: Ansible K3s Plays - ${{ github.event.inputs.environment }}
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Which environment to upgrade'
+        required: true
+        type: choice
+        default: 'dev'
+        options:
+          - dev
+          - staging
+
+jobs:
+  deploy-dev-cluster:
+    if: ${{ github.event.inputs.environment == 'dev' }}
+    uses: ./.github/workflows/callable-ansible-playbook.yml
+    with:
+      playbook: k3s.upgrade.yml
+      inventory: inventory/dev/k3s.yml
+    secrets: inherit
+
+  deploy-staging-cluster:
+    if: ${{ github.event.inputs.environment == 'staging' }}
+    uses: ./.github/workflows/callable-ansible-playbook.yml
+    with:
+      playbook: k3s.upgrade.yml
+      inventory: inventory/staging/k3s.yml
+    secrets: inherit

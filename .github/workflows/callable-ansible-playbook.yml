@@ -17,9 +17,15 @@ jobs:
     runs-on: controller
     steps:
       - uses: shakir85/checkout@v4
+
+      - name: Install Ansible Collections
+        run: |
+          cd ansible
+          ansible-galaxy collection install -r requirements.yml --force
+
       - name: Run Ansible Playbook
         env:
           ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
         run: |
           cd ansible
-          ansible-playbook ${{ inputs.playbook }} -i=${{ inputs.inventory }} -u=$ANSIBLE_USER
+          ansible-playbook ${{ inputs.playbook }} -i ${{ inputs.inventory }} -u $ANSIBLE_USER

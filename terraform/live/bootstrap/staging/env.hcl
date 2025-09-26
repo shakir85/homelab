@@ -1,7 +1,7 @@
 locals {
   kube = {
     config_path    = "~/.kube/staging-config"
-    config_context = "default"
+    config_context = "staging"
   }
 
   runner = {

@@ -13,14 +13,14 @@ on:
           - staging
 
 jobs:
-  deploy-dev-cluster:
+  deploy-k3s-dev:
     if: ${{ github.event.inputs.environment == 'dev' }}
     uses: ./.github/workflows/callable-k3s-ansible.yml
     with:
       inventory: inventory/dev/k3s.yml
     secrets: inherit
 
-  deploy-staging-cluster:
+  deploy-k3s-staging:
     if: ${{ github.event.inputs.environment == 'staging' }}
     uses: ./.github/workflows/callable-k3s-ansible.yml
     with:

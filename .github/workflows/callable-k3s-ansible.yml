@@ -8,6 +8,9 @@ on:
         required: true
         description: "Path to the inventory file"
 
+env:
+  ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
+
 jobs:
   deploy-k3s:
     runs-on: controller
@@ -19,8 +22,6 @@ jobs:
           ansible-galaxy collection install -r requirements.yml
 
       - name: Deploy k3s cluster
-        env:
-          ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
         run: |
           cd ansible
           ansible-playbook k3s.orchestration.site -i ${{ inputs.inventory }} -u $ANSIBLE_USER

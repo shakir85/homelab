@@ -29,10 +29,10 @@ docs:
       - any-glob-to-any-file: ".github/**/*"
 
 "env: dev":
-  - "terraform/live/*/dev/**"
+  - "terraform/live/**/dev/*"
 
 "env: staging":
-  - "terraform/live/*/staging/**"
+  - "terraform/live/**/staging/*"
 
 "env: prod":
-  - "terraform/live/*/prod/**"
+  - "terraform/live/**/prod/*"

@@ -1,5 +1,5 @@
-name: Ansible K3s Plays
-run-name: Ansible K3s Plays - ${{ github.event.inputs.environment }}
+name: K3s Ansible Plays
+run-name: K3s Ansible Plays - ${{ github.event.inputs.environment }}
 on:
   workflow_dispatch:
     inputs:
@@ -15,14 +15,14 @@ on:
 jobs:
   deploy-dev-cluster:
     if: ${{ github.event.inputs.environment == 'dev' }}
-    uses: ./.github/workflows/callable-k3s-ansible.yml
+    uses: ./.github/workflows/reusable/k3s-ansible.yml
     with:
       inventory: inventory/dev/k3s.yml
     secrets: inherit
 
   deploy-staging-cluster:
     if: ${{ github.event.inputs.environment == 'staging' }}
-    uses: ./.github/workflows/callable-k3s-ansible.yml
+    uses: ./.github/workflows/reusable/k3s-ansible.yml
     with:
       inventory: inventory/staging/k3s.yml
     secrets: inherit

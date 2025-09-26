@@ -10,51 +10,48 @@
         state: directory
         mode: '0700'
 
-    - name: Fetch kubeconfig from control plane
-      ansible.builtin.fetch:
-        src: /home/{{ ansible_user }}/.kube/config
-        dest: /home/{{ custom_user }}/.kube/dev-config
-        flat: yes
-        mode: '0600'
-
-
-# require testuing
-    # - name: Load kubeconfig from controller filesystem
-    #   delegate_to: localhost
-    #   ansible.builtin.slurp:
-    #     path: "/home/{{ custom_user }}/.kube/dev-config-nu"
-    #   register: kubeconfig_raw
-
-    # - name: Parse kubeconfig as YAML
-    #   delegate_to: localhost
-    #   ansible.builtin.set_fact:
-    #     kubeconfig: "{{ kubeconfig_raw.content | b64decode | from_yaml }}"
-
-    # - name: Get API server endpoint from inventory (first host in 'server' group)
-    #   delegate_to: localhost
-    #   ansible.builtin.set_fact:
-    #     apiserver_endpoint: "{{ hostvars[groups['server'][0]].inventory_hostname }}"
-
-    # - name: Update server(s) to use external IP (from inventory)
-    #   delegate_to: localhost
-    #   ansible.builtin.set_fact:
-    #     kubeconfig: >-
-    #       {{
-    #         kubeconfig | combine({
-    #           'clusters': [
-    #             item | combine({
-    #               'cluster': item.cluster | combine({
-    #                 'server': 'https://' ~ apiserver_endpoint ~ ':6443'
-    #               })
-    #             })
-    #             for item in kubeconfig.clusters
-    #           ]
-    #         })
-    #       }}
-
-    # - name: Write updated kubeconfig back to controller filesystem
-    #   delegate_to: localhost
-    #   ansible.builtin.copy:
-    #     dest: "/home/{{ custom_user }}/.kube/dev-config-nu"
-    #     content: "{{ kubeconfig | to_nice_yaml(indent=2) }}"
+    # - name: Fetch kubeconfig from control plane
+    #   ansible.builtin.fetch:
+    #     src: /home/{{ ansible_user }}/.kube/config
+    #     dest: /home/{{ custom_user }}/.kube/dev-config
+    #     flat: yes
     #     mode: '0600'
+
+    - name: Load kubeconfig from controller filesystem
+      delegate_to: localhost
+      ansible.builtin.slurp:
+        path: "/home/{{ ansible_user }}/.kube/config"
+      register: kubeconfig_raw
+
+    - name: Parse kubeconfig as YAML
+      delegate_to: localhost
+      ansible.builtin.set_fact:
+        kubeconfig: "{{ kubeconfig_raw.content | b64decode | from_yaml }}"
+
+    - name: Get API server endpoint from inventory (first host in 'server' group)
+      delegate_to: localhost
+      ansible.builtin.set_fact:
+        apiserver_endpoint: "{{ hostvars[groups['server'][0]].inventory_hostname }}"
+
+    - name: Update server(s) to use external IP (from inventory)
+      delegate_to: localhost
+      ansible.builtin.set_fact:
+        kubeconfig: >-
+          {{
+            kubeconfig | combine({
+              'clusters': [
+                item | combine({
+                  'cluster': item.cluster | combine({
+                    'server': 'https://' ~ apiserver_endpoint ~ ':6443'
+                  })
+                })
+                for item in kubeconfig.clusters
+              ]
+            })
+          }}
+
+    - name: Write updated kubeconfig to Ansible controller
+      ansible.builtin.copy:
+        dest: "/home/{{ custom_user }}/.kube/dev-config-nu"
+        content: "{{ kubeconfig | to_nice_yaml(indent=2) }}"
+        mode: '0600'

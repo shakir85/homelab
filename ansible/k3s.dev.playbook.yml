@@ -4,7 +4,7 @@
   become: true
 
   vars:
-    kubeconfig_filename: "{{ group_names[0] | regex_replace('-ctrl-0', '') }}-config"
+    kubeconfig_filename: "{{ group_names[2] | regex_replace('-ctrl-0', '') }}-config"
 
   tasks:
     - name: Ensure local kubeconfig dir exists

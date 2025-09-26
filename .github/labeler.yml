@@ -29,10 +29,10 @@ github_actions:
       - any-glob-to-any-file: ".github/**/*"
 
 env-dev:
-  - "terraform/live/*/dev/**"
+  - any-glob-to-any-file: "terraform/live/*/dev/**"
 
 env-staging:
-  - "terraform/live/*/staging/**"
+  - any-glob-to-any-file: "terraform/live/*/staging/**"
 
 env-prod:
-  - "terraform/live/*/prod/**"
+  - any-glob-to-any-file: "terraform/live/*/prod/**"

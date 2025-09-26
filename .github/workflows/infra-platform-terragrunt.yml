@@ -16,7 +16,7 @@ on:
 jobs:
   cluster-dev:
     if: ${{ github.event.inputs.environment == 'dev' }}
-    uses: ./.github/workflows/reusable/generic-terragrunt.yml
+    uses: ./.github/workflows/callable-terragrunt.yml
     secrets: inherit
     with:
       module-path: terraform/live/platform/dev
@@ -24,7 +24,7 @@ jobs:
 
   cluster-staging:
     if: ${{ github.event.inputs.environment == 'staging' }}
-    uses: ./.github/workflows/reusable/generic-terragrunt.yml
+    uses: ./.github/workflows/callable-terragrunt.yml
     secrets: inherit
     with:
       module-path: terraform/live/platform/staging

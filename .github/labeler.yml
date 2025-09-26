@@ -4,35 +4,35 @@ docs:
   - changed-files:
     - any-glob-to-any-file: "**/README*"
 
-"tool: helm":
+tool-helm:
   - changed-files:
       - any-glob-to-any-file: "helm/**/*"
 
-"tool: k8s":
+tool-k8s:
   - changed-files:
       - any-glob-to-any-file: "k8s/**/*"
 
-"tool: terraform":
+tool-terraform:
   - changed-files:
       - any-glob-to-any-file: "terraform/root-modules/**/*"
 
-"tool: terragrunt":
+tool-terragrunt:
   - changed-files:
       - any-glob-to-any-file: "terraform/live/**/*"
 
-"tool: ansible":
+tool-ansible:
   - changed-files:
       - any-glob-to-any-file: "ansible/**/*"
 
-"github_actions":
+github_actions:
   - changed-files:
       - any-glob-to-any-file: ".github/**/*"
 
-"env: dev":
-  - "terraform/live/**/dev/*"
+env-dev:
+  - "terraform/live/*/dev/**"
 
-"env: staging":
-  - "terraform/live/**/staging/*"
+env-staging:
+  - "terraform/live/*/staging/**"
 
-"env: prod":
-  - "terraform/live/**/prod/*"
+env-prod:
+  - "terraform/live/*/prod/**"

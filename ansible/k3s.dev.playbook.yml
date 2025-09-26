@@ -22,29 +22,21 @@
         path: "/home/{{ ansible_user }}/.kube/config"
       register: kubeconfig_raw
 
-    - name: Parse kubeconfig as YAML
-      ansible.builtin.set_fact:
-        kubeconfig: "{{ kubeconfig_raw.content | b64decode | from_yaml }}"
-
     - name: Get API server endpoint from inventory (first host in 'server' group)
       ansible.builtin.set_fact:
         apiserver_endpoint: "{{ hostvars[groups['server'][0]].inventory_hostname }}"
 
-    - name: Update server(s) to use external IP (from inventory)
-      ansible.builtin.set_fact:
-        kubeconfig: >-
+    - name: Replace server in kubeconfig (text-based)
+      ansible.builtin.copy:
+        dest: "/home/{{ custom_user }}/.kube/dev-config-nu"
+        content: >-
           {{
-            kubeconfig | combine({
-              'clusters': [
-                item | combine({
-                  'cluster': item.cluster | combine({
-                    'server': 'https://' ~ apiserver_endpoint ~ ':6443'
-                  })
-                })
-                for item in kubeconfig.clusters
-              ]
-            })
+            kubeconfig_raw.content
+            | b64decode
+            | regex_replace('server: https?://[0-9.]+:6443',
+                            'server: https://' ~ apiserver_endpoint ~ ':6443')
           }}
+        mode: '0600'
 
     - name: Write updated kubeconfig to Ansible controller
       ansible.builtin.copy:

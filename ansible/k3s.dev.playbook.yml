@@ -2,6 +2,10 @@
 - name: Copy and patch kubeconfig on Ansible controller
   hosts: server
   become: true
+
+  vars:
+    kubeconfig_filename: "{{ group_names[0] | regex_replace('-ctrl-0', '') }}-config"
+
   tasks:
     - name: Ensure local kubeconfig dir exists
       delegate_to: localhost
@@ -10,14 +14,7 @@
         state: directory
         mode: '0700'
 
-    # - name: Fetch kubeconfig from control plane
-    #   ansible.builtin.fetch:
-    #     src: /home/{{ ansible_user }}/.kube/config
-    #     dest: /home/{{ custom_user }}/.kube/dev-config
-    #     flat: yes
-    #     mode: '0600'
-
-    - name: Load kubeconfig from controller filesystem
+    - name: Load kubeconfig from control plane
       ansible.builtin.slurp:
         path: "/home/{{ ansible_user }}/.kube/config"
       register: kubeconfig_raw
@@ -29,7 +26,7 @@
     - name: Replace server in kubeconfig (text-based)
       delegate_to: localhost
       ansible.builtin.copy:
-        dest: "/home/{{ custom_user }}/.kube/dev-config-nu"
+        dest: "/home/{{ custom_user }}/.kube/{{ kubeconfig_filename }}"
         content: >-
           {{
             kubeconfig_raw.content

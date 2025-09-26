@@ -15,16 +15,14 @@ on:
 jobs:
   deploy-dev-cluster:
     if: ${{ github.event.inputs.environment == 'dev' }}
-    uses: ./.github/workflows/callable-ansible-playbook.yml
+    uses: ./.github/workflows/callable-k3s-ansible.yml
     with:
-      playbook: k3s.dev.playbook.yml
       inventory: inventory/dev/k3s.yml
     secrets: inherit
 
   deploy-staging-cluster:
     if: ${{ github.event.inputs.environment == 'staging' }}
-    uses: ./.github/workflows/callable-ansible-playbook.yml
+    uses: ./.github/workflows/callable-k3s-ansible.yml
     with:
-      playbook: k3s.staging.playbook.yml
       inventory: inventory/staging/k3s.yml
     secrets: inherit

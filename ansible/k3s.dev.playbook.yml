@@ -3,9 +3,6 @@
   hosts: server
   become: true
 
-  vars:
-    kubeconfig_filename: "{{ group_names[2] | regex_replace('-ctrl-0', '') }}-config"
-
   tasks:
     - name: Ensure local kubeconfig dir exists
       delegate_to: localhost
@@ -26,7 +23,7 @@
     - name: Replace server in kubeconfig (text-based)
       delegate_to: localhost
       ansible.builtin.copy:
-        dest: "/home/{{ custom_user }}/.kube/{{ kubeconfig_filename }}"
+        dest: "/home/{{ custom_user }}/.kube/{{ env }}-config"
         content: >-
           {{
             kubeconfig_raw.content

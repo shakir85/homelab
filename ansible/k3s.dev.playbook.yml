@@ -44,3 +44,4 @@
         dest: "/home/{{ custom_user }}/.kube/dev-config-nu"
         content: "{{ kubeconfig | to_nice_yaml(indent=2) }}"
         mode: '0600'
+        owner: '{{ custom_user }}'

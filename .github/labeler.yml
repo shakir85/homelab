@@ -31,11 +31,14 @@ github_actions:
 env-dev:
   - changed-files:
     - any-glob-to-any-file: "terraform/live/*/dev/**"
+    - any-glob-to-any-file: "ansible/inventory/dev/**"
 
 env-staging:
   - changed-files:
     - any-glob-to-any-file: "terraform/live/*/staging/**"
+    - any-glob-to-any-file: "ansible/inventory/staging/**"
 
 env-prod:
   - changed-files:
       - any-glob-to-any-file: "terraform/live/*/prod/**"
+      - any-glob-to-any-file: "ansible/inventory/prod/**"

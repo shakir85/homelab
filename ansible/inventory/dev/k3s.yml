@@ -3,11 +3,11 @@ k3s_cluster:
   children:
     server:
       hosts:
-        10.10.50.121:
+        dev-ctrl-0.shakir.cloud:
     agent:
       hosts:
-        10.10.50.120:
-        10.10.50.119:
+        dev-small-w-0.shakir.cloud:
+        dev-small-w-1.shakir.cloud:
 
   # Required Vars
   vars:

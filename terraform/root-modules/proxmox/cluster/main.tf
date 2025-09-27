@@ -10,6 +10,7 @@ locals {
         name = c.name
         size = c.size
         idx  = i
+        mac  = try(c.macs[i], null) # safely look up MAC if provided
       }
     ]
   ])
@@ -18,7 +19,7 @@ locals {
 module "cluster" {
   for_each = { for c in local.expanded : "${c.name}-${c.idx}" => c }
 
-  source              = "git::https://github.com/shakir85/terraform_modules.git//proxmox/vm?ref=0.3.6"
+  source              = "git::https://github.com/shakir85/terraform_modules.git//proxmox/vm?ref=0.3.7"
   hostname            = "${each.value.name}-${each.value.idx}"
   memory              = local.node_specs[each.value.size].memory
   cores               = local.node_specs[each.value.size].cores
@@ -30,4 +31,5 @@ module "cluster" {
   cloud_image_info    = var.cloud_image_info
   sockets             = 1
   description         = var.description
+  mac_address         = each.value.mac
 }

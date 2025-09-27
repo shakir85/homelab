@@ -19,12 +19,18 @@ locals {
       name  = "staging-ctrl",
       size  = "large",
       count = 1
+      macs  = ["bc:24:11:82:be:58"]
     },
     {
       # Node group - small
       name  = "staging-small-w",
       size  = "small",
-      count = 3
+      count = 2
+      macs  = [
+        "bc:24:11:19:32:af",
+        "bc:24:11:23:9b:a2",
+        "",
+      ]
     },
   ]
 }

@@ -18,13 +18,18 @@ locals {
       # Control plane
       name  = "dev-ctrl",
       size  = "medium",
-      count = 1
+      count = 1,
+      macs  = ["32:fe:ce:8c:3b:a8"]
     },
     {
       # Node group - small
       name  = "dev-small-w",
       size  = "small",
-      count = 2
+      count = 2,
+      macs  = [
+        "32:63:71:b2:58:c8",
+        "f6:24:d1:06:56:46",
+      ]
     },
   ]
 }

@@ -48,5 +48,11 @@ variable "cluster" {
     name  = string
     size  = string
     count = number
+    macs  = optional(list(string), [])
   }))
+}
+
+variable "mac_address" {
+  type    = string
+  default = null
 }

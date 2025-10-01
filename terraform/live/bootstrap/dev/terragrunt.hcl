@@ -3,7 +3,7 @@ include {
 }
 
 terraform {
-  source = "${get_repo_root()}/terraform/root-modules/bootstrap"
+  source = "${get_repo_root()}/terraform/catalog/modules/bootstrap"
 }
 
 locals {

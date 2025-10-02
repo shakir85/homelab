@@ -7,7 +7,7 @@ include "backend" {
 }
 
 terraform {
-  source = "${get_repo_root()}/terraform/root-modules/proxmox/cluster"
+  source = "${get_repo_root()}/terraform/catalog/modules/proxmox/cluster"
 }
 
 locals {
@@ -16,19 +16,20 @@ locals {
   cluster = [
     {
       # Control plane
-      name  = "dev-ctrl",
-      size  = "medium",
-      count = 1,
-      macs  = ["32:fe:ce:8c:3b:a8"]
+      name  = "staging-ctrl",
+      size  = "large",
+      count = 1
+      macs  = ["bc:24:11:82:be:58"]
     },
     {
       # Node group - small
-      name  = "dev-small-w",
+      name  = "staging-small-w",
       size  = "small",
-      count = 2,
+      count = 2
       macs  = [
-        "32:63:71:b2:58:c8",
-        "f6:24:d1:06:56:46",
+        "bc:24:11:19:32:af",
+        "bc:24:11:23:9b:a2",
+        "",
       ]
     },
   ]

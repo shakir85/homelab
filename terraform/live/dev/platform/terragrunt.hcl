@@ -11,4 +11,8 @@ locals {
   env    = read_terragrunt_config("${get_terragrunt_dir()}/env.hcl")
 }
 
+dependencies {
+  paths = ["../infra"]
+}
+
 inputs = merge(local.env.inputs)

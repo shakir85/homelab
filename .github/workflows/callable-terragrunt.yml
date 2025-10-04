@@ -24,21 +24,21 @@ env:
   TF_VAR_github_app_private_key: ${{ secrets.TF_VAR_GH_APP_KEY }}
 
 jobs:
-  plan:
-    runs-on: ${{ inputs.runner-label }}
-    steps:
-      - name: 'Checkout'
-        uses: shakir85/checkout@v4
+  # plan:
+  #   runs-on: ${{ inputs.runner-label }}
+  #   steps:
+  #     - name: 'Checkout'
+  #       uses: shakir85/checkout@v4
 
-      - name: Plan
-        uses: gruntwork-io/terragrunt-action@v3
-        with:
-          tg_dir: ${{ env.working_dir }}
-          tg_command: 'plan'
+  #     - name: Plan
+  #       uses: gruntwork-io/terragrunt-action@v3
+  #       with:
+  #         tg_dir: ${{ env.working_dir }}
+  #         tg_command: 'plan'
 
   deploy:
     runs-on: ${{ inputs.runner-label }}
-    needs: [ plan ]
+    # needs: [ plan ]
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     steps:
       - name: 'Checkout'

@@ -19,7 +19,7 @@ jobs:
     uses: ./.github/workflows/callable-terragrunt.yml
     secrets: inherit
     with:
-      module-path: terraform/live/dev/compute
+      module-path: terraform/live/dev
 
   staging-stack:
     if: ${{ github.event.inputs.environment == 'staging' }}

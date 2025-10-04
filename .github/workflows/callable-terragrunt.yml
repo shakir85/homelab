@@ -48,5 +48,5 @@ jobs:
         uses: gruntwork-io/terragrunt-action@v3
         with:
           tg_dir: ${{ env.working_dir }}
-          tg_command: 'run --all --non-interactive apply'
+          tg_command: 'apply --all -auto-approve'
           tg_add_approve: true

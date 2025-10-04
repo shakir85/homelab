@@ -11,8 +11,8 @@ terraform {
 
   after_hook "ansible_provision" {
     commands     = ["apply"]
+    working_dir  = "${get_repo_root()}/ansible"
     execute      = [
-      "cd ${get_repo_root()}/ansible",
       "ansible-playbook",
       "-i", "inventory/dev/k3s.yml",
       "k3s_site.playbook.yml"

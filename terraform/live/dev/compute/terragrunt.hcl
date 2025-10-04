@@ -11,11 +11,11 @@ terraform {
 
   after_hook "ansible_provision" {
     commands     = ["apply"]
+    working_dir  = "${get_repo_root()}/ansible"
     execute      = [
       "ansible-playbook",
-      "-i", "${get_repo_root()}/ansible/inventory/dev/k3s.yml",
-      "-u", "debian",
-      "${get_repo_root()}/ansible/k3s_site.playbook.yml"
+      "-i", "inventory/dev/k3s.yml",
+      "k3s_site.playbook.yml"
       ]
     run_on_error = false
   }

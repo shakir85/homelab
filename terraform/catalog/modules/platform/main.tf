@@ -3,7 +3,6 @@ module "metallb-cr" {
   ipv4_address_pool_name = var.ipv4_address_pool_name
   ipv4_address_pools     = var.ipv4_address_pools
   kube_namespace         = var.metallb_namespace
-
 }
 
 module "nginx-ingress" {

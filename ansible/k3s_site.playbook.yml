@@ -1,5 +1,8 @@
 ---
-- name: Copy and patch kubeconfig on Ansible controller
+# Bring in the k3s playbook that's installed via ansible-galaxy requirements.yml
+- import_playbook: k3s.orchestration.site
+
+- name: Post-install Configuration
   hosts: server
   become: true
 

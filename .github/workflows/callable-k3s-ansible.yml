@@ -24,9 +24,4 @@ jobs:
       - name: Deploy k3s cluster
         run: |
           cd ansible
-          ansible-playbook k3s.orchestration.site -i ${{ inputs.inventory }} -u $ANSIBLE_USER
-
-      - name: Fetch kubeconfig
-        run: |
-          cd ansible
-          ansible-playbook fetch.kubeconfig.playbook.yml -i ${{ inputs.inventory }} -u $ANSIBLE_USER
+          ansible-playbook k3s_site.playbook.yml -i ${{ inputs.inventory }} -u $ANSIBLE_USER

@@ -6,7 +6,7 @@ module "metallb-cr" {
 }
 
 module "nginx-ingress" {
-  source         = "git::https://github.com/shakir85/tf-modules.git//nginx-ingress?ref=0.3.6"
+  source         = "git::https://github.com/shakir85/tf-modules.git//nginx-ingress?ref=main"
   kube_namespace = var.nginx_namespace
 
   depends_on = [module.metallb-cr]

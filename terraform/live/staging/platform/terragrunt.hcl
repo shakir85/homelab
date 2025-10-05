@@ -12,7 +12,7 @@ locals {
 }
 
 dependencies {
-  paths = ["../bootstrap"]
+  paths = ["../infra"]
 }
 
 inputs = merge(local.env.inputs)

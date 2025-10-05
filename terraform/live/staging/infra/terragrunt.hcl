@@ -11,7 +11,7 @@ locals {
 }
 
 dependencies {
-  paths = ["../cluster"]
+  paths = ["../compute"]
 }
 
 inputs = local.env.inputs

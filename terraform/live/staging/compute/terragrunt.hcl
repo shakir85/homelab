@@ -8,6 +8,17 @@ include "backend" {
 
 terraform {
   source = "${get_repo_root()}/terraform/catalog/modules/proxmox/cluster"
+
+  after_hook "ansible_provision" {
+    commands    = ["apply"]
+    working_dir = "${get_repo_root()}/ansible"
+    execute = [
+      "ansible-playbook",
+      "-i", "inventory/staging/k3s.yml",
+      "k3s_site.playbook.yml"
+    ]
+    run_on_error = false
+  }
 }
 
 locals {

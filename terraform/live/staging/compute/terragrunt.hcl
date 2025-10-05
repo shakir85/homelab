@@ -1,4 +1,4 @@
-include {
+include "proxmox" {
   path = find_in_parent_folders("proxmox.hcl")
 }
 
@@ -8,6 +8,17 @@ include "backend" {
 
 terraform {
   source = "${get_repo_root()}/terraform/catalog/modules/proxmox/cluster"
+
+  after_hook "ansible_provision" {
+    commands    = ["apply"]
+    working_dir = "${get_repo_root()}/ansible"
+    execute = [
+      "ansible-playbook",
+      "-i", "inventory/staging/k3s.yml",
+      "k3s_site.playbook.yml"
+    ]
+    run_on_error = false
+  }
 }
 
 locals {
@@ -26,7 +37,7 @@ locals {
       name  = "staging-small-w",
       size  = "small",
       count = 2
-      macs  = [
+      macs = [
         "bc:24:11:19:32:af",
         "bc:24:11:23:9b:a2",
         "",
@@ -37,5 +48,5 @@ locals {
 
 inputs = merge(
   local.common,
-  {cluster = local.cluster}
+  { cluster = local.cluster }
 )

@@ -1,4 +1,4 @@
-include {
+include "root" {
   path = find_in_parent_folders("root.hcl")
 }
 
@@ -11,7 +11,7 @@ locals {
 }
 
 dependencies {
-  paths = ["../cluster"]
+  paths = ["../compute"]
 }
 
 inputs = local.env.inputs

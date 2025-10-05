@@ -29,7 +29,7 @@ jobs:
 
       - name: Generate Terraform Docs Recursively
         run: |
-          find terraform/ -mindepth 2 -type f -name "main.tf" -exec dirname {} \; | while read dir; do
+          find terraform/catalog/modules/ -mindepth 2 -type f -name "main.tf" -exec dirname {} \; | while read dir; do
             echo "📄 Generating docs for $dir"
             (cd "$dir" && terraform-docs markdown document .)
           done
@@ -37,7 +37,7 @@ jobs:
       - name: Commit changes
         run: |
           git add -A
-          git commit -m "chore: update Terraform docs [skip ci]" || echo "No changes to commit"
+          git commit -m "🤖 chore: update Terraform docs [skip ci]" || echo "No changes to commit"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git ${{ github.head_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

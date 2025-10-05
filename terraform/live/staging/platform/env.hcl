@@ -1,4 +1,4 @@
-locals{
+locals {
   kube = {
     config_path    = "~/.kube/staging-config"
     config_context = "staging"
@@ -11,7 +11,7 @@ locals{
   }
 
   nginx-ingress = {
-    nginx_namespace         = "ingress-nginx"
+    nginx_namespace = "ingress-nginx"
   }
 }
 

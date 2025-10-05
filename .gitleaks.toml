@@ -37,7 +37,12 @@ tags = ["key", "GitHub"]
 id = "slack-webhook"
 description = "Slack Webhook"
 regex = '''https://hooks.slack.com/services/T[a-zA-Z0-9]{8}/B[a-zA-Z0-9]{8}/[a-zA-Z0-9]{24}'''
-tags = ["webhook", "slack"]
+
+[[rules]]
+id = "discord-webhook"
+description = "Discord Webhook"
+regex = '''https://(ptb\.|canary\.)?discord\.com/api/webhooks/[0-9]{17,20}/[A-Za-z0-9_\-]{60,80}'''
+tags = ["webhook", "discord"]
 
 [report]
 format = "sarif"

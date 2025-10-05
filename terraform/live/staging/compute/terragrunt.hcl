@@ -26,7 +26,7 @@ locals {
       name  = "staging-small-w",
       size  = "small",
       count = 2
-      macs  = [
+      macs = [
         "bc:24:11:19:32:af",
         "bc:24:11:23:9b:a2",
         "",
@@ -37,5 +37,5 @@ locals {
 
 inputs = merge(
   local.common,
-  {cluster = local.cluster}
+  { cluster = local.cluster }
 )

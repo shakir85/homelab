@@ -5,9 +5,9 @@ locals {
   }
 
   runner = {
-    name = "dev-homelab"
-    repo = "homelab"
-    org  = "shakir85"
+    name            = "dev-homelab"
+    repo            = "homelab"
+    org             = "shakir85"
     rbac_namespaces = ["kube-system", "cert-manager", "runners", "arc-system"]
   }
 

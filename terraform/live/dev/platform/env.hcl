@@ -1,4 +1,4 @@
-locals{
+locals {
   kube = {
     config_path    = "~/.kube/dev-config"
     config_context = "dev"

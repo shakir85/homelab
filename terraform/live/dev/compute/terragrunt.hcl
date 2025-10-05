@@ -10,13 +10,13 @@ terraform {
   source = "${get_repo_root()}/terraform/catalog/modules/proxmox/cluster"
 
   after_hook "ansible_provision" {
-    commands     = ["apply"]
-    working_dir  = "${get_repo_root()}/ansible"
-    execute      = [
+    commands    = ["apply"]
+    working_dir = "${get_repo_root()}/ansible"
+    execute = [
       "ansible-playbook",
       "-i", "inventory/dev/k3s.yml",
       "k3s_site.playbook.yml"
-      ]
+    ]
     run_on_error = false
   }
 }
@@ -37,7 +37,7 @@ locals {
       name  = "dev-small-w",
       size  = "small",
       count = 2,
-      macs  = [
+      macs = [
         "32:63:71:b2:58:c8",
         "f6:24:d1:06:56:46",
       ]
@@ -47,5 +47,5 @@ locals {
 
 inputs = merge(
   local.common,
-  {cluster = local.cluster}
+  { cluster = local.cluster }
 )

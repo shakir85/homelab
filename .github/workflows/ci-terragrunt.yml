@@ -13,19 +13,29 @@ jobs:
   format:
     runs-on: self-hosted
     steps:
-      - name: 'Checkout'
-        uses: shakir85/checkout@v4
+
+      - uses: shakir85/checkout@v4
+
+      - uses: ./.github/actions/setup-git
+        with:
+          repo-path: /__w/homelab/homelab
 
       - name: Format HCL files
         uses: gruntwork-io/terragrunt-action@v3
         with:
           tg_dir: 'terraform/live'
           tg_command: 'hcl fmt'
-          tg_add_approve: true
+
+      - name: Commit changes
+        run: |
+          git add -A
+          git commit -m "🤖 chore: update Terraform docs [skip ci]" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git ${{ github.head_ref }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Validate HCL files
         uses: gruntwork-io/terragrunt-action@v3
         with:
           tg_dir: 'terraform/live'
           tg_command: 'hcl validate'
-          tg_add_approve: true

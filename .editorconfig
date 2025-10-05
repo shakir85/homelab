@@ -1,9 +1,4 @@
-
-# EditorConfig helps developers define and maintain consistent
-# coding styles between different editors and IDEs
-# editorconfig.org
-# Sources: https://github.com/pnb/linter-pep8/blob/master/.editorconfig
-#          https://editorconfig.org/
+# editorconfig.org  https://editorconfig.org/
 root = true
 
 [*]
@@ -36,5 +31,10 @@ trim_trailing_whitespace = false
 
 # Terraform
 [*.{tf,tfvars}]
+indent_size = 4
+indent_style = space
+
+# HCL
+[*.hcl]
 indent_size = 4
 indent_style = space

@@ -1,5 +1,5 @@
 name: Terragrunt Deploy Environment Stacks
-run-name: Terragrunt Stack - ${{ github.event.inputs.environment }}
+run-name: 🚀 Deploy Terragrunt ${{ github.event.inputs.environment }} Stack
 
 on:
   workflow_dispatch:

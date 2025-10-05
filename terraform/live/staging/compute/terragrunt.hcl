@@ -1,4 +1,4 @@
-include {
+include "proxmox" {
   path = find_in_parent_folders("proxmox.hcl")
 }
 

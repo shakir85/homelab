@@ -1,0 +1,31 @@
+name: Terragrunt HCL Format
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - "terraform/live/**"
+
+jobs:
+  format:
+    runs-on: self-hosted
+    steps:
+      - name: 'Checkout'
+        uses: shakir85/checkout@v4
+
+      - name: Format HCL files
+        uses: gruntwork-io/terragrunt-action@v3
+        with:
+          tg_dir: 'terraform/live'
+          tg_command: 'hcl fmt'
+          tg_add_approve: true
+
+      - name: Validate HCL files
+        uses: gruntwork-io/terragrunt-action@v3
+        with:
+          tg_dir: 'terraform/live'
+          tg_command: 'hcl validate'
+          tg_add_approve: true

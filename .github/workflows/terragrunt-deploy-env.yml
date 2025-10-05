@@ -26,4 +26,4 @@ jobs:
     uses: ./.github/workflows/callable-terragrunt.yml
     secrets: inherit
     with:
-      module-path: terraform/live/staging/compute
+      module-path: terraform/live/staging

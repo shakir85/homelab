@@ -9,6 +9,19 @@ include "backend" {
 terraform {
   source = "${get_repo_root()}/terraform/catalog/modules/proxmox/cluster"
 
+  after_hook "ansible_install_collections" {
+    commands    = ["apply"]
+    working_dir = "${get_repo_root()}/ansible"
+    execute = [
+      "ansible-galaxy",
+      "collection",
+      "install",
+      "-r",
+      "requirements.yml"
+    ]
+    run_on_error = false
+  }
+
   after_hook "ansible_provision" {
     commands    = ["apply"]
     working_dir = "${get_repo_root()}/ansible"

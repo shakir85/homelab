@@ -5,11 +5,23 @@ include "proxmox" {
 include "backend" {
   path = find_in_parent_folders("backend.hcl")
 }
-
 terraform {
   source = "${get_repo_root()}/terraform/catalog/modules/proxmox/cluster"
 
-  after_hook "ansible_provision" {
+  after_hook "ansible_install_collections" {
+    commands    = ["apply"]
+    working_dir = "${get_repo_root()}/ansible"
+    execute = [
+      "ansible-galaxy",
+      "collection",
+      "install",
+      "-r",
+      "requirements.yml"
+    ]
+    run_on_error = false
+  }
+
+  after_hook "ansible_run_playbook" {
     commands    = ["apply"]
     working_dir = "${get_repo_root()}/ansible"
     execute = [

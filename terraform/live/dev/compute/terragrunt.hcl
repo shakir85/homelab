@@ -13,6 +13,10 @@ terraform {
     commands    = ["apply"]
     working_dir = "${get_repo_root()}/ansible"
     execute = [
+      "ansible-galaxy",
+      "collection",
+      "install",
+      "git+https://github.com/k3s-io/k3s-ansible.git",
       "ansible-playbook",
       "-i", "inventory/dev/k3s.yml",
       "k3s_site.playbook.yml"

@@ -1,0 +1,21 @@
+name: Ansible Lint
+on:
+  pull_request:
+    types:  [ opened, synchronize, reopened ]
+    paths:
+      - 'ansible/**'
+
+jobs:
+  ansible-lint:
+    runs-on: self-hosted
+
+    steps:
+      - uses: shakir85/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Lint all Ansible playbooks
+        run: |
+          cd ansible
+          chmod +x lint.sh
+          ./lint.sh

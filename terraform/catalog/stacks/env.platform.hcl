@@ -1,13 +1,9 @@
 locals {
-  kube = {
-    config_path    = "~/.kube/staging-config"
-    config_context = "staging"
-  }
 
   metallb = {
     metallb_namespace      = "metallb-system"
     ipv4_address_pool_name = "default-pool"
-    ipv4_address_pools     = ["10.10.50.96-10.10.50.98"]
+    ipv4_address_pools     = ["10.10.50.98-10.10.50.99"]
   }
 
   nginx-ingress = {

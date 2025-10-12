@@ -9,16 +9,9 @@ provider "proxmox" {
   # because of Proxmox's self-signed cert
   insecure = true
 }
-EOF
-}
 
-generate "terraform" {
-  path      = "terraform.tf"
-  if_exists = "overwrite_terragrunt"
-  contents  = <<EOF
+# Required providers block only. Terraform version is set in root.hcl
 terraform {
-  required_version = "~> 1.13.1"
-
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
@@ -29,9 +22,6 @@ terraform {
       version = ">= 2.5.1"
     }
   }
-
-  # stub-backend, real backend config is injected above
-  backend "s3" {}
 }
 EOF
 }

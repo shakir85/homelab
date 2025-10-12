@@ -1,0 +1,39 @@
+name: Deploy A Terragrunt Stack
+
+on:
+  workflow_call:
+    inputs:
+      module-path:
+        type: string
+        required: true
+        description: "Path to the Terragrunt module"
+      runner-label:
+        type: string
+        required: false
+        default: "controller"
+        description: "Label of the self-hosted runner to use"
+
+env:
+  working_dir: ${{ inputs.module-path }}
+  TF_VAR_pve_user: ${{ secrets.TF_VAR_PVE_USER }}
+  TF_VAR_pve_pwd: ${{ secrets.TF_VAR_PVE_PWD }}
+  TF_VAR_id_rsa_pub: ${{ secrets.TF_VAR_ID_RSA_PUB }}
+  TF_VAR_ghcr_token: ${{ secrets.TF_VAR_GHCR_TOKEN }}
+  TF_VAR_github_app_id: ${{ secrets.TF_VAR_GH_APP_ID }}
+  TF_VAR_github_app_installation_id: ${{ secrets.TF_VAR_GITHUB_APP_INSTALLATION_ID }}
+  TF_VAR_github_app_private_key: ${{ secrets.TF_VAR_GH_APP_KEY }}
+
+jobs:
+  deploy:
+    runs-on: ${{ inputs.runner-label }}
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: 'Checkout'
+        uses: shakir85/checkout@v4
+
+      - name: Deploy
+        uses: gruntwork-io/terragrunt-action@v3
+        with:
+          tg_dir: ${{ env.working_dir }}
+          tg_command: 'stack run apply'
+          tg_add_approve: true

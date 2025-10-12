@@ -1,0 +1,22 @@
+name: Terragrunt Stack Deployment
+run-name: 🚀 Deploy Terragrunt ${{ github.event.inputs.environment }} Stack
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Which environment to deploy'
+        required: true
+        type: choice
+        default: 'dev'
+        options:
+          - dev
+          - staging
+
+jobs:
+  dev-stack:
+    if: ${{ github.event.inputs.environment == 'dev' }}
+    uses: ./.github/workflows/callable-terragrunt-stack.yml
+    secrets: inherit
+    with:
+      module-path: terraform/live/dev

@@ -29,3 +29,11 @@ unit "cluster" {
     ]
   }
 }
+
+unit "cert-manager" {
+  source = "${get_repo_root()}/terraform/catalog/units/cert-manager"
+  path   = "cert-manager"
+  values = {
+    kube_namespace = "cert-manager"
+  }
+}

@@ -1,10 +1,13 @@
 include "kubeconfig" {
-    path = "${get_repo_root()}/k8s-providers.hcl"
+  path = "${get_repo_root()}/terraform/catalog/units/k8s-providers.hcl"
+}
+
+include "root" {
+  path = find_in_parent_folders("root.hcl")
 }
 
 terraform {
-    source = "git::https://github.com/shakir85/tf-modules.git//gha-arc?ref=0.3.6"
-
+  source = "git::https://github.com/shakir85/tf-modules.git//gha-arc?ref=0.3.6"
 }
 
 # Place holder - all of this module's vars are TF_VARs

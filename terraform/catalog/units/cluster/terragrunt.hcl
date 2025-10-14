@@ -8,12 +8,12 @@ include "root" {
 
 # --- Stack vars and inputs ----
 inputs = {
-    proxmox_node_name = values.proxmox_node_name
-    disk_name         = values.disk_name
-    cloud_image_info  = values.cloud_image_info
-    description       = values.description
-    cluster           = values.cluster
-    env               = values.env
+  proxmox_node_name = values.proxmox_node_name
+  disk_name         = values.disk_name
+  cloud_image_info  = values.cloud_image_info
+  description       = values.description
+  cluster           = values.cluster
+  env               = values.env
 }
 
 locals {

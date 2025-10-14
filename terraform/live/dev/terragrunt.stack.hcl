@@ -35,5 +35,16 @@ unit "cert-manager" {
   path   = "cert-manager"
   values = {
     kube_namespace = "cert-manager"
+    config_path    = "~/.kube/config"
+    config_context = "dev"
+  }
+}
+
+unit "gha-arc" {
+  source = "${get_repo_root()}/terraform/catalog/units/gha-arc"
+  path   = "gha-arc"
+  values = {
+    config_path    = "~/.kube/config"
+    config_context = "dev"
   }
 }

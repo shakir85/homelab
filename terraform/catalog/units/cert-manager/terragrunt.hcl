@@ -8,10 +8,10 @@ include "root" {
 
 inputs = {
   kube_namespace = values.kube_namespace
-  config_path    = "~/.kube/config"
-  config_context = "dev"
+  config_path    = values.config_path
+  config_context = values.config_context
 }
 
 terraform {
-  source = "git::https://github.com/shakir85/tf-modules.git//cert-manager?ref=0.3.6"
+  source = "git::https://github.com/shakir85/tf-modules.git//cert-manager?ref=0.3.8"
 }

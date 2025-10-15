@@ -48,3 +48,13 @@ unit "gha-arc" {
     config_context = "dev"
   }
 }
+
+unit "gha-runner" {
+  source = "${get_repo_root()}/terraform/catalog/units/gha-runner"
+  path   = "gha-runner"
+  values = {
+    config_path    = "~/.kube/config"
+    config_context = "dev"
+    runner_name    = "dev"
+  }
+}

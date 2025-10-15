@@ -1,17 +1,29 @@
-include "kubeconfig" {
-  path = "${get_repo_root()}/k8s-providers.hcl"
+include "k8s-providers" {
+  path = "${get_repo_root()}/terraform/catalog/units/k8s-providers.hcl"
+}
+
+include "root" {
+  path = find_in_parent_folders("root.hcl")
 }
 
 terraform {
-  source = "git::https://github.com/shakir85/tf-modules.git//runner-deployment?ref=0.3.6"
+  source = "git::https://github.com/shakir85/tf-modules.git//gha-runner?ref=0.3.8"
 
 }
 
 inputs = {
-  kube_namespace    = "runners"
-  create_namespace  = true
-  name              = values.name
-  repo              = "homelab"
-  org               = "shakir85"
-  target_namespaces = values.target_namespaces
+  kube_namespace   = "runners"
+  create_namespace = true
+  runner_name      = values.runner_name
+  repo             = "homelab"
+  org              = "shakir85"
+  config_path      = values.config_path
+  config_context   = values.config_context
+}
+
+dependency "gha-arc" {
+  config_path = "../gha-arc/"
+  mock_outputs = {
+    gha-arc_output = "mock-gha-arc-output"
+  }
 }

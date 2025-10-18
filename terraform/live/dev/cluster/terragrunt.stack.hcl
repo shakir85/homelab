@@ -7,7 +7,7 @@ unit "cluster" {
     disk_name         = "sdd"
     cloud_image_info  = ["sdc", "debian-12-generic-amd64.qcow2.img"]
     description       = "Managed by Terragrunt."
-    env               = "dev" # for pulling correct inventory file
+    env               = "dev" # for pulling the correct inventory file
     cluster = [
       {
         # Control plane

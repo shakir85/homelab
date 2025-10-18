@@ -35,5 +35,5 @@ jobs:
         uses: gruntwork-io/terragrunt-action@v3
         with:
           tg_dir: ${{ env.working_dir }}
-          tg_command: "stack run apply"
+          tg_command: "apply --all"
           tg_add_approve: true

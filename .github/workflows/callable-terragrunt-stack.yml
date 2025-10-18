@@ -28,12 +28,12 @@ jobs:
     runs-on: ${{ inputs.runner-label }}
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     steps:
-      - name: 'Checkout'
+      - name: Checkout
         uses: shakir85/checkout@v4
 
       - name: Deploy
         uses: gruntwork-io/terragrunt-action@v3
         with:
           tg_dir: ${{ env.working_dir }}
-          tg_command: 'stack run apply'
+          tg_command: "stack run apply"
           tg_add_approve: true

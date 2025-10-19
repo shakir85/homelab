@@ -2,10 +2,6 @@ include "proxmox" {
   path = "${get_repo_root()}/terraform/catalog/units/proxmox-provider.hcl"
 }
 
-include "root" {
-  path = find_in_parent_folders("root.hcl")
-}
-
 # --- Stack vars and inputs ----
 inputs = {
   proxmox_node_name = values.proxmox_node_name

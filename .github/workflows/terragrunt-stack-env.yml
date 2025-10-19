@@ -40,8 +40,16 @@ jobs:
     with:
       module-path: terraform/live/dev/infra
 
-  dev-platform:
+  warmup:
     needs: dev-infra
+    if: ${{ github.event.inputs.environment == 'dev' }}
+    runs-on: controller
+    steps:
+      - name: Wait for K8s Operator CRDs to be ready
+        run: sleep 20
+
+  dev-platform:
+    needs: [dev-infra, warmup]
     if: ${{ github.event.inputs.environment == 'dev' }}
     uses: ./.github/workflows/callable-terragrunt-stack.yml
     secrets: inherit

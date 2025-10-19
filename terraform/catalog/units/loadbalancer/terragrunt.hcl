@@ -1,5 +1,9 @@
 include "kubeconfig" {
-  path = "${get_repo_root()}/k8s-providers.hcl"
+  path = "${get_repo_root()}/terraform/catalog/units/k8s-providers.hcl"
+}
+
+include "root" {
+  path = find_in_parent_folders("root.hcl")
 }
 
 terraform {

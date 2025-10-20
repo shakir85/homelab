@@ -46,7 +46,7 @@ jobs:
     runs-on: controller
     steps:
       - name: Wait for K8s Operator CRDs to be ready
-        run: sleep 20
+        run: sleep 60
 
   dev-platform:
     needs: [dev-infra, warmup]

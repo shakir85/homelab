@@ -1,6 +1,19 @@
 name: Terragrunt Stack Deployment
 run-name: 🚀 Deploy Terragrunt ${{ github.event.inputs.environment }} Stack
 
+# This is an ugly pipeline but will improve it later
+#
+# Can be optimized later by using matrix strategy like this
+# jobs:
+#   deploy:
+#     strategy:
+#       matrix:
+#         env: [dev, stage, prod]
+#     uses: ./.github/workflows/env-deploy.yml
+#     with:
+#       environment: ${{ matrix.env }}
+#     secrets: inherit
+
 on:
   workflow_dispatch:
     inputs:
@@ -12,17 +25,6 @@ on:
         options:
           - dev
           - staging
-
-# Can be optimized later by using matrix strategy like this
-# jobs:
-#   deploy:
-#     strategy:
-#       matrix:
-#         env: [dev, stage, prod]
-#     uses: ./.github/workflows/env-deploy.yml
-#     with:
-#       environment: ${{ matrix.env }}
-#     secrets: inherit
 
 jobs:
   dev-cluster:
@@ -55,3 +57,28 @@ jobs:
     secrets: inherit
     with:
       module-path: terraform/live/dev/platform
+
+
+  staging-infra:
+    needs: dev-cluster
+    if: ${{ github.event.inputs.environment == 'staging' }}
+    uses: ./.github/workflows/callable-terragrunt-stack.yml
+    secrets: inherit
+    with:
+      module-path: terraform/live/staging/infra
+
+  warmup_2:
+    needs: staging-infra
+    if: ${{ github.event.inputs.environment == 'staging' }}
+    runs-on: controller
+    steps:
+      - name: Wait for K8s Operator CRDs to be ready
+        run: sleep 60
+
+  staging-platform:
+    needs: [staging-infra, warmup_2]
+    if: ${{ github.event.inputs.environment == 'staging' }}
+    uses: ./.github/workflows/callable-terragrunt-stack.yml
+    secrets: inherit
+    with:
+      module-path: terraform/live/staging/platform

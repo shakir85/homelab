@@ -23,9 +23,9 @@ rule "terraform_comment_syntax" {
 rule "terraform_unused_declarations" {
   enabled = true
 }
- rule "terraform_documented_variables" {
+rule "terraform_documented_variables" {
   enabled = true
- }
+}
 
 rule "terraform_naming_convention" {
   enabled = true

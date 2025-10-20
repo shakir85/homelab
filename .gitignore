@@ -27,7 +27,7 @@ key.yml
 ansible_id_rsa.pub
 **/.DS_Store
 *.tfvars.json
-.terragrunt-cache
+.terragrunt*
 
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in

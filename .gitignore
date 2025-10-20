@@ -51,4 +51,4 @@ terraform.rc
 !.terraform-docs.yml
 admin
 admin-login
-.ansible/
+.ansible*

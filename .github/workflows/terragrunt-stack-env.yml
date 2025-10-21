@@ -59,8 +59,15 @@ jobs:
       module-path: terraform/live/dev/platform
 
 
+  staging-cluster:
+    if: ${{ github.event.inputs.environment == 'staging' }}
+    uses: ./.github/workflows/callable-terragrunt-stack.yml
+    secrets: inherit
+    with:
+      module-path: terraform/live/staging/cluster
+
   staging-infra:
-    needs: dev-cluster
+    needs: staging-cluster
     if: ${{ github.event.inputs.environment == 'staging' }}
     uses: ./.github/workflows/callable-terragrunt-stack.yml
     secrets: inherit

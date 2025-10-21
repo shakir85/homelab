@@ -7,23 +7,23 @@ unit "cluster" {
     disk_name         = "sdd"
     cloud_image_info  = ["sdc", "debian-12-generic-amd64.qcow2.img"]
     description       = "Managed by Terragrunt."
-    env               = "staging" # for pulling the correct inventory file
+    env               = "prod" # for pulling the correct inventory file
     cluster = [
       {
         # Control plane
-        name  = "staging-ctrl"
+        name  = "prod-ctrl"
         size  = "medium"
         count = 1
-        macs  = ["bc:24:11:82:be:58"]
+        macs  = [""]
       },
       {
-        # Node group - small
-        name  = "staging-small-w"
-        size  = "small"
-        count = 2
+        # Node group - medium
+        name  = "prod-medium-w"
+        size  = "medium"
+        count = 4
         macs = [
-          "bc:24:11:19:32:af",
-          "bc:24:11:23:9b:a2",
+          "",
+          "",
         ]
       },
     ]

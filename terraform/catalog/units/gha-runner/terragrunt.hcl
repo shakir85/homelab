@@ -7,7 +7,7 @@ include "root" {
 }
 
 terraform {
-  source = "git::https://github.com/shakir85/tf-modules.git//gha-runner?ref=0.3.8"
+  source = "git::https://github.com/stackgarage/tf-modules.git//gha-runner?ref=0.3.8"
 
 }
 
@@ -16,7 +16,7 @@ inputs = {
   create_namespace = true
   runner_name      = values.runner_name
   repo             = "homelab"
-  org              = "shakir85"
+  org              = "stackgarage"
   config_path      = values.config_path
   config_context   = values.config_context
 }

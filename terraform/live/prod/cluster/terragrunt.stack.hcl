@@ -14,7 +14,7 @@ unit "cluster" {
         name  = "prod-ctrl"
         size  = "medium"
         count = 1
-        macs  = [""]
+        macs  = ["82:79:52:6f:eb:f7"]
       },
       {
         # Node group - medium
@@ -22,8 +22,10 @@ unit "cluster" {
         size  = "medium"
         count = 4
         macs = [
-          "",
-          "",
+          "32:f7:29:57:0f:d1",
+          "6a:bb:75:6e:56:96",
+          "de:b2:c6:43:d8:7b",
+          "62:6a:7a:72:b8:18"
         ]
       },
     ]

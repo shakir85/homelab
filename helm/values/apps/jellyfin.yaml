@@ -157,19 +157,19 @@ nodeSelector: {}
 tolerations: []
 
 # -- Affinity rules for pod scheduling.
-affinity:
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: k3s.shakir.cloud/size
-              operator: In
-              values:
-                - x-large
-            - key: k3s.shakir.cloud/name
-              operator: In
-              values:
-                - k3s-main-nuc-3
+# affinity:
+#   nodeAffinity:
+#     requiredDuringSchedulingIgnoredDuringExecution:
+#       nodeSelectorTerms:
+#         - matchExpressions:
+#             - key: k3s.shakir.cloud/size
+#               operator: In
+#               values:
+#                 - x-large
+#             - key: k3s.shakir.cloud/name
+#               operator: In
+#               values:
+#                 - k3s-main-nuc-3
 
 jellyfin:
   # -- Enable DLNA. Requires host network. See: https://jellyfin.org/docs/general/networking/dlna.html

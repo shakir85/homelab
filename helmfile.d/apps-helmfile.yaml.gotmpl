@@ -3,7 +3,7 @@
 {{- /* Variable definitions */ -}}
 {{- $statelessChartsDir := "../helm/charts/stateless-apps" -}}
 {{- $statefulChartsDir := "../helm/charts/stateful-apps" -}}
-{{- $chartsDir := "../helm/charts" -}}
+{{- $rootChartsDir := "../helm/charts" -}}
 {{- $valuesDir := "../helm/values/apps" -}}
 {{- $commonNamespace := "apps" -}}
 
@@ -74,7 +74,7 @@ releases:
 
   - name: homepage
     namespace: {{ $commonNamespace }}
-    chart: {{ printf "%s/%s" $chartsDir "homepage-2.1.0.tgz" }}
+    chart: {{ printf "%s/%s" $rootChartsDir "homepage-2.1.0.tgz" }}
     values:
       - {{ printf "%s/%s" $valuesDir "homepage.yaml" }}
 
@@ -86,7 +86,7 @@ releases:
 
   - name: paperless-ngx
     namespace: {{ $commonNamespace }}
-    chart: {{ printf "%s/%s" $chartsDir "paperless-ngx" }}
+    chart: {{ printf "%s/%s" $rootChartsDir "paperless-ngx" }}
     values:
       - {{ printf "%s/%s" $valuesDir "paperless-ngx.yaml" }}
 

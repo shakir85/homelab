@@ -2,6 +2,13 @@
 # Bring in the k3s playbook that's installed via ansible-galaxy requirements.yml
 - import_playbook: k3s.orchestration.site
 
+- name: Node configuration
+  hosts: all
+  become: true
+
+  roles:
+    - common
+
 - name: Post-install Configuration
   hosts: server
   become: true

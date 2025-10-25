@@ -1,7 +1,7 @@
 name: Terragrunt Stack Deployment
 run-name: 🚀 Deploy Terragrunt ${{ github.event.inputs.environment }} Stack
 
-# This is an ugly pipeline but will improve it later
+# This is an ugly pipeline but I'll improve it later
 #
 # Can be optimized later by using matrix strategy like this
 # jobs:
@@ -24,7 +24,7 @@ on:
         default: 'dev'
         options:
           - dev
-          - staging
+          - prod
 
 jobs:
   dev-cluster:
@@ -59,33 +59,33 @@ jobs:
       module-path: terraform/live/dev/platform
 
 
-  staging-cluster:
-    if: ${{ github.event.inputs.environment == 'staging' }}
+  prod-cluster:
+    if: ${{ github.event.inputs.environment == 'prod' }}
     uses: ./.github/workflows/callable-terragrunt-stack.yml
     secrets: inherit
     with:
-      module-path: terraform/live/staging/cluster
+      module-path: terraform/live/prod/cluster
 
-  staging-infra:
-    needs: staging-cluster
-    if: ${{ github.event.inputs.environment == 'staging' }}
+  prod-infra:
+    needs: prod-cluster
+    if: ${{ github.event.inputs.environment == 'prod' }}
     uses: ./.github/workflows/callable-terragrunt-stack.yml
     secrets: inherit
     with:
-      module-path: terraform/live/staging/infra
+      module-path: terraform/live/prod/infra
 
   warmup_2:
-    needs: staging-infra
-    if: ${{ github.event.inputs.environment == 'staging' }}
+    needs: prod-infra
+    if: ${{ github.event.inputs.environment == 'prod' }}
     runs-on: controller
     steps:
       - name: Wait for K8s Operator CRDs to be ready
-        run: sleep 60
+        run: sleep 200
 
-  staging-platform:
-    needs: [staging-infra, warmup_2]
-    if: ${{ github.event.inputs.environment == 'staging' }}
+  prod-platform:
+    needs: [prod-infra, warmup_2]
+    if: ${{ github.event.inputs.environment == 'prod' }}
     uses: ./.github/workflows/callable-terragrunt-stack.yml
     secrets: inherit
     with:
-      module-path: terraform/live/staging/platform
+      module-path: terraform/live/prod/platform

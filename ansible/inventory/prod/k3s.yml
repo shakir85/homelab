@@ -3,16 +3,18 @@ k3s_cluster:
   children:
     server:
       hosts:
-        staging-ctrl-0.shakir.cloud:
+        prod-ctrl-0.shakir.cloud:
     agent:
       hosts:
-        staging-small-w-0.shakir.cloud:
-        staging-small-w-1.shakir.cloud:
+        prod-medium-w-0.shakir.cloud:
+        prod-medium-w-1.shakir.cloud:
+        prod-medium-w-2.shakir.cloud:
+        prod-medium-w-3.shakir.cloud:
 
   # Required Vars
   vars:
     # Shakir: This var is used in the fetch kubeconfig playbook to set the file name properly.
-    env: staging
+    env: prod
     ansible_port: 22
     ansible_user: debian
     k3s_version: v1.31.12+k3s1

@@ -11,7 +11,7 @@ on:
         default: 'dev'
         options:
           - dev
-          - staging
+          - prod
 
 jobs:
   dev-stack:
@@ -21,9 +21,9 @@ jobs:
     with:
       module-path: terraform/live/dev
 
-  staging-stack:
-    if: ${{ github.event.inputs.environment == 'staging' }}
+  prod-stack:
+    if: ${{ github.event.inputs.environment == 'prod' }}
     uses: ./.github/workflows/callable-terragrunt.yml
     secrets: inherit
     with:
-      module-path: terraform/live/staging
+      module-path: terraform/live/prod

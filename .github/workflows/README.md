@@ -11,5 +11,5 @@ Others:
 <tool>-<function>
 
 Example:
-helm-deploy-staging.yml
+helm-deploy-dev.yml
 ```

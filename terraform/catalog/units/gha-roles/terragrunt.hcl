@@ -7,7 +7,7 @@ include "root" {
 }
 
 terraform {
-  source = "git::https://github.com/shakir85/tf-modules.git//gha-roles?ref=0.3.8"
+  source = "git::https://github.com/stackgarage/tf-modules.git//gha-roles?ref=0.3.8"
 }
 
 dependency "gha-runner" {

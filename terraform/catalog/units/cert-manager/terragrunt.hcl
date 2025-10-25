@@ -13,5 +13,5 @@ inputs = {
 }
 
 terraform {
-  source = "git::https://github.com/shakir85/tf-modules.git//cert-manager?ref=0.3.8"
+  source = "git::https://github.com/stackgarage/tf-modules.git//cert-manager?ref=0.3.8"
 }

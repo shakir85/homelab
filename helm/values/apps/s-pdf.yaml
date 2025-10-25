@@ -48,12 +48,12 @@ nfspersistence:
     custom.synology/path-hint: "Dynamic Provision - Check the PVC-ID"
 
 # -- Affinity rules for pod scheduling.
-affinity:
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: k3s.shakir.cloud/size
-              operator: In
-              values:
-                - small
+# affinity:
+#   nodeAffinity:
+#     requiredDuringSchedulingIgnoredDuringExecution:
+#       nodeSelectorTerms:
+#         - matchExpressions:
+#             - key: k3s.shakir.cloud/size
+#               operator: In
+#               values:
+#                 - small

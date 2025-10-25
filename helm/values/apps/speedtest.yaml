@@ -46,12 +46,12 @@ nfspersistence:
     volume.kubernetes.io/description: "Shared volume for speedtest"
     custom.synology/path-hint: "Dynamic Provision - Check the PVC-ID"
 
-affinity:
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: k3s.shakir.cloud/size
-              operator: In
-              values:
-                - small
+# affinity:
+#   nodeAffinity:
+#     requiredDuringSchedulingIgnoredDuringExecution:
+#       nodeSelectorTerms:
+#         - matchExpressions:
+#             - key: k3s.shakir.cloud/size
+#               operator: In
+#               values:
+#                 - small

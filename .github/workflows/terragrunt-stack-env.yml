@@ -1,5 +1,5 @@
 name: Terragrunt Stack Deployment
-run-name: 🚀 Deploy Terragrunt ${{ github.event.inputs.environment }} Stack
+run-name: Deploy Terragrunt Single Stack ${{ github.event.inputs.environment }}
 
 # This is an ugly pipeline but I'll improve it later
 #
@@ -25,67 +25,18 @@ on:
         options:
           - dev
           - prod
+      stack:
+        description: 'Name of the stack to deploy'
+        type: choice
+        options:
+          - cluster
+          - infra
+          - platform
 
 jobs:
-  dev-cluster:
-    if: ${{ github.event.inputs.environment == 'dev' }}
-    uses: ./.github/workflows/callable-terragrunt-stack.yml
-    secrets: inherit
-    with:
-      module-path: terraform/live/dev/cluster
-
-  dev-infra:
-    needs: dev-cluster
-    if: ${{ github.event.inputs.environment == 'dev' }}
-    uses: ./.github/workflows/callable-terragrunt-stack.yml
-    secrets: inherit
-    with:
-      module-path: terraform/live/dev/infra
-
-  warmup:
-    needs: dev-infra
-    if: ${{ github.event.inputs.environment == 'dev' }}
-    runs-on: controller
-    steps:
-      - name: Wait for K8s Operator CRDs to be ready
-        run: sleep 60
-
-  dev-platform:
-    needs: [dev-infra, warmup]
-    if: ${{ github.event.inputs.environment == 'dev' }}
-    uses: ./.github/workflows/callable-terragrunt-stack.yml
-    secrets: inherit
-    with:
-      module-path: terraform/live/dev/platform
-
-
-  prod-cluster:
+  prod:
     if: ${{ github.event.inputs.environment == 'prod' }}
     uses: ./.github/workflows/callable-terragrunt-stack.yml
     secrets: inherit
     with:
-      module-path: terraform/live/prod/cluster
-
-  prod-infra:
-    needs: prod-cluster
-    if: ${{ github.event.inputs.environment == 'prod' }}
-    uses: ./.github/workflows/callable-terragrunt-stack.yml
-    secrets: inherit
-    with:
-      module-path: terraform/live/prod/infra
-
-  warmup_2:
-    needs: prod-infra
-    if: ${{ github.event.inputs.environment == 'prod' }}
-    runs-on: controller
-    steps:
-      - name: Wait for K8s Operator CRDs to be ready
-        run: sleep 200
-
-  prod-platform:
-    needs: [prod-infra, warmup_2]
-    if: ${{ github.event.inputs.environment == 'prod' }}
-    uses: ./.github/workflows/callable-terragrunt-stack.yml
-    secrets: inherit
-    with:
-      module-path: terraform/live/prod/platform
+      module-path: terraform/live/${{ inputs.environment }}/${{ inputs.stack }}

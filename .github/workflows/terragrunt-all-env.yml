@@ -1,0 +1,43 @@
+name: Terragrunt Stack Deployment
+run-name: 🚀 Deploy Terragrunt All Stacks - ${{ github.event.inputs.environment }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Which environment to deploy'
+        required: true
+        type: choice
+        default: 'dev'
+        options:
+          - dev
+          - prod
+
+jobs:
+  cluster:
+    uses: ./.github/workflows/callable-terragrunt-stack.yml
+    secrets: inherit
+    with:
+      module-path: terraform/live/${{ inputs.environment }}/cluster
+
+  infra:
+    needs: cluster
+    uses: ./.github/workflows/callable-terragrunt-stack.yml
+    secrets: inherit
+    with:
+      module-path: terraform/live/${{ inputs.environment }}/infra
+
+  # Wait for CRDs to register with the API Server. TODO: find a better solution.
+  warmup:
+    needs: infra
+    runs-on: controller
+    steps:
+      - name: Wait for K8s Operator CRDs to be ready
+        run: sleep 300
+
+  platform:
+    needs: [infra, warmup]
+    uses: ./.github/workflows/callable-terragrunt-stack.yml
+    secrets: inherit
+    with:
+      module-path: terraform/live/${{ inputs.environment }}/platform

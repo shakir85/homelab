@@ -8,6 +8,7 @@
 
   roles:
     - common
+    - nfs
 
 - name: Post-install Configuration
   hosts: server

@@ -7,8 +7,8 @@ unit "cert-manager" {
   path   = "cert-manager"
   values = {
     kube_namespace = "cert-manager"
-    config_path       = local.common.locals.kubeconfig_path
-    config_context    = local.common.locals.kubeconfig_context
+    config_path    = local.common.locals.kubeconfig_path
+    config_context = local.common.locals.kubeconfig_context
   }
 }
 

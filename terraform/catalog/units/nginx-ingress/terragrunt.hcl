@@ -16,7 +16,7 @@ dependency "metallb-cr" {
 }
 
 inputs = {
-  kube_namespace = values.nginx_namespace
+  kube_namespace = values.kube_namespace
   config_path    = values.config_path
   config_context = values.config_context
 }

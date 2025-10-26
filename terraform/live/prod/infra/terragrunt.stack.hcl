@@ -27,7 +27,7 @@ unit "gha-runner" {
   values = {
     config_path    = local.common.locals.kubeconfig_path
     config_context = local.common.locals.kubeconfig_context
-    runner_name    = "prod"
+    runner_name    = "prod-runner"
   }
 }
 

@@ -7,8 +7,8 @@ unit "cert-manager" {
   path   = "cert-manager"
   values = {
     kube_namespace = "cert-manager"
-    config_path       = local.common.locals.kubeconfig_path
-    config_context    = local.common.locals.kubeconfig_context
+    config_path    = local.common.locals.kubeconfig_path
+    config_context = local.common.locals.kubeconfig_context
   }
 }
 
@@ -16,8 +16,8 @@ unit "gha-arc" {
   source = "${get_repo_root()}/terraform/catalog/units/gha-arc"
   path   = "gha-arc"
   values = {
-    config_path       = local.common.locals.kubeconfig_path
-    config_context    = local.common.locals.kubeconfig_context
+    config_path    = local.common.locals.kubeconfig_path
+    config_context = local.common.locals.kubeconfig_context
   }
 }
 
@@ -25,9 +25,9 @@ unit "gha-runner" {
   source = "${get_repo_root()}/terraform/catalog/units/gha-runner"
   path   = "gha-runner"
   values = {
-    config_path       = local.common.locals.kubeconfig_path
-    config_context    = local.common.locals.kubeconfig_context
-    runner_name       = "dev-runner"
+    config_path    = local.common.locals.kubeconfig_path
+    config_context = local.common.locals.kubeconfig_context
+    runner_name    = "dev-runner"
   }
 }
 

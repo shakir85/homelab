@@ -33,3 +33,13 @@ unit "metallb-cr" {
     config_context         = local.common.locals.kubeconfig_context
   }
 }
+
+unit "nginx-ingress" {
+  source = "${get_repo_root()}/terraform/catalog/units/nginx-ingress"
+  path   = "nginx-ingress"
+  values = {
+    kube_namespace = "nginx-ingress"
+    config_path    = local.common.locals.kubeconfig_path
+    config_context = local.common.locals.kubeconfig_context
+  }
+}

@@ -24,12 +24,6 @@ releases:
     values:
       - {{ printf "%s/%s" $valuesDir "excalidraw.yaml" }}
 
-  - name: change-detection
-    namespace: {{ $commonNamespace }}
-    chart: {{ $statelessChartsDir }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "change-detection.yaml" }}
-
   - name: deemix
     namespace: {{ $commonNamespace }}
     chart: {{ $statelessChartsDir }}
@@ -65,12 +59,6 @@ releases:
     chart: {{ $statelessChartsDir }}
     values:
       - {{ printf "%s/%s" $valuesDir "actualbudget.yaml" }}
-
-  - name: it-tools
-    namespace: {{ $commonNamespace }}
-    chart: {{ $statelessChartsDir }}
-    values:
-      - {{ printf "%s/%s" $valuesDir "it-tools.yaml" }}
 
   - name: homepage
     namespace: {{ $commonNamespace }}

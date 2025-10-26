@@ -1,18 +1,5 @@
-name: Terragrunt Stack Deployment
-run-name: Deploy Terragrunt Single Stack ${{ github.event.inputs.environment }}
-
-# This is an ugly pipeline but I'll improve it later
-#
-# Can be optimized later by using matrix strategy like this
-# jobs:
-#   deploy:
-#     strategy:
-#       matrix:
-#         env: [dev, stage, prod]
-#     uses: ./.github/workflows/env-deploy.yml
-#     with:
-#       environment: ${{ matrix.env }}
-#     secrets: inherit
+name: Terragrunt Single Stack Deployment
+run-name: Deploy Terragrunt ${{ github.event.inputs.stack }} Stack
 
 on:
   workflow_dispatch:

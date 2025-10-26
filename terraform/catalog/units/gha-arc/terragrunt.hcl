@@ -13,6 +13,7 @@ terraform {
 inputs = {
   config_path                = values.config_path
   config_context             = values.config_context
+  shared_labels              = values.shared_labels
   github_app_id              = get_env("TF_VAR_github_app_id")
   github_app_installation_id = get_env("TF_VAR_github_app_installation_id")
   github_app_private_key     = get_env("TF_VAR_github_app_private_key")

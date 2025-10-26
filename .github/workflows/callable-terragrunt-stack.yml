@@ -1,4 +1,4 @@
-name: Deploy A Terragrunt Stack
+name: Callable - Terragrunt Stack
 
 on:
   workflow_call:

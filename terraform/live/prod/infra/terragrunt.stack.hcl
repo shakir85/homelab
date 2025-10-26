@@ -18,6 +18,10 @@ unit "gha-arc" {
   values = {
     config_path    = local.common.locals.kubeconfig_path
     config_context = local.common.locals.kubeconfig_context
+    shared_labels = {
+      "app.kubernetes.io/managed-by" = "terraform",
+      "app.github.com/name"          = "runners-app-shakir-cloud"
+    }
   }
 }
 
@@ -27,7 +31,7 @@ unit "gha-runner" {
   values = {
     config_path    = local.common.locals.kubeconfig_path
     config_context = local.common.locals.kubeconfig_context
-    runner_name    = "prod"
+    runner_name    = "prod-runner"
   }
 }
 

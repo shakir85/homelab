@@ -11,6 +11,6 @@ entries:
     name: nfspersistence
     type: application
     urls:
-    - https://shakir85.github.io/homelab/nfspersistence-0.3.1.tgz
+    - https://stackgarage.github.io/homelab/nfspersistence-0.3.1.tgz
     version: 0.3.1
 generated: "2025-09-23T21:17:01.917764841Z"

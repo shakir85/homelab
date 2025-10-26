@@ -1,5 +1,5 @@
-name: Terragrunt Full Environment Stack
-run-name: Deploy Terragrunt ${{ github.event.inputs.environment }} Stack
+name: Terragrunt Environment Deployment
+run-name: Deploy Terragrunt ${{ github.event.inputs.environment }} Environment
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ on:
           - prod
 
 jobs:
-  stack:
+  environment:
     uses: ./.github/workflows/callable-terragrunt.yml
     secrets: inherit
     with:

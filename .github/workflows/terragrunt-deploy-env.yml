@@ -14,16 +14,8 @@ on:
           - prod
 
 jobs:
-  dev-stack:
-    if: ${{ github.event.inputs.environment == 'dev' }}
+  stack:
     uses: ./.github/workflows/callable-terragrunt.yml
     secrets: inherit
     with:
-      module-path: terraform/live/dev
-
-  prod-stack:
-    if: ${{ github.event.inputs.environment == 'prod' }}
-    uses: ./.github/workflows/callable-terragrunt.yml
-    secrets: inherit
-    with:
-      module-path: terraform/live/prod
+      module-path: terraform/live/${{ inputs.environment }}

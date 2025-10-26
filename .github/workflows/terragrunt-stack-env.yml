@@ -21,8 +21,7 @@ on:
           - platform
 
 jobs:
-  prod:
-    if: ${{ github.event.inputs.environment == 'prod' }}
+  stack:
     uses: ./.github/workflows/callable-terragrunt-stack.yml
     secrets: inherit
     with:

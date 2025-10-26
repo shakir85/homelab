@@ -1,5 +1,5 @@
-name: Terragrunt Full Environment Stack
-run-name: Deploy Terragrunt ${{ github.event.inputs.environment }} Stack
+name: Terragrunt Environment Deployment
+run-name: Deploy Terragrunt ${{ github.event.inputs.environment }} Environment
 
 on:
   workflow_dispatch:
@@ -14,16 +14,8 @@ on:
           - prod
 
 jobs:
-  dev-stack:
-    if: ${{ github.event.inputs.environment == 'dev' }}
+  environment:
     uses: ./.github/workflows/callable-terragrunt.yml
     secrets: inherit
     with:
-      module-path: terraform/live/dev
-
-  prod-stack:
-    if: ${{ github.event.inputs.environment == 'prod' }}
-    uses: ./.github/workflows/callable-terragrunt.yml
-    secrets: inherit
-    with:
-      module-path: terraform/live/prod
+      module-path: terraform/live/${{ inputs.environment }}

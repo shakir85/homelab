@@ -1,5 +1,5 @@
-name: Terragrunt Single Stack Deployment
-run-name: Deploy Terragrunt ${{ github.event.inputs.stack }} Stack
+name: Terragrunt Stack Deployment
+run-name: Deploy Terragrunt ${{ github.event.inputs.stack }}-${{ github.event.inputs.environment }} Stack
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ on:
           - dev
           - prod
       stack:
-        description: 'Name of the stack to deploy'
+        description: 'Which stack to deploy'
         type: choice
         options:
           - cluster
@@ -21,8 +21,7 @@ on:
           - platform
 
 jobs:
-  prod:
-    if: ${{ github.event.inputs.environment == 'prod' }}
+  stack:
     uses: ./.github/workflows/callable-terragrunt-stack.yml
     secrets: inherit
     with:

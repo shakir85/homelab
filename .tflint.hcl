@@ -32,7 +32,7 @@ rule "terraform_naming_convention" {
 # of the use of dynamic variables popluation
 # and providers generation via Terragrunt
 rule "terraform_required_version" {
-    enabled = false
+  enabled = false
 }
 
 rule "terraform_unused_declarations" {

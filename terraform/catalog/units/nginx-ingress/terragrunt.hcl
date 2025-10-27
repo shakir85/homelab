@@ -13,7 +13,7 @@ terraform {
 
 dependency "metallb-cr" {
   config_path = "../metallb-cr"
-    mock_outputs = {
+  mock_outputs = {
     metallb-cr-mock_outputs = "mock-metallb-cr-output"
   }
 }

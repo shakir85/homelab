@@ -17,3 +17,10 @@ inputs = {
   config_path    = values.config_path
   config_context = values.config_context
 }
+
+dependency "gha-arc" {
+  config_path = "../csi-driver-nfs/"
+  mock_outputs = {
+    csi-driver-nfs-mockoutput = "csi-driver-nfs-mockoutput"
+  }
+}

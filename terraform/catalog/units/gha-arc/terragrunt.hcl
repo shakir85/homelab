@@ -19,6 +19,13 @@ inputs = {
   github_app_private_key     = get_env("TF_VAR_github_app_private_key")
 }
 
+# NOTE:
+# The dependency 'config_path' is evaluated relative to the directory
+# where Terragrunt renders the stack (i.e., inside the `.terragrunt-stack/` folder),
+# which is set by the stack file `unit.NAME.path` attribute
+# not the original source tree in the catalog/modules/units.
+# So, relative paths like "../cert-manager-something" may not resolve correctly
+# depending on how the stack names and structures its units.
 dependency "cert-manager" {
   config_path = "../cert-manager/"
   mock_outputs = {

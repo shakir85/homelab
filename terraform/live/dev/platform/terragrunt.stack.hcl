@@ -29,8 +29,8 @@ unit "metallb-cr" {
     metallb_namespace      = "metallb-system"
     ipv4_address_pool_name = "default-pool"
     ipv4_address_pools     = ["10.10.50.98-10.10.50.99"]
-    config_path    = local.common.locals.kubeconfig_path
-    config_context = local.common.locals.kubeconfig_context
+    config_path            = local.common.locals.kubeconfig_path
+    config_context         = local.common.locals.kubeconfig_context
   }
 }
 

@@ -25,7 +25,7 @@ inputs = {
 # So, relative paths like "../csi-driver-nfs" may not resolve correctly
 # depending on how the stack names and structures its units.
 dependency "csi-driver" {
-  config_path = "../csi-driver-nfs"
+  config_path = "../csi-driver"
   mock_outputs = {
     csi-driver-mockoutput = "csi-driver-mockoutput"
   }

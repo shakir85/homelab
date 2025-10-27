@@ -23,7 +23,7 @@ unit "csi-driver" {
 }
 
 unit "nfs-storageclass" {
-  source = "${get_repo_root()}/terraform/catalog/units/csi-driver-nfs"
+  source = "${get_repo_root()}/terraform/catalog/units/nfs-storageclass"
   path   = "nfs-storageclass"
   values = {
     class_name     = "nfs-client"

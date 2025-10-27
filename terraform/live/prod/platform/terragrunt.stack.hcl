@@ -15,7 +15,7 @@ unit "loadbalancer" {
 
 unit "csi-driver" {
   source = "${get_repo_root()}/terraform/catalog/units/csi-driver-nfs"
-  path   = "csi-driver"
+  path   = "csi-driver-nfs"
   values = {
     config_path    = local.common.locals.kubeconfig_path
     config_context = local.common.locals.kubeconfig_context

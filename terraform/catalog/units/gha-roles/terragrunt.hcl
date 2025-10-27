@@ -10,6 +10,13 @@ terraform {
   source = "git::https://github.com/stackgarage/tf-modules.git//gha-roles?ref=0.3.8"
 }
 
+# NOTE:
+# The dependency 'config_path' is evaluated relative to the directory
+# where Terragrunt renders the stack (i.e., inside the `.terragrunt-stack/` folder),
+# which is set by the stack file `unit.NAME.path` attribute
+# not the original source tree in the catalog/modules/units.
+# So, relative paths like "../csi-driver-nfs" may not resolve correctly
+# depending on how the stack names and structures its units.
 dependency "gha-runner" {
   config_path = "../gha-runner/"
   # mock outputs for 'plan' or 'validate' when the dependency hasn't been applied yet

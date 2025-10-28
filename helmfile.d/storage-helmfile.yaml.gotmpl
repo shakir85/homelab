@@ -17,3 +17,9 @@ releases:
     chart: {{ $storageChartPath }}
     values:
       - {{ printf "%s/%s" $valuesDir "jellyfin-media.yaml" }}
+
+  - name: storage-paperless
+    namespace: {{ $commonNamespace }}
+    chart: {{ $storageChartPath }}
+    values:
+      - {{ printf "%s/%s" $valuesDir "paperless-ngx.yaml" }}

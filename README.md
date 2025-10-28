@@ -1,4 +1,54 @@
-# Homelab
-A homelab Infrastructure-as-Code playground where I'm `uid=0`, i.e., I run the show - root access, full chaos. (WIP)
+![GitHub](https://img.shields.io/github/v/release/stackgarage/homelab) ![Terragrunt Stack](https://github.com/stackgarage/homelab/actions/workflows/terragrunt-stack-env.yml/badge.svg) ![License](https://img.shields.io/github/license/stackgarage/homelab) ![Issues](https://img.shields.io/github/issues/stackgarage/homelab)
 
-![GitHub](https://img.shields.io/github/v/release/stackgarage/homelab) ![Terragrunt Stack](https://github.com/stackgarage/demo-repository/actions/workflows/terragrunt-stack-env.yml/badge.svg) ![Terragrunt Environment](https://github.com/stackgarage/demo-repository/actions/workflows/terragrunt-deploy-env.yml/badge.svg) ![License](https://img.shields.io/github/license/stackgarage/homelab) ![Issues](https://img.shields.io/github/issues/stackgarage/homelab)
+# Homelab
+
+A Homelab Infrastructure-as-Code playground where I'm `uid=0`; I run the show: root access, full chaos. Powered by a K3s cluster hosting a variety of self-hosted services. (WIP)
+
+## Design Rationale
+
+The IaC is designed using the below K8s and Terragrunt logical design
+
+### K8s
+
+This defines the order of resource deployment based on dependency and resource existence to provide a framework for the overall order of operations:
+
+```
+        ┌────────────────────┐
+        │    Applications    │
+        └────────┬───────────┘
+                 │ depends on
+        ┌────────▼───────────┐
+        │      Platform      │
+        └────────┬───────────┘
+                 │ depends on
+        ┌────────▼───────────┐
+        │   Infrastructure   │
+        └────────┬───────────┘
+                 │ depends on
+        ┌────────▼───────────┐
+        │    Core Cluster    │
+        └────────────────────┘
+```
+
+### Terragrunt 
+
+The infrastructure code is organized around the following logical hierarchy, implemented using Terragrunt [stacks](https://terragrunt.gruntwork.io/docs/features/stacks/) and [units](https://terragrunt.gruntwork.io/docs/features/units/) primitives:
+
+```
+Environment > Stack > Units
+```
+
+- **Environment** is a collection of stacks representing the full environment including cluster, platform, and infrastructure layers.  
+- **Stack** is a collection of units representing a middleware or core platform layer (e.g., `gha-arc`, `cert-manager`, etc.).  
+- **Unit** is a Terraform module representing a specific tool or resource (e.g., `cert-manager`, VM, etc.).
+
+
+### Combining Both
+
+By aligning the above K8s logical framework with the Terragrunt stack organization, each layer in the K8s diagram is represented as a corresponding Terragrunt stack.[for example this one](https://github.com/stackgarage/homelab/tree/main/terraform/live/prod).
+
+## Resource State (Terraform Backend)
+
+Thanks to Terragrunt's `generate` blocks, state files are cleanly organized in S3 as:  `live/<env>/<stack>/.terragrunt-stack/<unit>` pretty much mirroring the repo's directory hierarchy.  
+
+This enforces clear separation across boundaries, keeping each state file isolated and maintainable. It also prevents the usual sprawl of S3 objects across buckets and paths, and saved me from staring at the backend bucket thinking, *"what a mess."*

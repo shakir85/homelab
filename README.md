@@ -2,7 +2,7 @@
 
 # Homelab
 
-A Homelab Infrastructure-as-Code playground where I'm `uid=0`; I run the show: root access, full chaos. Powered by a K3s cluster hosting a variety of self-hosted services. (WIP)
+A Homelab Infrastructure-as-Code playground where I'm `uid=0`; I run the show: root access, full chaos. Powered by a K3s cluster, on Proxmox, hosting a variety of self-hosted services. (WIP)
 
 ## Design Rationale
 
@@ -52,3 +52,9 @@ By aligning the above K8s logical framework with the Terragrunt stack organizati
 Thanks to Terragrunt's `generate` blocks, state files are cleanly organized in S3 as:  `live/<env>/<stack>/.terragrunt-stack/<unit>` pretty much mirroring the repo's directory hierarchy.  
 
 This enforces clear separation across boundaries, keeping each state file isolated and maintainable. It also prevents the usual sprawl of S3 objects across buckets and paths, and saved me from staring at the backend bucket thinking, *"what a mess."*
+
+## Automation
+
+- **Infrastructure**: GitHub Actions designed to handle deployments at both the Terragrunt stack and full-environment level, while supporting helper workflows and tools such as labelers, linters, and other code management and quality workflows.
+
+- **Applications**: currently deployed via Helmfile; a bit clunky, but a handy tool. It will eventually be replaced by a GitOps tool to further simplify application deployments.

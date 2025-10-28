@@ -149,10 +149,6 @@ config:
               icon: sh-stirling-pdf
               href: https://spdf.shakir.cloud
               description: PDF Document Management
-          - IT-Tools:
-              icon: sh-it-tools
-              href: https://it-tools.shakir.cloud
-              description:  Various IT utilities
           - Speedtest:
               icon: sh-speedtest
               href: https://speedtest.shakir.cloud
@@ -161,10 +157,6 @@ config:
               icon: sh-omnitools
               href: https://omnitools.shakir.cloud
               description: OmniTools for various utilities
-          - Change Detection:
-              icon: sh-changedetection
-              href: https://change.shakir.cloud
-              description: Change Detection for web pages
 
   widgets:
     - resources:

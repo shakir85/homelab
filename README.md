@@ -10,7 +10,7 @@ The IaC is designed using the below K8s and Terragrunt logical design
 
 ### K8s
 
-This defines the order of resource deployment based on dependency and resource existence to provide a framework for the overall order of operations:
+Order of resource deployment based on dependency and resource existence as a framework for the overall order of operations:
 
 ```
         ┌────────────────────┐
@@ -38,20 +38,22 @@ The infrastructure code is organized around the following logical hierarchy, imp
 Environment > Stack > Units
 ```
 
-- **Environment** is a collection of stacks representing the full environment including cluster, platform, and infrastructure layers.  
-- **Stack** is a collection of units representing a middleware or core platform layer (e.g., `gha-arc`, `cert-manager`, etc.).  
-- **Unit** is a Terraform module representing a specific tool or resource (e.g., `cert-manager`, VM, etc.).
+
+| Environment | a collection of stacks representing the full environment (cluster + platform + infrastructure layers) |
+| --- | --- |
+| **Stack** | **a collection of units representing a middleware or core platform layer (e.g., `gha-arc`, `cert-manager`, etc)** |
+| **Unit** | **a Terraform module representing a specific tool or resource (e.g., `cert-manager`, VM, etc)**
 
 
 ### Combining Both
 
-By aligning the above K8s logical framework with the Terragrunt stack organization, each layer in the K8s diagram is represented as a corresponding Terragrunt stack.[for example this one](https://github.com/stackgarage/homelab/tree/main/terraform/live/prod).
+Each layer in the K8s diagram is represented as a corresponding Terragrunt stack.[for example this one](https://github.com/stackgarage/homelab/tree/main/terraform/live/prod).
 
 ## Resource State (Terraform Backend)
 
 Thanks to Terragrunt's `generate` blocks, state files are cleanly organized in S3 as:  `live/<env>/<stack>/.terragrunt-stack/<unit>` pretty much mirroring the repo's directory hierarchy.  
 
-This enforces clear separation across boundaries, keeping each state file isolated and maintainable. It also prevents the usual sprawl of S3 objects across buckets and paths, and saved me from staring at the backend bucket thinking, *"what a mess."*
+This makes clear separation across boundaries. It also prevents the sprawl of S3 objects across bucket's paths, and saved me from staring at the backend bucket thinking, *"what a mess."*
 
 ## Automation
 
